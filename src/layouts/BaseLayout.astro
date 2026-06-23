@@ -1,0 +1,51 @@
+---
+import '@fontsource-variable/oswald';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'STATIC Portfolio',
+  description = 'Writer for narrative-driven games and screen.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <div class="fx-overlay fx-grain" aria-hidden="true"></div>
+    <div class="fx-overlay fx-scanlines" aria-hidden="true"></div>
+
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Redaction reveal: click / Enter / Space toggles a persistent reveal.
+      document.querySelectorAll('.redact').forEach((el) => {
+        el.addEventListener('click', () => el.classList.toggle('is-open'));
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.classList.toggle('is-open');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="The Writer — [Your Name]">
+  <section class="px-6 pt-16">
+    <div class="mx-auto max-w-3xl">
+      <p class="eyebrow mb-4">CH 01</p>
+      <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">The Writer</h1>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-[200px_1fr]">
+        <div class="placeholder flex aspect-[3/4] items-center justify-center text-center">
+          PLACEHOLDER<br />portrait photo<br />(3:4)
+        </div>
+        <div class="space-y-4 text-ink-dim">
+          <p class="placeholder block">Your bio — who you are. [write in your voice]</p>
+          <p class="placeholder block">Your career so far. [what you did before]</p>
+          <p class="placeholder block">Why the change — the throughline to narrative. [own the pivot]</p>
+        </div>
+      </div>
+
+      <hr class="rule my-12" />
+      <h2 class="font-display text-2xl uppercase tracking-tight text-ink">Influences</h2>
+      <p class="placeholder mt-3 inline-block">Games, books, films that shape your taste.</p>
+
+      <hr class="rule my-12" />
+      <a href="/cv.pdf" class="font-mono text-sm uppercase tracking-widest text-violet-bright hover:text-ink">↓ Download CV (PDF) — [add file]</a>
+    </div>
+  </section>
+</BaseLayout>

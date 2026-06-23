@@ -1,0 +1,5 @@
+---
+interface Props { label?: string; }
+const { label = 'redacted' } = Astro.props;
+---
+<span class="redact" role="button" tabindex="0" aria-label={`Reveal: ${label}`}><slot /></span>

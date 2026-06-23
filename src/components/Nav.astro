@@ -1,0 +1,31 @@
+---
+const links = [
+  { href: '/writer', ch: '01', label: 'DZ: the Writer' },
+  { href: '/game', ch: '02', label: 'Static: the Game' },
+  { href: '/book', ch: '03', label: 'Myst: the Book' },
+  { href: '/lab', ch: '04', label: 'My Lab' },
+  { href: '/contact', ch: '05', label: 'Intercept my signal' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-sm">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+    <a href="/" class="font-mono text-sm uppercase tracking-widest text-ink">
+      <span class="text-violet-bright">▚</span>&nbsp; [Dmitrii&nbsp;Zhukov]
+    </a>
+    <ul class="hidden gap-6 md:flex">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              class="font-mono text-xs uppercase tracking-widest text-ink-dim transition-colors hover:text-ink"
+            >
+              <span class="text-violet">{l.ch}</span> {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

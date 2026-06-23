@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — "STATIC"
+   Dark broadcast palette. Violet reads as CRT phosphor glow,
+   not a generic neon accent. Tune these in one place.
+   ============================================================ */
+@theme {
+  --color-bg: #0a0a0f;          /* violet-tinted near-black (never pure #000) */
+  --color-raised: #14141c;      /* panels / cards */
+  --color-line: #221f30;        /* hairline rules / borders */
+  --color-ink: #e8e8ee;         /* soft off-white (never pure #fff) */
+  --color-ink-dim: #8a8a99;     /* muted text */
+  --color-violet: #9d4edd;      /* primary — phosphor */
+  --color-violet-bright: #c77dff; /* glow highlight */
+  --color-magenta: #c026d3;     /* rare hot accent — "signal break" */
+
+  --font-display: "Oswald Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--color-magenta); color: #fff; }
+  :focus-visible { outline: 2px solid var(--color-violet-bright); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+}
+
+/* ============================================================
+   SIGNATURE ATMOSPHERE
+   Fixed scanlines + film grain over the whole page. Subtle.
+   ============================================================ */
+@layer components {
+  .fx-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
+
+  .fx-scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px, transparent 2px,
+      rgba(0,0,0,0.28) 3px, transparent 4px
+    );
+    opacity: 0.45;
+    mix-blend-mode: multiply;
+  }
+
+  .fx-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .fx-grain { animation: grainShift 0.6s steps(3) infinite; }
+  }
+  @keyframes grainShift {
+    0% { transform: translate(0,0); }
+    33% { transform: translate(-2%, 1%); }
+    66% { transform: translate(1%, -2%); }
+    100% { transform: translate(0,0); }
+  }
+
+  /* ---- Hero title resolving out of broadcast static ---- */
+  .signal-in {
+    text-shadow: 0 0 28px rgba(157,78,221,0.45), 0 0 2px rgba(199,125,255,0.6);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .signal-in { animation: signalIn 1.9s cubic-bezier(.2,.7,.2,1) both; }
+  }
+  @keyframes signalIn {
+    0%   { opacity: 0;   filter: blur(12px); }
+    12%  { opacity: .55; filter: blur(9px); }
+    18%  { opacity: .08; }
+    26%  { opacity: .85; filter: blur(6px); }
+    33%  { opacity: .2; }
+    48%  { opacity: 1;   filter: blur(3px); }
+    60%  { opacity: .45; }
+    74%  { opacity: 1;   filter: blur(1px); }
+    100% { opacity: 1;   filter: blur(0); }
+  }
+
+  /* ---- Redaction reveal (the recurring interaction motif) ---- */
+  .redact {
+    background: #1a1622;
+    color: transparent;
+    border-radius: 2px;
+    padding: 0 0.28em;
+    cursor: help;
+    box-shadow: inset 0 0 0 1px rgba(157,78,221,0.35);
+    transition: color .18s ease, background .18s ease, box-shadow .18s ease;
+    user-select: none;
+  }
+  .redact:hover,
+  .redact:focus-visible,
+  .redact.is-open {
+    background: transparent;
+    color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px transparent;
+    user-select: text;
+  }
+
+  /* ---- Channel cards (TV-guide nav metaphor) ---- */
+  .channel {
+    display: block;
+    background: var(--color-raised);
+    border: 1px solid var(--color-line);
+    transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease;
+  }
+  .channel:hover {
+    border-color: var(--color-violet);
+    box-shadow: 0 0 0 1px var(--color-violet), 0 18px 50px -22px var(--color-violet);
+    transform: translateY(-3px);
+  }
+  .channel--featured { border-color: rgba(157,78,221,0.4); }
+
+  /* ---- Small reusable bits ---- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-violet-bright);
+  }
+  .rule { height: 1px; background: var(--color-line); border: 0; }
+  .placeholder {
+    color: var(--color-ink-dim);
+    border: 1px dashed rgba(157,78,221,0.4);
+    border-radius: 4px;
+    padding: 0.15em 0.5em;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+}
