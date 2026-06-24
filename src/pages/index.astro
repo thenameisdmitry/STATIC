@@ -11,20 +11,45 @@ const channels = [
 ];
 ---
 
-<BaseLayout title="[Your Name] — Writer">
+<BaseLayout title="Dmitrii Zhukov — Writer">
   <!-- HERO -->
-  <section class="relative flex min-h-[88vh] flex-col justify-center px-6">
-    <div class="mx-auto w-full max-w-6xl">
-      <p class="eyebrow mb-6">◉ Now broadcasting</p>
-      <h1 class="signal-in font-display text-[19vw] font-semibold uppercase leading-[0.82] tracking-tight md:text-[11rem]">
-        STAtIC
-      </h1>
-      <p class="mt-8 max-w-xl text-lg text-ink-dim">
-        <span class="placeholder">A videogame project by Dmitrii Zhukov</span>
-      </p>
-      <p class="mt-10 font-mono text-xs uppercase tracking-widest text-ink-dim">↓ Tune in</p>
+  <section class="relative px-6 pt-[11vh] pb-[11vh]">
+    <div class="fog" aria-hidden="true">
+      <div class="fog__layer fog__layer--a"></div>
+      <div class="fog__layer fog__layer--b"></div>
+      <div class="fog__layer fog__layer--c"></div>
     </div>
-  </section>
+    <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_minmax(0,32rem)] lg:gap-10">        <!-- left: title -->
+        <div>
+          <p class="eyebrow mb-5">◉ Now broadcasting</p>
+          <h1
+            id="hero-title"
+            class="signal-in font-display text-[19vw] font-semibold uppercase leading-[0.82] tracking-tight sm:text-[clamp(4rem,12vw,12rem)]"
+          >
+            STATIC
+          </h1>
+          <p class="mt-7 max-w-xl text-lg text-ink-dim">
+            <span class="placeholder">Videogame concept created by Dmitrii Zhukov and 
+              based on <Redact label="still in progress">the original novel <i>"Myst"</i>, </Redact> combining psychological thriller and survival 
+              horror genres with immersive investigation mechanics, stealth gameplay, and 
+              over-the-shoulder hand-to-hand combat.</span>
+          </p>
+          <p class="mt-8 font-mono text-xs uppercase tracking-widest text-ink-dim">↓ Tune in</p>
+        </div>
+
+        <!-- right: looping trailer (see ASSETS.md) -->
+        <div class="trailer">
+          <video class="trailer__video" autoplay muted loop playsinline preload="metadata" poster="/media/trailer-poster.jpg">
+            <source src="/media/trailer.mp4" type="video/mp4" />
+            <source src="/media/trailer.webm" type="video/webm" />
+          </video>
+          <div class="trailer__placeholder">
+            <span class="font-mono text-xs uppercase tracking-widest text-violet-bright">◉ Trailer</span>
+            <span class="font-mono text-[0.7rem] leading-relaxed">drop <b>trailer.mp4</b> into<br />/public/media/</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
   <!-- INTRO STRIP -->
   <section class="px-6">
@@ -64,4 +89,19 @@ const channels = [
       </div>
     </div>
   </section>
+
+  <script>
+    // Ragged recurring static burst on the STATIC title.
+    const title = document.getElementById('hero-title');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (title && !reduce) {
+      const burst = () => {
+        title.classList.add('glitch-active');
+        window.setTimeout(() => title.classList.remove('glitch-active'), 460);
+        window.setTimeout(burst, 2800 + Math.random() * 3600); // white noise timeframe
+      };
+      window.setTimeout(burst, 2600);
+    }
+  </script>
+
 </BaseLayout>
