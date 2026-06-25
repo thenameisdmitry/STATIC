@@ -134,18 +134,21 @@
 
   /*Fog for Banner*/
 
-  .fog {
+.fog {
     position: absolute;
     inset: 0;
     z-index: 0;
     overflow: hidden;       /* clips fog to the banner without clipping other glows */
     pointer-events: none;
+    /* Fade fog out at the top & bottom edges so the frame lines stay crisp */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 13%, #000 87%, transparent 100%);
   }
   .fog__layer {
     position: absolute;
     inset: -50%;
     background-repeat: no-repeat;
-    filter: blur(86px);
+    filter: blur(76px);
     will-change: transform;
   }
   /* Alphas at the end of each rgba() control density. Lower them if text dims. */
@@ -168,7 +171,7 @@
       radial-gradient(18% 22% at 40% 40%, rgba(222,220,230,0.12), rgba(222,220,230,0) 72%);
   }
   @media (prefers-reduced-motion: no-preference) {
-    .fog__layer--a { animation: fogChurnA 26s linear infinite; }
+    .fog__layer--a { animation: fogChurnA 40s linear infinite; }
     .fog__layer--b { animation: fogChurnB 56s linear infinite; }
     .fog__layer--c { animation: fogChurnC 30s linear infinite; }
   }
@@ -192,6 +195,22 @@
     66%  { transform: rotate(240deg) scale(1.14) translate3d(-4%,-3%,0); }
     100% { transform: rotate(360deg) scale(1.05) translate3d(0,0,0); }
   }
+
+  /* ---- Hairline frame around the hero banner (foggy, muted white) ---- */
+  .hero-frame::before,
+  .hero-frame::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    z-index: 5;
+    background: rgba(232,231,238,0.22);          /* full-width foggy white */
+    box-shadow: 0 0 7px rgba(232,231,238,0.12);  /* faint lit-edge glow */
+    /* Edge-fade variant — replace the `background:` line above with this for a softer beam:
+       background: linear-gradient(90deg, transparent, rgba(232,231,238,0.22) 12%, rgba(232,231,238,0.22) 88%, transparent); */
+  }
+  .hero-frame::before { top: 0; }
+  .hero-frame::after  { bottom: 0; }
 
   /* ---- Redaction reveal (the recurring interaction motif) ---- */
   .redact {
