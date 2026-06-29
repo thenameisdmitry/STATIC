@@ -1,0 +1,27 @@
+---
+interface Props {
+  href: string;
+  kind?: string;
+  title: string;
+  img?: string;
+}
+const { href, kind = 'File', title, img } = Astro.props;
+---
+
+<a href={href} class="artifact group lore-tile">
+  {img ? (
+    <img src={img} alt={title} class="artifact__img" />
+  ) : (
+    <div class="artifact__ph">
+      <span class="font-mono text-[0.7rem] uppercase tracking-widest text-ink-dim">drop image</span>
+    </div>
+  )}
+  <div class="artifact__scrim"></div>
+  <div class="artifact__body">
+    <span class="font-mono text-[0.65rem] uppercase tracking-widest text-violet-bright">{kind}</span>
+    <span class="mt-1 block font-display text-2xl uppercase leading-none tracking-tight text-ink">{title}</span>
+    <span class="mt-2 inline-block font-mono text-[0.65rem] uppercase tracking-widest text-ink-dim opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+      Open file →
+    </span>
+  </div>
+</a>

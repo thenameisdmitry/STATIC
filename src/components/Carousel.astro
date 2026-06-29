@@ -1,0 +1,53 @@
+---
+interface Item {
+  src?: string;
+  caption: string;
+}
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+---
+
+<div class="carousel lore-tile" data-carousel>
+  <div class="carousel__viewport">
+    {items.map((it, i) => (
+      <figure class="carousel__slide" data-active={i === 0 ? 'true' : 'false'}>
+        <div class="carousel__media">
+          {it.src ? (
+            <img src={it.src} alt={it.caption} class="carousel__img" />
+          ) : (
+            <div class="carousel__ph">
+              <span class="font-mono text-[0.7rem] uppercase tracking-widest text-ink-dim">missing photo {i + 1}</span>
+            </div>
+          )}
+        </div>
+        <figcaption class="carousel__cap">{it.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous">←</button>
+  <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next">→</button>
+
+  <div class="carousel__dots">
+    {items.map((_, i) => (
+      <span class="carousel__dot" data-active={i === 0 ? 'true' : 'false'}></span>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-carousel]').forEach((car) => {
+    const slides = Array.from(car.querySelectorAll('.carousel__slide'));
+    const dots = Array.from(car.querySelectorAll('.carousel__dot'));
+    let idx = 0;
+    const show = (n: number) => {
+      idx = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => s.setAttribute('data-active', String(i === idx)));
+      dots.forEach((d, i) => d.setAttribute('data-active', String(i === idx)));
+    };
+    car.querySelector('.carousel__btn--prev')?.addEventListener('click', () => show(idx - 1));
+    car.querySelector('.carousel__btn--next')?.addEventListener('click', () => show(idx + 1));
+  });
+</script>

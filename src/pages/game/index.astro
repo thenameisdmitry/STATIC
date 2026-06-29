@@ -1,22 +1,33 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Redact from '../../components/Redact.astro';
+import ArtifactCard from '../../components/ArtifactCard.astro';
+import Carousel from '../../components/Carousel.astro';
 
 const parts = [
-  ['World bible', 'In-world classified documents. Use redaction reveals.'],
-  ['Interactive dialogue', 'A short playable branching scene — your strongest sample.'],
-  ['Character files', 'Cards, voice, barks.'],
-  ['Collectibles', 'Tapes, case files, pages the player "finds".'],
-  ['Screenplay scene', 'One scene in proper format.'],
-  ['Design commentary', 'Why you made these narrative choices.'],
+  ['World & Lore', 'World description, gray signal lore, and artifacts: files, footage, field notes.', 'world-lore'],
+  ['Interactive dialogue', 'A playable branching scene where you can influence the game plot.', 'interactive-dialogue'],
+  ['Character files', 'Cards, voice, barks.', 'character-files'],
+  ['Collectibles', 'Tapes, case files, pages the player can find during the gameplay.', 'collectibles'],
+  ['Screenplay scene', 'An excerpt  of a screenplay.', 'screenplay-scene'],
+  ['Design commentary', 'My narrative choices.', 'design-commentary'],
+];
+
+// Missing-persons carousel — rewrite captions; add `src` when you have photos.
+const missing = [
+{ src: '/lore/missing/missing-1.png', caption: 'Caleb Barrell. Missing since Aug. 2008. Last seen at home.' },
+{ src: '/lore/missing/missing-2.png', caption: 'Shiban Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-3.png', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-4.png', caption: 'Daniel Tally. Missing since Aug. 1998. Last seen at the "Duck" pub.' },
+{ src: '/lore/missing/missing-5.png', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at "Crystal Pick" MB.' },
 ];
 ---
-<BaseLayout title="STATIC — Vertical Slice">
-  <section class="px-6 pt-16">
+<BaseLayout title="STATIC the Game">
+  <section class="px-6 pt-16 pb-16">
     <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-4">CH 02 · Featured project</p>
-      <h1 class="signal-in font-display text-7xl font-semibold uppercase tracking-tight md:text-8xl">STATIC</h1>
-      <p class="mt-6 max-w-2xl text-lg text-ink-dim">
+      <h1 class="signal-in font-display text-7xl font-semibold uppercase tracking-tight md:text-9xl">STATIC</h1>
+      <p class="mt-6 text-lg text-ink-dim">
         Mystical-horror adventure in a small Alaskan town where something reaches through the
         <Redact label="the channel">television signal</Redact> and takes people. Fog. Tapes.
         Realities that won't hold still.
@@ -24,15 +35,59 @@ const parts = [
       <p class="mt-3 font-mono text-xs text-ink-dim">[Draft logline from your brief — rewrite in your voice.]</p>
 
       <div class="mt-14 grid gap-4 md:grid-cols-2">
-        {parts.map(([t, d], i) => (
-          <div class="border border-line bg-raised p-6">
-            <span class="font-mono text-xs text-violet">{String(i + 1).padStart(2, '0')}</span>
-            <h2 class="mt-2 font-display text-2xl uppercase tracking-tight text-ink">{t}</h2>
-            <p class="mt-2 text-sm text-ink-dim">{d}</p>
-            <p class="placeholder mt-3 inline-block text-xs">to build</p>
-          </div>
+        {parts.map(([t, d, slug], i) => (
+          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.png)`}>
+            <span class="font-mono text-m text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="mt-2 font-display text-3xl uppercase tracking-tight text-ink">{t}</h2>
+            <p class="mt-2 text-sm text-ink-ink">{d}</p>
+          </a>
         ))}
       </div>
     </div>
   </section>
+
+  <!-- 01 · WORLD & LORE -->
+  <section id="world-lore" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">01 — World &amp; Lore</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">World &amp; Lore</h2>
+      <p class="mt-3 max-w-2xl text-ink-dim">
+        [Intro — set the table for the world. Tiles marked “Open file” lead to their own chapters.]
+      </p>
+
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        <!-- Row 1: city (clickable) | text -->
+        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.png" />
+        <div class="lore-note lore-note--pinned">
+          Saoirse, don't forget your flight to that shithole on the edge of the Earth is tomorrow. Be strong, it's only for a couple of days. You'll be back in no time. Love you, babe! Rust
+        </div>
+
+        <!-- Row 2: pass | gray signal -->
+        <figure class="lore-photo">
+          <img src="/lore/stuff/boarding-pass.png" alt="Boarding pass to Mag Point" />
+        </figure>
+        <ArtifactCard href="/lore/mag-point" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.png" />
+
+        <!-- Row 3: police report (clickable) | missing-persons carousel -->
+        <ArtifactCard href="/lore/police-report" kind="Case file" title="Police report" img="/lore/missing/missing-0.png" />
+        <Carousel items={missing} />
+
+        <!-- Row 4: Orson (clickable) | secret documents (clickable) -->
+        <ArtifactCard href="/lore/orson" kind="Reference" title="Orson" img="/lore/orson/orson-0.png" />
+        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.png" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Remaining sections (stubs) -->
+  {parts.slice(1).map(([t, d, slug], i) => (
+    <section id={slug} class="scroll-mt-24 border-t border-line px-6 py-16">
+      <div class="mx-auto max-w-4xl">
+        <p class="eyebrow mb-3">{String(i + 2).padStart(2, '0')} — {t}</p>
+        <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">{t}</h2>
+        <p class="mt-3 max-w-2xl text-ink-dim">{d}</p>
+        <p class="mt-6 font-mono text-xs text-ink-dim">// in production</p>
+      </div>
+    </section>
+  ))}
 </BaseLayout>

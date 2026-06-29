@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import LoreLayout from '../../layouts/LoreLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('lore');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<LoreLayout
+  title={entry.data.title}
+  kind={entry.data.kind}
+  description={entry.data.description}
+  banner={entry.data.banner}
+>
+  <Content />
+</LoreLayout>

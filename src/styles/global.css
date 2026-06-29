@@ -18,6 +18,8 @@
   --font-display: "Oswald Variable", system-ui, sans-serif;
   --font-body: "Inter Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-hand: "Caveat Variable", ui-rounded, cursive;
+  --font-typewriter: "Special Elite", "Courier New", ui-monospace, monospace;
 }
 
 @layer base {
@@ -75,18 +77,23 @@
   .signal-in {
     text-shadow: 0 0 28px rgba(157,78,221,0.45), 0 0 2px rgba(199,125,255,0.6);
   }
-  @media (prefers-reduced-motion: no-preference) {
-    .signal-in { animation: signalIn 1.9s cubic-bezier(.2,.7,.2,1) both; }
+@media (prefers-reduced-motion: no-preference) {
+    .signal-in { animation: signalIn 3.6s cubic-bezier(.2,.7,.2,1) both; }
   }
   @keyframes signalIn {
     0%   { opacity: 0;   filter: blur(12px); }
-    12%  { opacity: .55; filter: blur(9px); }
-    18%  { opacity: .08; }
-    26%  { opacity: .85; filter: blur(6px); }
-    33%  { opacity: .2; }
-    48%  { opacity: 1;   filter: blur(3px); }
-    60%  { opacity: .45; }
-    74%  { opacity: 1;   filter: blur(1px); }
+    8%   { opacity: .5;  filter: blur(9px); }
+    12%  { opacity: .08; }
+    20%  { opacity: .8;  filter: blur(7px); }
+    26%  { opacity: .15; }
+    34%  { opacity: .9;  filter: blur(5px); }
+    40%  { opacity: .3; }
+    50%  { opacity: 1;   filter: blur(3px); }
+    58%  { opacity: .4; }
+    66%  { opacity: 1;   filter: blur(2px); }
+    72%  { opacity: .55; }
+    80%  { opacity: 1;   filter: blur(1px); }
+    86%  { opacity: .7; }
     100% { opacity: 1;   filter: blur(0); }
   }
 
@@ -196,6 +203,14 @@
     100% { transform: rotate(360deg) scale(1.05) translate3d(0,0,0); }
   }
 
+  /* Softer, slower fog for the channel section (behind the channel cards) */
+  .fog--soft .fog__layer { opacity: 0.5; filter: blur(54px); }
+  @media (prefers-reduced-motion: no-preference) {
+    .fog--soft .fog__layer--a { animation-duration: 64s; }
+    .fog--soft .fog__layer--b { animation-duration: 88s; }
+    .fog--soft .fog__layer--c { animation-duration: 50s; }
+  }
+
   /* ---- Hairline frame around the hero banner (foggy, muted white) ---- */
   .hero-frame::before,
   .hero-frame::after {
@@ -234,6 +249,8 @@
 
   /* ---- Channel cards (TV-guide nav metaphor) ---- */
   .channel {
+    position: relative;
+    overflow: hidden;
     display: block;
     background: var(--color-raised);
     border: 1px solid var(--color-line);
@@ -245,6 +262,45 @@
     transform: translateY(-3px);
   }
   .channel--featured { border-color: rgba(157,78,221,0.4); }
+
+  /* TV-static burst on hover (~0.5s) — for every channel card */
+  .channel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    opacity: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    background-repeat: repeat;
+    mix-blend-mode: screen;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .channel:hover::after {
+      animation: cardStaticShift 0.09s steps(3) 6,
+                 cardStaticFade 0.55s linear 1 forwards;
+    }
+  }
+  @keyframes cardStaticShift {
+    0%   { background-position: 0 0; }
+    25%  { background-position: -48px 22px; }
+    50%  { background-position: 34px -40px; }
+    75%  { background-position: -22px -12px; }
+    100% { background-position: 44px 30px; }
+  }
+  @keyframes cardStaticFade {
+    0%   { opacity: 0; }
+    8%   { opacity: 0.60; }
+    50%  { opacity: 0.42; }
+    90%  { opacity: 0.50; }
+    100% { opacity: 0; }
+  }
+
+  /*   HOME channel cards — black & white + dimmed background photo */
+@layer components {
+  .channel--bw::before { filter: grayscale(0) brightness(1.6) contrast(1.0); }
+}
 
   /* ---- Small reusable bits ---- */
   .eyebrow {
@@ -264,3 +320,281 @@
     font-size: 0.85em;
   }
 }
+
+/* Finalized copy block — clean terminal text, no placeholder border */
+@layer components {
+  .note {
+    color: var(--color-ink-dim);
+    font-family: var(--font-mono);
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+    .note_home_page {
+    color: var(--color-ink-dim);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
+   
+/*   WORLD & LORE — artifact tiles, carousel, chapter page (banner+prose) */
+@layer components {
+  .lore-tile {
+    position: relative;
+    display: block;
+    border: 1px solid var(--color-line);
+    background: var(--color-raised);
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 230px;
+  }
+  .lore-tile--text { display: flex; align-items: center; padding: 1.6rem; }
+  .lore-tile--text p { line-height: 1.7; }
+
+  /* clickable artifact card */
+  .artifact { text-decoration: none; transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease; }
+  .artifact:hover {
+    border-color: var(--color-violet);
+    box-shadow: 0 0 0 1px var(--color-violet), 0 18px 50px -22px var(--color-violet);
+    transform: translateY(-3px);
+  }
+  .artifact__img, .artifact__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .artifact__ph {
+    display: flex; align-items: center; justify-content: center;
+    background: repeating-linear-gradient(135deg, rgba(157,78,221,.06) 0 12px, transparent 12px 24px);
+  }
+  .artifact__scrim {
+    position: absolute; inset: 0; transition: background .25s ease;
+    background: linear-gradient(to top, rgba(8,8,12,0.92) 0%, rgba(8,8,12,0.4) 45%, rgba(8,8,12,0.08) 100%);
+  }
+  .artifact:hover .artifact__scrim {
+    background: linear-gradient(to top, rgba(8,8,12,0.92) 0%, rgba(22,10,32,0.55) 50%, rgba(157,78,221,0.14) 100%);
+  }
+  .artifact__body { position: absolute; inset: auto 0 0 0; padding: 1.25rem; }
+
+  /* looping video tile */
+  .lore-tile--video { padding: 0; }
+  .lore-tile--video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+  .lore-tile__ph {
+    position: absolute; inset: 0; z-index: 1; text-align: center;
+    display: flex; flex-direction: column; gap: .3rem; align-items: center; justify-content: center;
+    color: var(--color-ink-dim);
+    background: repeating-linear-gradient(135deg, rgba(157,78,221,.05) 0 12px, transparent 12px 24px);
+  }
+
+  /* missing-persons carousel */
+  .carousel { padding: 0; }
+  .carousel__viewport { position: relative; width: 100%; height: 100%; min-height: 230px; }
+  .carousel__slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .4s ease; }
+  .carousel__slide[data-active="true"] { opacity: 1; }
+  .carousel__img, .carousel__ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .carousel__ph {
+    display: flex; align-items: center; justify-content: center;
+    background: repeating-linear-gradient(135deg, rgba(157,78,221,.06) 0 12px, transparent 12px 24px);
+  }
+  .carousel__cap {
+    position: absolute; inset: auto 0 0 0; z-index: 2; padding: 1rem;
+    font-family: var(--font-mono); font-size: .72rem; line-height: 1.5; color: var(--color-ink);
+    background: linear-gradient(to top, rgba(8,8,12,0.95), rgba(8,8,12,0));
+  }
+  .carousel__btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+    width: 2rem; height: 2rem; border: 1px solid var(--color-line); border-radius: 2px;
+    background: rgba(10,10,15,.7); color: var(--color-ink); font-family: var(--font-mono);
+    cursor: pointer; transition: border-color .2s, color .2s;
+  }
+  .carousel__btn:hover { border-color: var(--color-violet); color: var(--color-violet-bright); }
+  .carousel__btn--prev { left: calc(50% - min(37%, 120px) - 3.5rem); }
+  .carousel__btn--next { right: calc(50% - min(37%, 120px) - 3.5rem); }
+  .carousel__dots { position: absolute; inset: auto 0 .6rem 0; z-index: 3; display: flex; gap: .35rem; justify-content: center; }
+  .carousel__dot { width: 6px; height: 6px; border-radius: 99px; background: rgba(232,232,238,.3); }
+  .carousel__dot[data-active="true"] { background: var(--color-violet-bright); }
+
+  /* chapter page: banner + MDX prose */
+  .lore-banner {
+    position: relative; aspect-ratio: 16/10; overflow: hidden;
+    border: 1px solid var(--color-line); border-radius: 4px; background: #0c0c12;
+  }
+  .lore-banner__placeholder {
+    position: absolute; inset: 0; text-align: center;
+    display: flex; flex-direction: column; gap: .3rem; align-items: center; justify-content: center;
+    color: var(--color-ink-dim);
+    background: repeating-linear-gradient(135deg, rgba(157,78,221,.05) 0 12px, transparent 12px 24px);
+  }
+  .lore-prose { color: var(--color-ink-dim); line-height: 1.8; }
+  .lore-prose > * + * { margin-top: 1.15rem; }
+  .lore-prose h2 { font-family: var(--font-display); color: var(--color-ink); font-size: 1.8rem; text-transform: uppercase; letter-spacing: -.01em; margin-top: 2.4rem; }
+  .lore-prose h3 { font-family: var(--font-display); color: var(--color-ink); font-size: 1.35rem; text-transform: uppercase; margin-top: 1.8rem; }
+  .lore-prose strong { color: var(--color-ink); }
+  .lore-prose a { color: var(--color-violet-bright); text-decoration: underline; text-underline-offset: 3px; }
+  .lore-prose img { width: 100%; border-radius: 4px; border: 1px solid var(--color-line); margin: 1.5rem 0; display: block; }
+  .lore-prose figure { margin: 1.6rem 0; }
+  .lore-prose figure img { margin: 0; }
+  .lore-prose figcaption { font-family: var(--font-mono); font-size: .72rem; color: var(--color-ink-dim); margin-top: .5rem; }
+  .lore-prose video { width: 100%; border-radius: 4px; border: 1px solid var(--color-line); margin: 1.5rem 0; display: block; }
+  .lore-prose blockquote { border-left: 2px solid var(--color-violet); padding-left: 1rem; color: var(--color-ink); font-style: italic; }
+  .lore-prose ul { list-style: disc; padding-left: 1.25rem; }
+  .lore-prose ol { list-style: decimal; padding-left: 1.25rem; }
+  .lore-prose code { font-family: var(--font-mono); font-size: .85em; color: var(--color-violet-bright); }
+}
+
+@layer components {
+  /* plain handwritten note — no frame */
+  .lore-note {
+    align-self: center;
+    padding: 0.5rem 0.25rem;
+    font-family: var(--font-hand);
+    font-size: 1.7rem;
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+
+  /* a scrap of paper pinned to the board */
+  .lore-note--pinned {
+    position: relative;
+    justify-self: start;
+    max-width: 92%;
+    margin-top: 0.5rem;
+    padding: 1.9rem 1.6rem 1.5rem;
+    background: #cccccc;
+    border: 1px solid rgba(232,231,238,0.08);
+    border-radius: 2px;
+    box-shadow: 0 20px 44px -20px rgba(0,0,0,0.85);
+    transform: rotate(-1.7deg);
+    color: #000000;
+    font-size: 1.50rem;
+    font-family: var(--font-hand);
+    line-height: 1.2;
+  }
+  .lore-note--pinned::before {
+    content: "";
+    position: absolute; top: -9px; left: 50%;
+    width: 15px; height: 15px; transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #c77dff, #7c3aed 62%, #4a1d7a);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.6), 0 0 12px rgba(157,78,221,0.6);
+  }
+
+  /* hanging missing-persons photos — polaroids, no outer frame */
+  .carousel { border: none; background: transparent; overflow: visible; max-height: 320px; }
+  .carousel__viewport { min-height: 320px; }
+  .carousel__slide {
+    inset: auto; top: 50%; left: 50%;
+    width: min(74%, 240px);
+    transform: translate(-50%, -50%) rotate(-2deg);
+    background: #17151f;
+    padding: 0.7rem 0.7rem 0;
+    border: 1px solid rgba(232,231,238,0.08);
+    box-shadow: 0 24px 48px -20px rgba(0,0,0,0.9);
+  }
+  .carousel__slide::before {
+    content: "";
+    position: absolute; top: -9px; left: 50%;
+    width: 15px; height: 15px; transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #c77dff, #7c3aed 62%, #4a1d7a);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.6), 0 0 12px rgba(157,78,221,0.6);
+  }
+  .carousel__img, .carousel__ph { position: static; width: 100%; height: auto; aspect-ratio: 5 / 5; }
+  .carousel__cap {
+    position: static; background: none; padding: 0.55rem 0.2rem 0.8rem;
+    font-family: var(--font-hand); font-size: 1.15rem; line-height: 1.25; color: #d9d7e1;
+    /* pull the arrows in next to the photo (tracks the polaroid width) */
+  .carousel .carousel__btn--prev { left: calc(50% - min(37%, 120px) 0.5rem); }
+  .carousel .carousel__btn--next { right: calc(50% - min(37%, 120px) 0.5rem); }
+  }
+}
+
+@layer components {
+  /* floating image artifact — just the image, no frame, no pin */
+  .lore-photo {
+    align-self: center;
+    justify-self: center;
+    max-width: 80%;
+    margin-top: 0.5rem;
+    transform: rotate(2deg);
+  }
+  .lore-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 22px 30px rgba(0,0,0,0.7));
+  }
+  .lore-photo figcaption {
+    font-family: var(--font-hand); font-size: 1.1rem; line-height: 1.25; color: #d9d7e1;
+    margin-top: 0.6rem; padding: 0 0.15rem;
+  }
+}
+
+
+/* ===================================================================
+   WORLD & LORE — gentle hover nudge on the note + boarding pass
+   (uses translate/rotate longhands so it composes on top of any base tilt)
+   =================================================================== */
+@layer components {
+  .lore-note, .lore-note--pinned, .lore-photo {
+    transition: translate .25s ease, rotate .35s ease;
+  }
+  .lore-note:hover, .lore-note--pinned:hover, .lore-photo:hover {
+    translate: 0 -3px;
+    rotate: 1deg;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lore-note, .lore-note--pinned, .lore-photo { transition: none; }
+    .lore-note:hover, .lore-note--pinned:hover, .lore-photo:hover { translate: none; rotate: none; }
+  }
+}
+
+/* ===================================================================
+   MISSING-PERSONS — aged polaroids: no pin, vintage photo, typewriter caption
+   =================================================================== */
+@layer components {
+  .carousel__slide::before { content: none; }            /* 1 — remove the pin */
+
+  /* warm the paper a touch toward aged ivory-dark */
+  .carousel__slide { background: #1b1611; border-color: rgba(214,196,150,0.10); }
+
+  .carousel__media { position: relative; overflow: hidden; }
+
+  /* 2 — faded vintage tone on the photo itself */
+  .carousel__media .carousel__img {
+    filter: sepia(0.42) saturate(0.78) contrast(0.92) brightness(0.98);
+  }
+  /* yellowing + darkened aged corners (vignette) */
+  .carousel__media::after {
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background:
+      radial-gradient(120% 120% at 50% 38%, transparent 50%, rgba(28,16,4,0.5) 100%),
+      linear-gradient(180deg, rgba(120,92,40,0.10), rgba(60,44,18,0.14));
+    mix-blend-mode: multiply;
+  }
+  /* fine film grain */
+  .carousel__media::before {
+    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    opacity: 0.10; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* 3 — typewriter caption */
+  .carousel__cap {
+    font-family: var(--font-typewriter);
+    font-size: 1rem; line-height: 1.45; letter-spacing: 0.01em; color: #cfcad6;
+  }
+}
+
+/* ===================================================================
+   STATIC component cards — per-card background image + legibility scrim
+   =================================================================== */
+@layer components {
+  .channel::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(180deg, rgba(10,10,15,0.55) 0%, rgba(10,10,15,0.84) 100%),
+      var(--card-img, none);
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+  }
+  .channel > * { position: relative; z-index: 1; }   /* keep text above the image */
+}
+
+

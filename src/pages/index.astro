@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Redact from '../components/Redact.astro';
 
 const channels = [
-  { href: '/writer', ch: '01', label: 'The Writer', blurb: 'Who I am, the career change, and why narrative.', featured: false },
-  { href: '/game', ch: '02', label: 'STATIC', blurb: 'A vertical slice — lore, playable dialogue, case files, screenplay.', featured: true },
-  { href: '/book', ch: '03', label: 'The Book', blurb: 'Excerpts, illustrations, and a screen adaptation.', featured: false },
-  { href: '/lab', ch: '04', label: 'Fragments', blurb: 'Short experiments, barks, and micro-fiction.', featured: false },
-  { href: '/contact', ch: '05', label: 'Signal', blurb: 'CV, email, and where to reach me.', featured: false },
+  { href: '/writer', ch: '01', label: 'DZ: The Writer', blurb: 'Who I am, the career change, and why narrative.', featured: false, img: '/home/the-writer.png' },
+  { href: '/game', ch: '02', label: 'STATIC: The Game', blurb: 'A vertical slice — lore, playable dialogue, case files, screenplay.', featured: true, img: '/home/the-game.png' },
+  { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.png' },
+  { href: '/lab', ch: '04', label: 'MY LAB: Ideas', blurb: 'Short experiments, barks, and micro-fiction.', featured: false, img: '/home/the-lab.png' },
+  { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'CV, email, and where to reach me.', featured: false, img: '/home/the-contact.png' },
 ];
 ---
 
@@ -20,7 +20,8 @@ const channels = [
       <div class="fog__layer fog__layer--b"></div>
       <div class="fog__layer fog__layer--c"></div>
     </div>
-    <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_minmax(0,32rem)] lg:gap-10">        <!-- left: title -->
+    <div class="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_minmax(0,35rem)] lg:gap-10">        
+      <!-- left: title -->
         <div>
           <p class="eyebrow mb-5">◉ Now broadcasting</p>
           <h1
@@ -30,12 +31,14 @@ const channels = [
             STATIC
           </h1>
           <p class="mt-7 max-w-xl text-lg text-ink-dim">
-            <span class="placeholder">Videogame concept created by Dmitrii Zhukov and 
+            <span class="note_home_page">Videogame concept created by Dmitrii Zhukov and 
               based on <Redact label="still in progress">the original novel <i>"Myst"</i>, </Redact> combining psychological thriller and survival 
               horror genres with immersive investigation mechanics, stealth gameplay, and 
               over-the-shoulder hand-to-hand combat.</span>
           </p>
-          <p class="mt-8 font-mono text-xs uppercase tracking-widest text-ink-dim">↓ Tune in</p>
+          <a href="#channels" class="group mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink-dim transition-colors hover:text-violet-bright">
+          <span class="transition-transform group-hover:translate-y-0.5">↓</span> Tune in
+        </a>
         </div>
 
         <!-- right: looping trailer (see ASSETS.md) -->
@@ -53,7 +56,7 @@ const channels = [
     </section>
 
 <!-- INTRO STRIP -->
-  <section class="px-6 mt-[10px]">
+  <section class="px-6 mt-[15px]">
     <div class="mx-auto max-w-4xl border-y border-line py-12">
       <p class="font-mono text-[0.95rem] leading-relaxed text-ink-dim text-center">
 
@@ -67,16 +70,24 @@ const channels = [
     </div>
   </section>
 
+ 
   <!-- CHANNEL INDEX -->
-  <section class="px-6 py-20">
-    <div class="mx-auto max-w-6xl">
+  <section id="channels" class="relative scroll-mt-24 px-6 py-20">
+    {/* 
+    <div class="fog fog--soft" aria-hidden="true"> //uncomment to add og behing the channel cards
+      <div class="fog__layer fog__layer--a"></div>
+      <div class="fog__layer fog__layer--b"></div>
+      <div class="fog__layer fog__layer--c"></div>
+    </div>
+    */}
+    <div class="relative z-10 mx-auto max-w-6xl">
       <p class="eyebrow mb-8">Channel guide</p>
       <div class="grid gap-4 md:grid-cols-2">
         {
           channels.map((c) => (
-            <a href={c.href} class={`channel ${c.featured ? 'channel--featured md:col-span-2' : ''} p-6 md:p-8`}>
+            <a href={c.href} class={`channel channel--bw ${c.featured ? 'channel--featured md:col-span-2' : ''} p-6 md:p-8`} style={c.img ? `--card-img: url(${c.img})` : undefined}>
               <div class="flex items-baseline justify-between">
-                <span class="font-mono text-xs uppercase tracking-widest text-violet">CHANNEL {c.ch}</span>
+                <span class="font-mono text-xs uppercase tracking-widest text-violet">CH {c.ch}</span>
                 {c.featured && (
                   <span class="font-mono text-[0.65rem] uppercase tracking-widest text-magenta">◉ Featured project</span>
                 )}

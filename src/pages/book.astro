@@ -1,15 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="The Book — [Your Name]">
+<BaseLayout title="Myst - The Book">
   <section class="px-6 pt-16">
-    <div class="mx-auto max-w-3xl">
+    <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-4">CH 03</p>
-      <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">The Book</h1>
-      <p class="mt-6 text-lg text-ink-dim">[Title] — published [year]. <span class="placeholder inline-block">one-line description</span></p>
+      <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">MYST: The Book</h1>
+      <p class="mt-6 text-lg text-ink-dim">
+        litres — published [2025] (in Russian). <br />
+        amazon kindle - published [2026] (in English) <br />
+        <span class="placeholder inline-block">one-line description</span></p>
 
-      <div class="mt-12 grid gap-8 md:grid-cols-[160px_1fr]">
-        <div class="placeholder flex aspect-[2/3] items-center justify-center text-center">PLACEHOLDER<br />cover (2:3)</div>
+      <div class="mt-12 grid gap-8 md:grid-cols-[250px_1fr]">
+        <div class="space-y-6">
+        <img
+          src="/myst/myst-1.png"
+          alt="Myst - The Book"
+          class="aspect-[4/5.7] w-full border border-line object-cover"
+        />
+        </div>
         <div class="space-y-4 text-ink-dim">
           <p class="placeholder block">A strong translated excerpt — one scene/chapter, not the whole book.</p>
           <p class="placeholder block">2-3 illustrations.</p>

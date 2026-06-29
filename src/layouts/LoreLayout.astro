@@ -1,0 +1,50 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  kind?: string;
+  description: string;
+  banner?: string;
+}
+const { title, kind = 'File', description, banner } = Astro.props;
+---
+
+<BaseLayout title={`${title} — STATIC`}>
+  <article class="px-6 pt-12 pb-24">
+    <div class="mx-auto max-w-5xl">
+      <a
+        href="/game#world-lore"
+        class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink-dim transition-colors hover:text-violet-bright"
+      >
+        <span class="transition-transform group-hover:-translate-x-0.5">←</span> World &amp; Lore
+      </a>
+
+      <!-- BANNER: image left, description right -->
+      <div class="mt-6 grid items-stretch gap-6 md:grid-cols-2">
+        <div class="lore-banner">
+          {banner ? (
+            <img src={banner} alt={title} class="h-full w-full object-cover" />
+          ) : (
+            <div class="lore-banner__placeholder">
+              <span class="font-mono text-xs uppercase tracking-widest text-violet-bright">◉ Banner</span>
+              <span class="font-mono text-[0.7rem]">drop image into /public{banner ?? '/lore/…/banner.jpg'}</span>
+            </div>
+          )}
+        </div>
+        <div class="flex flex-col justify-center">
+          <p class="eyebrow mb-3">{kind}</p>
+          <h1 class="font-display text-5xl font-semibold uppercase tracking-tight text-ink md:text-6xl">{title}</h1>
+          <p class="mt-5 text-lg text-ink-dim">{description}</p>
+        </div>
+      </div>
+
+      <hr class="rule my-12" />
+
+      <!-- BODY: MDX content with multimedia -->
+      <div class="lore-prose mx-auto max-w-3xl">
+        <slot />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
