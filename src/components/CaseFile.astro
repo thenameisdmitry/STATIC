@@ -1,0 +1,46 @@
+---
+// A military-style case folder that opens on click to reveal two sheets.
+// Pass the two sheets via named slots: <div slot="left">…</div> / <div slot="right">…</div>
+interface Props {
+  label?: string;
+  cover?: string;   // folder image under /public; optional (CSS fallback)
+}
+const { label = 'Classified case file', cover } = Astro.props;
+---
+<div class="case-file" data-casefile>
+  <button
+    type="button"
+    class="case-file__cover"
+    aria-expanded="false"
+    data-has-cover={cover ? 'true' : 'false'}
+    style={cover ? `--cf-cover:url(${cover})` : undefined}
+  >
+    <span class="case-file__stamp">Classified</span>
+    <span class="case-file__tab">{label}</span>
+    <span class="case-file__hint">▸ click to open the file</span>
+  </button>
+
+  <div class="case-file__open" hidden>
+    <div class="case-file__sheets">
+      <div class="case-file__sheet"><slot name="left" /></div>
+      <div class="case-file__sheet"><slot name="right" /></div>
+    </div>
+    <button type="button" class="case-file__close">✕ close file</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-casefile]').forEach((root) => {
+    const cover = root.querySelector('.case-file__cover');
+    const open = root.querySelector('.case-file__open');
+    const close = root.querySelector('.case-file__close');
+    if (!cover || !open || !close) return;
+    const show = (on: boolean) => {
+      open.hidden = !on;
+      cover.setAttribute('aria-expanded', on ? 'true' : 'false');
+      (cover as HTMLElement).style.display = on ? 'none' : '';
+    };
+    cover.addEventListener('click', () => show(true));
+    close.addEventListener('click', () => show(false));
+  });
+</script>

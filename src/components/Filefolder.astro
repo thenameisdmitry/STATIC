@@ -1,0 +1,42 @@
+---
+// A single police file folder that opens on click to reveal one report excerpt.
+// Put the excerpt as the default slot. Arrange several inside <div class="file-grid">.
+interface Props {
+  label?: string;
+  cover?: string;   // folder image under /public; optional (CSS fallback)
+}
+const { label = 'File', cover } = Astro.props;
+---
+<div class="file-folder" data-folder>
+  <button
+    type="button"
+    class="file-folder__cover"
+    aria-expanded="false"
+    data-has-cover={cover ? 'true' : 'false'}
+    style={cover ? `--ff-cover:url(${cover})` : undefined}
+  >
+    <span class="file-folder__tab">{label}</span>
+    <span class="file-folder__hint">▸ open</span>
+  </button>
+
+  <div class="file-folder__open" hidden>
+    <div class="file-folder__sheet"><slot /></div>
+    <button type="button" class="file-folder__close">✕ close</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-folder]').forEach((root) => {
+    const cover = root.querySelector('.file-folder__cover');
+    const open = root.querySelector('.file-folder__open');
+    const close = root.querySelector('.file-folder__close');
+    if (!cover || !open || !close) return;
+    const show = (on: boolean) => {
+      open.hidden = !on;
+      cover.setAttribute('aria-expanded', on ? 'true' : 'false');
+      (cover as HTMLElement).style.display = on ? 'none' : '';
+    };
+    cover.addEventListener('click', () => show(true));
+    close.addEventListener('click', () => show(false));
+  });
+</script>

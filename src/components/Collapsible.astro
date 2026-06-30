@@ -1,0 +1,19 @@
+---
+// Styled native <details> — accessible, no JS needed.
+interface Props {
+  title: string;
+  hint?: string;     // small label on the right, e.g. "expand"
+  open?: boolean;
+}
+const { title, hint = 'expand', open = false } = Astro.props;
+---
+<details class="lore-collapse" open={open}>
+  <summary class="lore-collapse__summary">
+    <span class="lore-collapse__icon" aria-hidden="true"></span>
+    <span class="lore-collapse__title">{title}</span>
+    <span class="lore-collapse__hint">{hint}</span>
+  </summary>
+  <div class="lore-collapse__body">
+    <slot />
+  </div>
+</details>

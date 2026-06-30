@@ -1,0 +1,74 @@
+---
+// A receiver with a rotary knob you drag to tune. As the dial approaches max,
+// the Operator emerges from the static on the screen.
+interface Props {
+  receiver?: string;   // receiver image under /public (optional, CSS fallback)
+  operator?: string;   // the entity image under /public (optional, CSS fallback)
+}
+const { receiver, operator } = Astro.props;
+---
+<div class="tuner" data-tuner data-locked="false">
+  <div class="tuner__device">
+    {receiver
+      ? <img class="tuner__receiver" src={receiver} alt="Field receiver" />
+      : <div class="tuner__receiver tuner__receiver--ph"></div>}
+    <button type="button" class="tuner__knob" aria-label="Tune the receiver">
+      <span class="tuner__knob-mark"></span>
+    </button>
+    <div class="tuner__meter"><span class="tuner__meter-fill"></span></div>
+    <div class="tuner__readout" data-readout>SIGNAL 0%</div>
+  </div>
+
+  <div class="tuner__screen">
+    <div class="tuner__noise"></div>
+    {operator
+      ? <img class="tuner__operator" src={operator} alt="" data-operator />
+      : <div class="tuner__operator tuner__operator--ph" data-operator></div>}
+    <div class="tuner__scanlines"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-tuner]').forEach((root) => {
+    const knob = root.querySelector('.tuner__knob') as HTMLElement | null;
+    const fill = root.querySelector('.tuner__meter-fill') as HTMLElement | null;
+    const readout = root.querySelector('[data-readout]') as HTMLElement | null;
+    const operator = root.querySelector('[data-operator]') as HTMLElement | null;
+    if (!knob || !fill || !readout || !operator) return;
+
+    let value = 0;
+    let dragging = false;
+
+    const apply = () => {
+      knob.style.transform = `rotate(${value * 270 - 135}deg)`;
+      fill.style.width = `${Math.round(value * 100)}%`;
+      readout.textContent = `SIGNAL ${Math.round(value * 100)}%`;
+      const op = Math.max(0, Math.min(1, (value - 0.6) / 0.4));
+      operator.style.opacity = String(op);
+      root.setAttribute('data-locked', value > 0.97 ? 'true' : 'false');
+    };
+
+    const setFromPointer = (e: PointerEvent) => {
+      const r = knob.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const theta = (Math.atan2(e.clientY - cy, e.clientX - cx) * 180) / Math.PI;
+      let t = theta - 135;
+      if (t < 0) t += 360;
+      if (t <= 270) value = t / 270;
+      else value = t < 315 ? 1 : 0;
+      apply();
+    };
+
+    knob.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      knob.setPointerCapture(e.pointerId);
+      setFromPointer(e);
+    });
+    knob.addEventListener('pointermove', (e) => { if (dragging) setFromPointer(e); });
+    knob.addEventListener('pointerup', () => { dragging = false; });
+    knob.addEventListener('pointercancel', () => { dragging = false; });
+
+    apply();
+  });
+</script>

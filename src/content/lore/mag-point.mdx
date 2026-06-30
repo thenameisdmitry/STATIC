@@ -1,34 +1,222 @@
 ---
-title: "Nuvik"
+title: "Mag Point"
 kind: "Location"
-description: "A fishing town on the edge of the Alaskan dark, where the signal first started bleeding through."
-banner: "/lore/the-city/banner.jpg"
+description: "A fading fishing town on the edge of the Alaskan wilderness, where rugged mountains, icy waters, and dense coastal fog have shaped life for over two centuries. Since the late 1980s, the Gray Signal has been bleeding through Mag Point, forever entwining the town with a string of unexplained disappearances and mysteries that continue to haunt its residents."
+banner: "/lore/mag-point/mp2.png"
 order: 1
 ---
 
-Write the chapter here in your own voice. This is plain MDX — Markdown that also
-accepts HTML, so you can drop in images and video wherever you want.
+import Collapsible from '../../components/Collapsible.astro';
+import MapExplorer from '../../components/MapExplorer.astro';
+import Redact from '../../components/Redact.astro';
+
+{/* ---- DOSSIER META STRIP (edit values freely) ---- */}
+<div class="lore-meta">
+  <div><span>Region</span>Southeast Alaska, Baranof Island</div>
+  <div><span>Population</span>14,942 <em>and falling</em></div>
+  <div><span>Founded</span>1805</div>
+  <div><span>Status</span><Redact label="status">Gray signal active</Redact></div>
+</div>
 
 ## The town
 
-A couple of paragraphs of prose. Describe the place, the mood, the wrongness
-under the surface. Keep it short and atmospheric.
+> "The first thing you'll notice about Mag Point is the fog. The last thing you'll remember is what you saw inside it."
 
-![A wet main street at dusk](/lore/the-city/street.jpg)
+{/* ============ 1 · ATMOSPHERE ============ */}
 
-## What the player notices
+Mag Point is a remote coastal town on Baranof Island in Southeast Alaska, a place where 
+civilization ends and the wilderness begins. Wedged between towering mountain ridges and the 
+icy waters of the Gulf of Alaska, it spends much of the year beneath heavy clouds, 
+relentless rain, and endless winter nights. Sunshine is a rare luxury reserved for the brief 
+summer months. Thick coastal fog drifts in from the sea throughout the year, but in August it 
+becomes almost unnatural, blanketing the town and surrounding forests for days at a time. 
+Once a thriving fishing and oil town, Mag Point has spent decades in slow decline. Young people 
+leave in search of a better future, businesses struggle to survive, and abandoned buildings 
+stand as reminders of more prosperous days. The town has earned a grim reputation among 
+outsiders. Locals often say that Mag Point does not welcome strangers and rarely lets go those 
+who call it home.
 
-More text. You can place a captioned figure like this:
+<video src="/lore/mag-point/mpvid2.mp4" autoplay muted loop playsinline></video>
 
-<figure>
-  <img src="/lore/the-city/diner.jpg" alt="The empty diner" />
-  <figcaption>The diner stays lit all night. No one is ever inside.</figcaption>
-</figure>
+Since the late 1980s, Mag Point has been plagued by a series of unexplained disappearances. 
+Many dismiss them as unfortunate accidents caused by the unforgiving Alaskan wilderness or 
+attribute them to the nearby Alaska Triangle, a region infamous for mysterious vanishings 
+and unsolved cases. The greatest tragedy came in August 2008, when five young children 
+vanished within days of one another, shattering the community and leaving wounds that never 
+healed. A decade later, in 2018, the disappearances begin again, drawing investigators into 
+a mystery that reaches far beyond missing persons. In this story, Mag Point is more than a 
+setting. It is a character in its own right: a lonely, weather-beaten town where every 
+August the fog returns, bringing with it questions no one has ever been able to answer.
 
-And a looping clip like this:
 
-<video src="/lore/the-city/signal.mp4" autoplay muted loop playsinline></video>
 
-> A short pulled quote or an in-world line can sit in a blockquote for emphasis.
+{/* ============ 2 · HISTORY (collapsible) ============ */}
 
-Close the chapter with a hook into the next thread.
+<Collapsible title="History of Mag Point" hint="open file">
+
+<p><b>The Russian Frontier (1805–1867)</b></p>
+
+<p>Mag Point was founded in 1805 by Russian explorer Vasiliy Sokolov. Originally known as 
+Fort Mag Point, it served as the easternmost 
+military and trading outpost of the Russian-American Company on Baranof Island. 
+The settlement occupied a narrow strip of land between steep mountain ridges and the sea, 
+making it both naturally protected and strategically important. Ships departing from its 
+harbor carried explorers, hunters, missionaries, and supplies deeper into the Alaskan frontier. 
+The fort remained small but prosperous, becoming known for its skilled shipwrights, fisheries, 
+and timber trade.</p>
+<br/>
+
+<p><b>Under American Rule (1867–1897)</b></p>
+
+<p>Following the United States' purchase of Alaska in 1867, Mag Point peacefully transitioned 
+to American administration. Many Russian settlers remained, leaving behind an architectural and 
+cultural legacy still visible throughout the town. The harbor continued to grow as a regional 
+shipping stop, while fishing gradually replaced the fur trade as the town's primary industry.</p>
+<br/>
+
+<p><b>The Gold Rush Boom (1897–1915)</b></p>
+
+<p>Although no major gold deposits were discovered near Mag Point itself, the town became an 
+important supply port during the Klondike Gold Rush. Hotels, warehouses, saloons, banks, and 
+shipping companies appeared almost overnight as thousands of prospectors passed through on 
+their way north. At its peak, Mag Point was one of southeastern Alaska's busiest coastal 
+settlements. When the Gold Rush ended, many newcomers stayed, helping transform the temporary 
+frontier town into a permanent community. </p>
+<br/>
+
+<p><b>A Fishing Town (1915–1929)</b></p>
+
+<p>With mining in decline, Mag Point embraced commercial fishing. Large canneries, shipyards, 
+and seafood processing facilities were built along the waterfront, while schools, churches, 
+parks, and civic buildings reshaped the growing town. The original Russian fort was 
+dismantled during this period, with only a monument to its founder, Vasiliy Sokolov, 
+remaining in the town square.</p>
+<br/>
+
+<p><b>Decline and Recovery (1929–1970)</b></p>
+
+<p>The Great Depression severely affected Mag Point. Businesses closed, unemployment soared, 
+and many families left in search of work elsewhere. The town slowly recovered after World War II 
+as military contracts, improved infrastructure, and renewed fishing activity brought jobs back 
+to the region. New roads, neighborhoods, and public buildings modernized much of the aging 
+settlement.</p>
+<br/>
+
+<p><b>Oil and Prosperity (1970–1990)</b></p>
+
+<p>The discovery of offshore oil led to another economic boom. "Shoreside Petroleum" established 
+operations near Mag Point, creating hundreds of jobs alongside the already thriving fishing 
+industry. By the early 1980s, the population had reached nearly 25,000, making Mag Point 
+one of the largest towns in southeastern Alaska. Modern schools, a hospital, expanded harbor 
+facilities, and private businesses reflected the town's newfound prosperity. Yet during the 
+late 1970s, a handful of unusual events began to circulate among locals. Hunters 
+occasionally reported strange lights deep in the mountains. Fishermen described hearing 
+distant voices over calm waters where no boats were present. Compass failures and unexplained 
+radio interference were dismissed as natural anomalies, becoming little more than local 
+folklore.</p>
+<br/>
+
+<p><b>Modern Times (1990–now)</b></p>
+
+<p>By the early 1990s, Mag Point entered a long period of economic decline. Fish stocks 
+became less reliable, oil production slowed, and many of the town's largest employers 
+began reducing their workforce. Younger generations left for larger Alaskan cities or the 
+mainland in search of better opportunities. <br/> <br/>By 2008, the population had fallen from nearly 
+25,000 to approximately 15,000, leaving Mag Point struggling to preserve its identity.
+Around the same time, unsettling rumors began to spread. A handful of unexplained 
+disappearances that had started in the late Cold War years became more frequent, though never 
+numerous enough to attract national attention. Local authorities investigated each case 
+individually, attributing them to accidents, harsh wilderness conditions, or people leaving 
+town without notice. Among residents, however, whispers persisted that something darker had 
+taken root in Mag Point. <br/> <br/>Despite its decline, the town remains alive. Its harbor still served a modest fishing fleet, 
+"Shoreside Petroleum" maintained regional operations, and family-owned businesses fought 
+to survive alongside aging hotels, restaurants, and seafood processing facilities. 
+To outsiders, Mag Point was simply another struggling Alaskan coastal town. <br/> <br/>To its 
+residents, it was a place that had never quite let go of its past.</p>
+
+</Collapsible>
+
+{/* ============ 3 · INTERACTIVE MAP ============ */}
+
+## The map
+
+Click a pin marker to open that location. Each one carries its own photos, notes, items,
+quests, and encounters that you will experience during the gameplay.
+
+export const locations = [
+  {
+    id: 'center', name: 'Town Center', x: 50, y: 45,
+    blurb: "<p>Mag Point Center is the town's most well-maintained district. At its heart lies Washington Square, featuring a monument dedicated to Vasiliy Sokolov, the founder of Fort Mag Point. The location has hotel and bed-and-breakfast, pubs and bars, a popular pizzeria \"The Fisherman's Daughter\", the police station, the Museum of Alaskan History, the City Library, a Lutheran church, and a variety of privately owned shops and businesses.</p> <br /> <p>In <b>STATIC</b>, Mag Point Center serves as the game's primary hub. Here, players can safely explore the streets, save their progress, speak with local residents, gather clues, and advance their investigations with assistance from the town's police department. However, when darkness falls over Mag Point, the town center is no longer as safe as it seems.</p>",
+    images: ['/lore/mag-point/mp14.png'],
+    items: ['Police files [evidence]', 'Missing persons\' belongings [evidence]', 'Melee and firearms [weapons]', 'Batteries [resources]'],    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'bay-port', name: 'Big Bear Bay', x: 70, y: 68,
+    blurb: "<p>Mag Point Center is the town's most well-maintained district. At its heart lies Washington Square, featuring a monument dedicated to Vasiliy Sokolov, the founder of Fort Mag Point. The location has hotel and bed-and-breakfast, pubs and bars, a popular pizzeria \"The Fisherman's Daughter\", the police station, the Museum of Alaskan History, the City Library, a Lutheran church, and a variety of privately owned shops and businesses.</p> <br /> <p>In <b>STATIC</b>, Mag Point Center serves as the game's primary hub. Here, players can safely explore the streets, save their progress, speak with local residents, gather clues, and advance their investigations with assistance from the town's police department. However, when darkness falls over Mag Point, the town center is no longer as safe as it seems.</p>",
+    images: ['/lore/mag-point/mp3.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'outskirts', name: 'Outskirts', x: 25, y: 68,
+    blurb: 'Where the town thins out into the dark.',
+    images: ['/lore/mag-point/mp13.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'old-docks', name: 'Old Docks', x: 90, y: 50,
+    blurb: 'Rotten pilings and the things tied up under them.',
+    images: ['/lore/mag-point/mp11.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'residential', name: 'Residents', x: 39, y: 26,
+    blurb: 'Houses with the lights on and no one home.',
+    images: ['/lore/mag-point/mp6.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'commercial', name: 'Commercial Block', x: 20, y: 45,
+    blurb: 'Shopfronts, the diner, the old radio store.',
+    images: ['/lore/mag-point/mp8.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'forest', name: 'Forest', x: 84, y: 30,
+    blurb: 'The treeline where the signal is loudest.',
+    images: ['/lore/mag-point/mp12.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+  {
+    id: 'school', name: 'White High School', x: 65, y: 29,
+    blurb: 'Empty since the spring. The clocks all read the same time.',
+    images: ['/lore/mag-point/mp9.png'],
+    items: ['Item placeholder'],
+    quests: ['Quest placeholder'],
+    enemies: ['Enemy placeholder'],
+  },
+];
+
+<MapExplorer mapSrc="/lore/mag-point/mp-map.png" locations={locations} calibrate={false} />
+
+{/* ============ 4 · OUTRO / CROSS-LINKS ============ */}
+
+Close the chapter with a hook into what comes next.
+
+<div class="lore-links">
+  <a href="/lore/orson">→ Character file: Orson</a>
+  <a href="/lore/police-report">→ Case file: Police report</a>
+  <a href="/lore/secret-documents">→ Classified: Gray Signal</a>
+</div>

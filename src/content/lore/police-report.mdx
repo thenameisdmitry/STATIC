@@ -1,21 +1,57 @@
 ---
-title: "Incident report 04-Δ"
+title: "Police Report"
 kind: "Case file"
-description: "Filed by the county sheriff three days before the station went dark."
+description: "What the Mag Point Police Department logged before the town stopped answering its own calls."
 banner: "/lore/police-report/banner.jpg"
-order: 2
+order: 3
 ---
 
-Write the report in-world — clipped, official, redacted where it matters. You can
-use the redaction look by leaving blanks or by styling later.
+import FileFolder from '../../components/FileFolder.astro';
 
-## Summary
+## The officer on the case
 
-Replace with your text. Official tone. Dates, names, a detail that doesn't add up.
+Write a paragraph here introducing the officer — one of the game's characters. Who they
+are, their place in Mag Point, the tone they bring to the investigation.
 
-![Scanned report page](/lore/police-report/page-1.jpg)
+<img class="lore-figure" src="/lore/police-report/officer.jpg" alt="Officer portrait" />
 
-## Officer's note
+A second paragraph: what they noticed first, the call that didn't add up, the moment the
+ordinary police work tipped into something else.
 
-A handwritten note that contradicts the official summary. This is where the dread
-leaks in.
+## Case files
+
+Four files pulled from the department. Click a folder to open it.
+
+<div class="file-grid">
+  <FileFolder label="Incident 01" cover="/lore/police-report/file-1.jpg">
+    <h4>Incident report — 01</h4>
+    <p>Excerpt from the first report. Write it as a typed police document — date, location,
+    officer, what was found. Keep it clipped and official.</p>
+  </FileFolder>
+
+  <FileFolder label="Missing person" cover="/lore/police-report/file-2.jpg">
+    <h4>Missing person — case 02</h4>
+    <p>Excerpt from the second report. A name, a last-seen, a detail that doesn't sit right.</p>
+  </FileFolder>
+
+  <FileFolder label="Witness statement" cover="/lore/police-report/file-3.jpg">
+    <h4>Witness statement — 03</h4>
+    <p>Excerpt from a witness statement. Let the voice slip — the deeper in, the less it reads
+    like a normal account.</p>
+  </FileFolder>
+
+  <FileFolder label="Final entry" cover="/lore/police-report/file-4.jpg">
+    <h4>Final entry — 04</h4>
+    <p>The last thing logged before the calls stopped. Short. Wrong.</p>
+  </FileFolder>
+</div>
+
+{/* ---- MEMORIAL ---- */}
+<div class="memorial">
+  <img class="memorial__portrait" src="/lore/police-report/sam-kosinky.jpg" alt="Officer Sam Kosinky" />
+  <p class="memorial__eyebrow">In memory of</p>
+  <h3 class="memorial__name">Sam Kosinky</h3>
+  <p class="memorial__role">Officer · Mag Point Police Department</p>
+  <p class="memorial__epitaph">[A line or two in your voice — who he was, and how he gave his life in the service of Mag Point.]</p>
+  <p class="memorial__watch">End of Watch · [date]</p>
+</div>

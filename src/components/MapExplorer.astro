@@ -1,0 +1,124 @@
+---
+// Interactive city map.
+// Pass a map image and an array of locations; each hotspot is placed by x/y
+// percent over the image, and clicking it swaps the detail panel below.
+//
+// TUNING PINS: set calibrate={true} to show a live "x / y %" readout under the
+// cursor (and log a paste-ready line on click). Set it back to false when done.
+export interface MapLocation {
+  id: string;          // unique, used for anchors — e.g. "center"
+  name: string;        // shown on hotspot + panel
+  x: number;           // hotspot horizontal % over the map (0 = left, 100 = right)
+  y: number;           // hotspot vertical %   over the map (0 = top,  100 = bottom)
+  blurb?: string;
+  images?: string[];
+  items?: string[];
+  quests?: string[];
+  enemies?: string[];
+}
+interface Props {
+  mapSrc?: string;
+  locations: MapLocation[];
+  calibrate?: boolean;
+}
+const { mapSrc, locations, calibrate = false } = Astro.props;
+---
+<div class="map-explorer lore-wide" data-map data-calibrate={calibrate ? 'true' : 'false'}>
+  <div class="map-explorer__stage">
+    <img class="map-explorer__img" src={mapSrc} alt="Map of Mag Point" />
+
+    {locations.map((loc, i) => (
+      <button
+        type="button"
+        class="map-hotspot"
+        style={`left:${loc.x}%;top:${loc.y}%`}
+        data-target={`mx-${loc.id}`}
+        data-active={i === 0 ? 'true' : 'false'}
+        aria-label={loc.name}
+      >
+        <span class="map-hotspot__dot"></span>
+        <span class="map-hotspot__label">{loc.name}</span>
+      </button>
+    ))}
+
+    {calibrate && <div class="map-cal" data-cal-readout>move over the map · click to log — x: – · y: –</div>}
+  </div>
+
+  <div class="map-explorer__panels">
+    {locations.map((loc, i) => (
+      <section class="map-panel" id={`mx-${loc.id}`} data-active={i === 0 ? 'true' : 'false'}>
+        <div class="map-panel__head">
+          <h3 class="map-panel__name">{loc.name}</h3>
+        </div>
+
+        {loc.images && loc.images.length > 0 && (
+          <div class="map-panel__media">
+            {loc.images.map((src) => <img src={src} alt={loc.name} loading="lazy" />)}
+          </div>
+        )}
+
+        {loc.blurb && <div class="map-panel__blurb" set:html={loc.blurb}></div>}
+
+        <div class="map-panel__grid">
+          <div class="map-panel__col">
+            <h4>Items</h4>
+            <ul>{(loc.items ?? ['—']).map((it) => <li>{it}</li>)}</ul>
+          </div>
+          <div class="map-panel__col">
+            <h4>Quests</h4>
+            <ul>{(loc.quests ?? ['—']).map((q) => <li>{q}</li>)}</ul>
+          </div>
+          <div class="map-panel__col">
+            <h4>Enemies</h4>
+            <ul>{(loc.enemies ?? ['—']).map((e) => <li>{e}</li>)}</ul>
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-map]').forEach((root) => {
+    const hotspots = root.querySelectorAll('.map-hotspot');
+    const panels = root.querySelectorAll('.map-panel');
+    const select = (id: string) => {
+      panels.forEach((p) => p.setAttribute('data-active', p.id === id ? 'true' : 'false'));
+      hotspots.forEach((h) =>
+        h.setAttribute('data-active', h.getAttribute('data-target') === id ? 'true' : 'false'),
+      );
+    };
+    const panelsWrap = root.querySelector('.map-explorer__panels');
+    hotspots.forEach((h) => {
+      h.addEventListener('click', () => {
+        const id = h.getAttribute('data-target');
+        if (!id) return;
+        select(id);
+        if (panelsWrap) panelsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ---- calibration mode ----
+    if (root.getAttribute('data-calibrate') === 'true') {
+      const stage = root.querySelector('.map-explorer__stage');
+      const out = root.querySelector('[data-cal-readout]');
+      if (stage && out) {
+        const pct = (e) => {
+          const r = stage.getBoundingClientRect();
+          const x = ((e.clientX - r.left) / r.width) * 100;
+          const y = ((e.clientY - r.top) / r.height) * 100;
+          return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
+        };
+        stage.addEventListener('mousemove', (e) => {
+          const { x, y } = pct(e);
+          out.textContent = `x: ${x} · y: ${y}`;
+        });
+        stage.addEventListener('click', (e) => {
+          const { x, y } = pct(e);
+          out.textContent = `x: ${x} · y: ${y}  (logged)`;
+          console.log(`x: ${x}, y: ${y},`);
+        });
+      }
+    }
+  });
+</script>
