@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "title": "The Drive",
+    "endingsTotal": 3,
+    "bg": "/game/cards/interactive-dialogue.jpg",
+    "note": "PLACEHOLDER scene to demo the engine. Replace every line with your own writing."
+  },
+  "cast": {
+    "maya": { "name": "Maya", "portrait": "/scene/maya.jpg" },
+    "you":  { "name": "You",  "portrait": "/scene/you.jpg" }
+  },
+  "start": "open",
+  "nodes": {
+    "open": {
+      "speaker": "maya",
+      "text": "You saw it too. Don't sit there and tell me you didn't.",
+      "choices": [
+        { "label": "I didn't see anything.",            "intent": "deflect", "set": { "lied": true }, "to": "turn" },
+        { "label": "I saw it. We need to talk.",         "intent": "trust",   "to": "turn" },
+        { "label": "Pull over. Now.",                    "intent": "provoke", "to": "turn" }
+      ]
+    },
+    "turn": {
+      "speaker": "maya",
+      "text": "So that's where we are tonight.",
+      "note": { "text": "She heard the lie in your voice.", "requires": { "lied": true } },
+      "choices": [
+        { "label": "I lied. I did see it. I'm sorry.", "intent": "confess", "requires": { "lied": true }, "showLocked": true, "lockedLabel": "locked \u2014 depends on an earlier choice", "to": "end_trust" },
+        { "label": "We tell someone. Tonight.",        "intent": "resolve", "to": "end_act" },
+        { "label": "We never talk about this again.",  "intent": "deflect", "to": "end_break" }
+      ]
+    },
+    "end_trust": {
+      "speaker": "maya",
+      "text": "...Okay. Okay. Thank you for telling me.",
+      "outcome": { "title": "She trusts you", "blurb": "Coming clean cost you something \u2014 and bought back her trust." }
+    },
+    "end_act": {
+      "speaker": "maya",
+      "text": "Then we do it together. Drive.",
+      "outcome": { "title": "You act together", "blurb": "No one believes you yet. But you are not alone in it." }
+    },
+    "end_break": {
+      "speaker": "maya",
+      "text": "...Fine. Nothing happened. Nothing ever happens here.",
+      "outcome": { "title": "She shuts down", "blurb": "The easiest road tonight \u2014 and you will both pay for it later." }
+    }
+  }
+}

@@ -1,0 +1,146 @@
+---
+// Renders a playable branching scene from a scene object (see src/data/*.json).
+// State the engine keeps: current node id + a flags map. Everything else derives from those.
+interface Props { scene: any; }
+const { scene } = Astro.props;
+const bg = scene?.meta?.bg;
+---
+<div class="dlg" style={bg ? `--dlg-bg:url(${bg})` : undefined} data-dialogue>
+  <div class="dlg__scanlines" aria-hidden="true"></div>
+
+  <div class="dlg__stage" data-stage>
+    <div class="dlg__speaker">
+      <span class="dlg__portrait">
+        <img data-portrait-img alt="" />
+        <span class="dlg__portrait-init" data-portrait-initial></span>
+      </span>
+      <span class="dlg__name" data-name></span>
+    </div>
+
+    <p class="dlg__note" data-note hidden></p>
+    <p class="dlg__text" data-text></p>
+    <div class="dlg__choices" data-choices></div>
+  </div>
+
+  <div class="dlg__outcome" data-outcome hidden>
+    <p class="dlg__outcome-eyebrow">Outcome</p>
+    <h3 class="dlg__outcome-title" data-outcome-title></h3>
+    <p class="dlg__outcome-blurb" data-outcome-blurb></p>
+    <button type="button" class="dlg__replay" data-replay>&#8635; play again</button>
+  </div>
+
+  <div class="dlg__hud"><span data-progress>endings found 0 / 0</span></div>
+
+  <script type="application/json" data-scene set:html={JSON.stringify(scene)}></script>
+</div>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-dialogue]').forEach((root) => {
+    const data = JSON.parse(root.querySelector('[data-scene]').textContent || '{}');
+    const cast = data.cast || {};
+    const total = (data.meta && data.meta.endingsTotal) || 0;
+    const q = (s) => root.querySelector(s);
+
+    const elImg = q('[data-portrait-img]');
+    const elInit = q('[data-portrait-initial]');
+    const elName = q('[data-name]');
+    const elNote = q('[data-note]');
+    const elText = q('[data-text]');
+    const elChoices = q('[data-choices]');
+    const elOutcome = q('[data-outcome]');
+    const elOutTitle = q('[data-outcome-title]');
+    const elOutBlurb = q('[data-outcome-blurb]');
+    const elReplay = q('[data-replay]');
+    const elProgress = q('[data-progress]');
+    const elStage = q('[data-stage]');
+
+    let flags = {};
+    const endings = new Set();
+    let typer = null;
+    let current = null;
+
+    const met = (req) => !req || Object.keys(req).every((k) => flags[k] === req[k]);
+    const progress = () => { elProgress.textContent = `endings found ${endings.size} / ${total}`; };
+
+    function portrait(sp) {
+      elInit.textContent = (sp.name || '?').trim().charAt(0).toUpperCase();
+      if (sp.portrait) {
+        elImg.src = sp.portrait;
+        elImg.style.display = '';
+        elImg.onerror = () => { elImg.style.display = 'none'; };
+      } else {
+        elImg.removeAttribute('src');
+        elImg.style.display = 'none';
+      }
+    }
+
+    function type(text, done) {
+      if (typer) { clearInterval(typer); typer = null; }
+      if (reduce || !text) { elText.textContent = text || ''; elText.classList.remove('is-typing'); done && done(); return; }
+      elText.textContent = '';
+      elText.classList.add('is-typing');
+      let i = 0;
+      typer = setInterval(() => {
+        elText.textContent = text.slice(0, ++i);
+        if (i >= text.length) { clearInterval(typer); typer = null; elText.classList.remove('is-typing'); done && done(); }
+      }, 18);
+    }
+
+    function skip() {
+      if (!elText.classList.contains('is-typing') || !current) return;
+      if (typer) { clearInterval(typer); typer = null; }
+      const node = data.nodes[current];
+      elText.textContent = node.text || '';
+      elText.classList.remove('is-typing');
+      choices(node);
+    }
+
+    function choices(node) {
+      elChoices.innerHTML = '';
+      if (node.outcome) return;
+      (node.choices || []).forEach((c) => {
+        const ok = met(c.requires);
+        if (!ok && !c.showLocked) return;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dlg__choice' + (ok ? '' : ' is-locked');
+        const label = (!ok && c.lockedLabel) ? c.lockedLabel : c.label;
+        btn.innerHTML =
+          (c.intent ? `<span class="dlg__intent">${c.intent}</span>` : '') +
+          `<span class="dlg__choice-label">${label}</span>`;
+        if (!ok) { btn.disabled = true; }
+        else { btn.addEventListener('click', (e) => { e.stopPropagation(); if (c.set) Object.assign(flags, c.set); go(c.to); }); }
+        elChoices.appendChild(btn);
+      });
+    }
+
+    function go(id) {
+      const node = data.nodes[id];
+      if (!node) return;
+      current = id;
+      const sp = cast[node.speaker] || { name: node.speaker || '' };
+      portrait(sp);
+      elName.textContent = sp.name || '';
+      if (node.note && met(node.note.requires)) { elNote.textContent = '[ ' + node.note.text + ' ]'; elNote.hidden = false; }
+      else { elNote.hidden = true; }
+      elChoices.innerHTML = '';
+      if (node.outcome) {
+        elOutTitle.textContent = node.outcome.title || '';
+        elOutBlurb.textContent = node.outcome.blurb || '';
+        endings.add(id); progress();
+        elOutcome.hidden = false;
+      } else {
+        elOutcome.hidden = true;
+      }
+      type(node.text || '', () => choices(node));
+    }
+
+    elStage.addEventListener('click', (e) => { if (e.target.closest('.dlg__choice')) return; skip(); });
+    elReplay.addEventListener('click', (e) => { e.stopPropagation(); flags = {}; elOutcome.hidden = true; go(data.start); });
+
+    progress();
+    go(data.start);
+  });
+</script>

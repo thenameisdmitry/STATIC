@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DialogueRunner from '../../components/DialogueRunner.astro';
+import scene from '../../data/dialogue-drive.json';
+---
+<BaseLayout title="STATIC — Interactive dialogue">
+  <section class="px-6 pt-16 pb-8">
+    <div class="mx-auto max-w-3xl">
+      <a href="/game#interactive-dialogue" class="font-mono text-xs text-ink-dim transition-colors hover:text-violet-bright">&larr; back to STATIC</a>
+      <p class="eyebrow mt-5 mb-3">CH 02 · Playable scene</p>
+      <h1 class="font-display text-5xl font-semibold uppercase tracking-tight text-ink md:text-6xl">{scene.meta.title}</h1>
+      <p class="mt-4 text-ink-dim">
+        Two people, one car. Your choices set flags that change later lines and gate later
+        options — three endings in all. Click to advance; click again to skip the type-on.
+      </p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-24">
+    <div class="mx-auto max-w-4xl">
+      <DialogueRunner scene={scene} />
+      <p class="mt-4 font-mono text-xs text-ink-dim">
+        [Placeholder scene — built to demo the system. Swap in your own writing in
+        <span class="text-ink">src/data/dialogue-drive.json</span>.]
+      </p>
+    </div>
+  </section>
+</BaseLayout>

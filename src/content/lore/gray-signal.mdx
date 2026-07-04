@@ -1,46 +1,83 @@
 ---
 title: "Gray Signal"
 kind: "Investigation"
-description: "An anomalous broadcast bleeding through the Alaskan dark — and the thing that answers when you tune all the way in."
-banner: "/lore/gray-signal/banner.jpg"
+description: "An anomalous broadcast bleeding through the thick fog of Mag Point. The transmission, appearing only under specific environmental conditions, exerts a profound psychological influence on those who receive it. Its origin, purpose, and the identity of the mysterious Operator behind the Gray Signal remain unknown."
+banner: "/lore/gray-signal/gs-banner.png"
 order: 2
 ---
 
 import CaseFile from '../../components/CaseFile.astro';
 import SignalTuner from '../../components/SignalTuner.astro';
+import Figure from '../../components/Figure.astro';
+import Redact from '../../components/Redact.astro';
 
-## What the Gray Signal is
+## The Gray Signal
 
-Write the core explanation here in your own voice: what the Gray Signal is, **when it was
-first detected**, and **what is happening now**. Keep it grounded and clinical at first —
-the horror lands harder when the document sounds like a report.
+No one has a definitive explanation for the Gray Signal's origins, source, or objective.
+Unlike conventional radio waves, it behaves unpredictably and defies the known laws of physics. 
+The signal is 
+a low-frequency anomalous transmission that requires dense fog to propagate. This phenomenon is
+called **Low-Frequency Flickering Echo Effect**.
 
-A second paragraph: the pattern of disappearances, the relationship to Mag Point, the
-thing nobody will say out loud.
+The Gray Signal adapts to its recipient. Victims encounter various forms of media, 
+including late-night television programs, news broadcasts, children's cartoons, 
+emergency alerts, and other seemingly ordinary transmissions. Regardless of its appearance, 
+every broadcast carries the same purpose: <Redact>to hypnotically compel the recipient to travel 
+toward an unknown destination, after which they disappear without a trace</Redact>.
 
 ## The Crystal Peak incident
 
-<CaseFile label="Incident — Crystal Peak Base" cover="/lore/gray-signal/case-folder.jpg">
+Crystal Peak SIGINT Station.
+Facility destroyed in August 1992. Access to documentation pertaining to the Crystal Peak 
+Incident is restricted to personnel with Top Secret/SCI <Redact>ECHO-1 Compartment</Redact> 
+clearance.
+
+<CaseFile label="Crystal Peak Signals Intelligence Station, 1992" cover="/lore/gray-signal/gs-incident-case.png">
   <div slot="left">
-    <h4>Field report</h4>
-    <p>Left sheet — the incident report from the military base "Crystal Peak". Dates,
-    personnel, what was logged before contact was lost. Write it as a typed document.</p>
-    <p>Keep it terse and official. The gaps say more than the words.</p>
+
+    <h4>Intercepted transmission</h4>
+    <p><b>DATE:</b> 23 August 1992</p>
+    <p><b>CLASSIFICATION:</b> TOP SECRET//SCI — ECHO-1 COMPARTMENT</p>
+    <p><b>Crystal Peak Unit Roster:</b> Corporal August Pruett (Base Commander), Private Everett Boos 
+    (missing, <Redact>presumed deceased</Redact>), Specialist Creed Clemens, Specialist Boris Dotsenko (missing),
+    Private Lee Porter (missing), Private Mitchell Rawler, Specialist Saymon Salt.</p>
+    <p>Note: Corporal August Pruett is under court-martial investigation on suspicion of murder 
+    and arson.</p>
+    <p>During routine frequency monitoring operations, the following transmission was intercepted:
+    <b>"Department U, Main Directorate of Counterintelligence. Order: deliver 
+    uninterrupted power supply units to grid square <Redact> ████████, ████████ </Redact>. 
+    Establish a supply line to ensure transmission power continuity."</b> </p>
+    <p>Note: the transmission is low-frequency in nature and demonstrates non-standard propagation 
+    characteristics.</p>
+    <p><b>Priority Directive:</b> <Redact>Locate and retrieve any surviving copies of 
+    the deciphered transmission. Recovery of the decoded material supersedes standard 
+    evidence preservation procedures.</Redact> Status <i>Active</i>.</p>
+
   </div>
   <div slot="right">
+
     <h4>Crystal Peak Base</h4>
-    <img src="/lore/gray-signal/crystal-peak.jpg" alt="Crystal Peak military base" />
-    <p>Right sheet — a photograph of the base and a short caption. What it was for, what
-    they were really listening for up there.</p>
+    <img src="/lore/gray-signal/gs-crystal-peak-case.png" alt="Crystal Peak military base" />
+    <p>The station's communications equipment, research materials, and classified 
+    archives were destroyed in the fire. The facility is declared a total loss.</p>
+
   </div>
 </CaseFile>
 
-> A pulled quote from the book goes here — an in-world line that reframes everything
-> above. Blockquotes are styled for emphasis.
+> "The following day, Private Porter disappeared. That one left no trace. 
+> Then, apparently, it was August's turn. When he saw what materialized at the base 
+> with his own eyes, he ordered the rest of the brigade to evacuate, and then he destroyed 
+> all communications equipment and set the entire base on fire."
 
-## The receiver
+## Operator
 
-Turn the dial. The static thickens as you climb the band — and the closer you get to the
-top, the more something starts to resolve on the screen. Tune all the way in if you dare.
+The <b>Operator</b> is the name given to the unknown entity, which is responsible for
+for transmitting the Gray Signal. Whether the Operator is a living being, an intelligence, 
+or something beyond human understanding remains unknown.
 
-<SignalTuner receiver="/lore/gray-signal/receiver.png" operator="/lore/gray-signal/gs-operator.png" />
+<SignalTuner
+  receiver="/lore/gray-signal/receiver-3.png"
+  screenNoSignal="/lore/gray-signal/gs-operator-0.png"
+  screenIdle="/lore/gray-signal/gs-operator-1.png"
+  screenLock="/lore/gray-signal/gs-operator-2.png"
+/>

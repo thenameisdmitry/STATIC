@@ -1,19 +1,19 @@
 ---
-title: "Police Report"
-kind: "Case file"
+title: "MPPD Reports"
+kind: "Case files"
 description: "What the Mag Point Police Department logged before the town stopped answering its own calls."
-banner: "/lore/police-report/banner.jpg"
+banner: "/lore/police-report/police.png"
 order: 3
 ---
 
 import FileFolder from '../../components/FileFolder.astro';
+import Figure from '../../components/Figure.astro';
+import Redact from '../../components/Redact.astro';
 
-## The officer on the case
+## Massacre of Colhoen Avenue
 
 Write a paragraph here introducing the officer — one of the game's characters. Who they
 are, their place in Mag Point, the tone they bring to the investigation.
-
-<img class="lore-figure" src="/lore/police-report/officer.jpg" alt="Officer portrait" />
 
 A second paragraph: what they noticed first, the call that didn't add up, the moment the
 ordinary police work tipped into something else.
@@ -23,15 +23,14 @@ ordinary police work tipped into something else.
 Four files pulled from the department. Click a folder to open it.
 
 <div class="file-grid">
-  <FileFolder label="Incident 01" cover="/lore/police-report/file-1.jpg">
-    <h4>Incident report — 01</h4>
-    <p>Excerpt from the first report. Write it as a typed police document — date, location,
-    officer, what was found. Keep it clipped and official.</p>
+  <FileFolder label="Homicide on Colhoun Ave" cover="/lore/police-report/file-card-1.png">
+    <h4>Faraday Kavanagh</h4>
+    <p> text </p>
   </FileFolder>
 
-  <FileFolder label="Missing person" cover="/lore/police-report/file-2.jpg">
-    <h4>Missing person — case 02</h4>
-    <p>Excerpt from the second report. A name, a last-seen, a detail that doesn't sit right.</p>
+  <FileFolder label="Missing person" cover="/lore/police-report/file-card-2.png">
+    <h4>Dalton Kavanagh</h4>
+    <p> text </p>
   </FileFolder>
 
   <FileFolder label="Witness statement" cover="/lore/police-report/file-3.jpg">
@@ -48,10 +47,9 @@ Four files pulled from the department. Click a folder to open it.
 
 {/* ---- MEMORIAL ---- */}
 <div class="memorial">
-  <img class="memorial__portrait" src="/lore/police-report/sam-kosinky.jpg" alt="Officer Sam Kosinky" />
+  <img class="memorial__portrait" src="/lore/police-report/sam.png" alt="Officer Sam Kosinky" />
   <p class="memorial__eyebrow">In memory of</p>
   <h3 class="memorial__name">Sam Kosinky</h3>
-  <p class="memorial__role">Officer · Mag Point Police Department</p>
-  <p class="memorial__epitaph">[A line or two in your voice — who he was, and how he gave his life in the service of Mag Point.]</p>
-  <p class="memorial__watch">End of Watch · [date]</p>
+  <p class="memorial__epitaph">Who gave his life in service and protection of the community.</p>
+  <p class="memorial__watch">End of Watch · 08/14/2008</p>
 </div>

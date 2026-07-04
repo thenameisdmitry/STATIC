@@ -69,8 +69,8 @@ const { mapSrc, locations, calibrate = false } = Astro.props;
             <ul>{(loc.quests ?? ['—']).map((q) => <li>{q}</li>)}</ul>
           </div>
           <div class="map-panel__col">
-            <h4>Enemies</h4>
-            <ul>{(loc.enemies ?? ['—']).map((e) => <li>{e}</li>)}</ul>
+            <h4>Encounters</h4>
+            <ul>{(loc.encounters ?? ['—']).map((e) => <li>{e}</li>)}</ul>
           </div>
         </div>
       </section>

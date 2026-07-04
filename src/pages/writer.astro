@@ -4,8 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="Dmitrii Zhukov The Writer">
   <section class="px-6 pt-16">
     <div class="mx-auto max-w-4xl">
-      <p class="eyebrow mb-4">CH 01</p>
-      <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">DZ: The Writer</h1>
+
+      <div class="flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p class="eyebrow mb-4">CH 01</p>
+          <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">DZ: The Writer</h1>
+        </div>
+        <a href="/cv/dmitrii-zhukov-cv.pdf" target="_blank" rel="noopener" class="cv-btn">&#8595; Download CV</a>
+      </div>
       <p class="mt-6 text-l text-ink-dim">
         Game writing • Narrative design • Worldbuilding • Lore development • 
         Branching narrative • Narrative Pacing • Character & Dialogue writing • 
@@ -58,7 +64,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             organizing complex information, communicating across disciplines, and turning ideas into 
             structured, user-focused experiences.</p>
           <p class="placeholder block"><span class="font-bold text-violet">[Game writing]: </span>Writing has always been at 
-            the core of my career (from technical support instruction to full-time technical writers 
+            the core of my career (from technical support instructions to full-time technical writers 
             team lead). It has always been my hobby as well: that is why I have invested a lot of 
             time in writing fiction novels. <br /><br />After years of creating documentation for complex software 
             products professionally, I chose to bring together my professional experience with my 
@@ -92,9 +98,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         that shaped them. Every place and every individual has a story waiting to be uncovered.
 
       </p>
-
-      <hr class="rule my-12" />
-      <a href="/cv.pdf" class="font-mono text-sm uppercase tracking-widest text-violet-bright hover:text-ink">↓ Download CV</a>
+      
     </div>
   </section>
 </BaseLayout>

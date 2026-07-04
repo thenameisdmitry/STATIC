@@ -1,17 +1,26 @@
 ---
-// A receiver with a rotary knob you drag to tune. As the dial approaches max,
-// the Operator emerges from the static on the screen.
+// A receiver with a rotary knob you drag to tune. At 0% the screen shows a
+// flickering NO SIGNAL frame; the scene image emerges from 3% to 98%;
+// at lock (~98%) it swaps to the Operator frame with heavy glitching.
 interface Props {
-  receiver?: string;   // receiver image under /public (optional, CSS fallback)
-  operator?: string;   // the entity image under /public (optional, CSS fallback)
+  receiver?: string;      // receiver image — CSS background of the device card
+  screenNoSignal?: string; // NO SIGNAL frame, visible at 0%, gone by 5%
+  screenIdle?: string;    // scene image, fades in from 3% to 98%
+  screenLock?: string;    // Operator frame after lock
 }
-const { receiver, operator } = Astro.props;
+const { receiver, screenNoSignal, screenIdle, screenLock } = Astro.props;
+
+const screenVars = [
+  screenNoSignal ? `--screen-nosignal: url('${screenNoSignal}')` : '',
+  screenIdle ? `--screen-idle: url('${screenIdle}')` : '',
+  screenLock ? `--screen-lock: url('${screenLock}')` : '',
+].filter(Boolean).join('; ');
 ---
 <div class="tuner" data-tuner data-locked="false">
-  <div class="tuner__device">
-    {receiver
-      ? <img class="tuner__receiver" src={receiver} alt="Field receiver" />
-      : <div class="tuner__receiver tuner__receiver--ph"></div>}
+  <div
+    class="tuner__device"
+    style={receiver ? `--receiver: url('${receiver}')` : undefined}
+  >
     <button type="button" class="tuner__knob" aria-label="Tune the receiver">
       <span class="tuner__knob-mark"></span>
     </button>
@@ -19,11 +28,11 @@ const { receiver, operator } = Astro.props;
     <div class="tuner__readout" data-readout>SIGNAL 0%</div>
   </div>
 
-  <div class="tuner__screen">
+  <div class="tuner__screen" style={screenVars || undefined}>
+    <div class="tuner__idle-swap"></div>
+    <div class="tuner__nosignal"></div>
+    <div class="tuner__glitch-ghost"></div>
     <div class="tuner__noise"></div>
-    {operator
-      ? <img class="tuner__operator" src={operator} alt="" data-operator />
-      : <div class="tuner__operator tuner__operator--ph" data-operator></div>}
     <div class="tuner__scanlines"></div>
   </div>
 </div>
@@ -33,18 +42,16 @@ const { receiver, operator } = Astro.props;
     const knob = root.querySelector('.tuner__knob') as HTMLElement | null;
     const fill = root.querySelector('.tuner__meter-fill') as HTMLElement | null;
     const readout = root.querySelector('[data-readout]') as HTMLElement | null;
-    const operator = root.querySelector('[data-operator]') as HTMLElement | null;
-    if (!knob || !fill || !readout || !operator) return;
+    if (!knob || !fill || !readout) return;
 
     let value = 0;
     let dragging = false;
 
     const apply = () => {
+      (root as HTMLElement).style.setProperty('--signal', String(value));
       knob.style.transform = `rotate(${value * 270 - 135}deg)`;
       fill.style.width = `${Math.round(value * 100)}%`;
       readout.textContent = `SIGNAL ${Math.round(value * 100)}%`;
-      const op = Math.max(0, Math.min(1, (value - 0.6) / 0.4));
-      operator.style.opacity = String(op);
       root.setAttribute('data-locked', value > 0.97 ? 'true' : 'false');
     };
 

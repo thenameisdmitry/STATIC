@@ -2,4 +2,30 @@
 interface Props { label?: string; }
 const { label = 'redacted' } = Astro.props;
 ---
-<span class="redact" role="button" tabindex="0" aria-label={`Reveal: ${label}`}><slot /></span>
+<span class="redact" data-redact role="button" tabindex="0" aria-label={`Reveal: ${label}`}><slot /></span>
+
+<script>
+  // Делегирование: один слушатель на document, элемент ищем в момент клика.
+  // Устойчиво к HMR, повторным вставкам скрипта и нескольким <Redact> на странице.
+  if (!(window as any).__redactBound) {
+    (window as any).__redactBound = true;
+
+    const reveal = (el: Element) => {
+      el.classList.add('is-open');
+      el.removeAttribute('role');
+      el.removeAttribute('tabindex');
+    };
+
+    document.addEventListener('click', (e) => {
+      const el = (e.target as Element | null)?.closest?.('[data-redact]');
+      if (el) reveal(el);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      const k = e.key;
+      if (k !== 'Enter' && k !== ' ') return;
+      const el = document.activeElement?.closest?.('[data-redact]');
+      if (el) { e.preventDefault(); reveal(el); }
+    });
+  }
+</script>

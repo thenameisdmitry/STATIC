@@ -1,0 +1,27 @@
+---
+// Illustration block for MDX pages.
+// Default look matches project illustrations (border + radius).
+//
+// Props:
+//   src      — image path under /public (required)
+//   alt      — alt text (required for content images)
+//   caption  — optional caption under the image
+//   width    — CSS width, e.g. "60%", "420px". Default: 100%
+//   align    — "center" (default) | "left" | "right" | "full"
+//              left/right float the figure so text wraps around it
+interface Props {
+  src: string;
+  alt?: string;
+  caption?: string;
+  width?: string;
+  align?: 'center' | 'left' | 'right' | 'full';
+}
+const { src, alt = '', caption, width, align = 'center' } = Astro.props;
+---
+<figure
+  class={`fig fig--${align}`}
+  style={width ? `--fig-width: ${width}` : undefined}
+>
+  <img class="fig__img" src={src} alt={alt} loading="lazy" />
+  {caption && <figcaption class="fig__caption">{caption}</figcaption>}
+</figure>

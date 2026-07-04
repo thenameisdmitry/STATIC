@@ -5,6 +5,7 @@ import ArtifactCard from '../../components/ArtifactCard.astro';
 import Carousel from '../../components/Carousel.astro';
 
 const parts = [
+  ['Game concept & plot', 'Game genre, concept, key mechanics, and the story plot', 'concept'],
   ['World & Lore', 'World description, gray signal lore, and artifacts: files, footage, field notes.', 'world-lore'],
   ['Interactive dialogue', 'A playable branching scene where you can influence the game plot.', 'interactive-dialogue'],
   ['Character files', 'Cards, voice, barks.', 'character-files'],
@@ -19,8 +20,20 @@ const missing = [
 { src: '/lore/missing/missing-2.png', caption: 'Siobhan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
 { src: '/lore/missing/missing-3.png', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
 { src: '/lore/missing/missing-4.png', caption: 'Daniel Tally. Missing since Aug. 1998. Last seen at the "Duck" pub.' },
-{ src: '/lore/missing/missing-5.png', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at "Crystal Pick" MB.' },
+{ src: '/lore/missing/missing-5.png', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at "Crystal Peak" MB.' },
 ];
+
+//Five gameplay pillars in the concept section.
+
+const pillars = [
+  ['Investigation', 20, 'Collecting evidence and reconstructing events on a detective board to identify suspects, motives, and hidden connections.'],
+  ['Narrative', 25, 'Branching dialogue, cinematic sequences, and character relationships that shape both the immediate story and the ending.'],
+  ['Exploration', 25, 'Searching locations, environmental storytelling, hidden documents, and optional discoveries.'],
+  ['Combat', 15, "Firearm and hand-to-hand encounters centered primarily around Ian's gameplay."],
+  ['Stealth', 15, 'Infiltration, evasion, and silent navigation, primarily experienced through Saoirse.'],
+];
+
+
 ---
 <BaseLayout title="STATIC the Game">
   <section class="px-6 pt-16 pb-16">
@@ -28,28 +41,187 @@ const missing = [
       <p class="eyebrow mb-4">CH 02 · Featured project</p>
       <h1 class="signal-in font-display text-7xl font-semibold uppercase tracking-tight md:text-9xl">STATIC</h1>
       <p class="mt-6 text-lg text-ink-dim">
-        Mystical-horror adventure in a small Alaskan town where something reaches through the
-        <Redact label="the channel">television signal</Redact> and takes people. Fog. Tapes.
-        Realities that won't hold still.
+        A mystery detective horror set in a remote Alaskan town, where an unseen force 
+        reaches through the <Redact label="the channel">television signal</Redact>, 
+        abducting people without a trace. As reality begins to unravel, you must investigate 
+        the disappearances, uncover the truth behind the enigmatic Gray Signal, and decide 
+        the fate of a town haunted by its past.
       </p>
-      <p class="mt-3 font-mono text-xs text-ink-dim">[Draft logline from your brief — rewrite in your voice.]</p>
 
       <div class="mt-14 grid gap-4 md:grid-cols-2">
         {parts.map(([t, d, slug], i) => (
           <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.png)`}>
             <span class="font-mono text-m text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
             <h2 class="mt-2 font-display text-3xl uppercase tracking-tight text-ink">{t}</h2>
-            <p class="mt-2 text-sm text-ink-ink">{d}</p>
+            <p class="mt-2 text-sm text-ink">{d}</p>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 01 · WORLD & LORE -->
+  
+  <!-- 01 · CONCEPT & PLOT -->
+  <section id="concept" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">01 — Game concept &amp; plot</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Genre, Gameplay Mechanics, and Story</h2>
+ 
+      <p class="mt-4 max-w-5xl text-lg text-ink-dim" style="">
+        <span class="text-violet-bright"><b>STATIC</b></span> is a third-person mystery-horror adventure
+        that blends <b class="text-ink">investigation</b>, <b class="text-ink">survival</b>, and 
+        <b class="text-ink"> action</b> into a narrative-driven experience where every major decision
+        carries lasting consequences.
+      </p>
+ 
+      <!-- at-a-glance pitch metadata -->
+      <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-line py-5 font-mono sm:grid-cols-4">
+        <div>
+          <dt class="text-[0.80rem] uppercase tracking-widest text-violet-bright">Genre</dt>
+          <dd class="mt-1 text-sm text-ink">Mystery-horror adventure</dd>
+        </div>
+        <div>
+          <dt class="text-[0.80rem] uppercase tracking-widest text-violet-bright">Perspective</dt>
+          <dd class="mt-1 text-sm text-ink">Third-person</dd>
+        </div>
+        <div>
+          <dt class="text-[0.80rem] uppercase tracking-widest text-violet-bright">Players</dt>
+          <dd class="mt-1 text-sm text-ink">Single-player</dd>
+        </div>
+        <div>
+          <dt class="text-[0.80rem] uppercase tracking-widest text-violet-bright">For fans of</dt>
+          <dd class="mt-1 text-sm text-ink">Alan Wake · Heavy Rain · The Vanishing of Ethan Carter</dd>
+        </div>
+      </dl>
+ 
+      <!-- key art — one wide cinematic image sets the tone -->
+      <img src="/game/concept/concept-6.png" alt="STATIC key art"
+           class="mt-8 aspect-[16/4] w-full rounded-lg border border-line object-cover" />
+ 
+      <!-- structured reading content (single column for readability) -->
+      <div class="mx-auto mt-14 max-w-5xl space-y-14">
+ 
+        <!-- Premise (your Story goes here) -->
+        <div>
+          <h3 class="font-mono text-m uppercase tracking-widest text-violet-bright">Story</h3>
+          <div class="mt-3 text-ink-dim" style="text-align: justify">
+
+          <p><span class="text-violet-bright"><b>STATIC</b></span> is built upon the events 
+            of the novel <span class="text-violet-bright"><i>Myst</i></span>, but instead of 
+            retelling its story, it invites players to rewrite it. The game follows the 
+            same world, characters, and central mystery while allowing pivotal choices to 
+            reshape the narrative and the destiny of the heroes.</p>
+            <br />
+          <p>In 2018, Saoirse Barrell returns to the Alaskan town Mag Point: the place she swore 
+            never to see again. Ten years earlier, her ten-year-old brother, Caleb, vanished without 
+            a trace alongside four other children. The town never found answers, and neither did she. 
+            Ironically, she comes back for something utterly mundane: to retrieve her old medical records. 
+            The moment she arrives, people begin disappearing again. When Saoirse's father becomes the 
+            prime suspect, she is forced to launch her own investigation.</p>
+            <br />
+          <p>She finds ally in Ian Demme, her former high school boyfriend. Ten years ago, she left 
+            Mag Point without saying goodbye, shattering his life and leaving wounds that never 
+            truly healed. Their unexpected reunion forces them to confront both their shared past 
+            and the secrets they have kept from one another.</p>
+            <br />
+          <p>As the mysterious Gray Signal spreads through the town again, Ian and Saoirse must 
+            uncover the truth behind the disappearances that have haunted the town for decades. But in 
+            <span class="text-violet-bright"><b> STATIC</b></span>, the truth is never fixed. Every 
+            crucial decision has the power to alter relationships, reshape the investigation, 
+            and change the fate of their loved ones.</p>
+          </div>
+        </div>
+ 
+        <!-- Two protagonists -->
+        <div>
+          <h3 class="font-mono text-sm uppercase tracking-widest text-violet-bright">Two protagonists, one town</h3>
+          <p class="mt-3 text-ink-dim" style="text-align: justify">
+            Players explore the isolated Alaskan town of Mag Point, uncovering clues behind a series
+            of mysterious disappearances while confronting hostile entities emerging from the enigmatic
+            Gray Signal. The story is experienced through two playable protagonists, <b>Ian</b> and <b>Saoirse</b>, whose gameplay
+            styles complement one another.
+          </p>
+          <div class="mt-5 grid gap-4 sm:grid-cols-2">
+            <div class="overflow-hidden rounded-lg border border-line bg-raised">
+              <img src="/game/concept/ian.png" alt="Ian" class="aspect-[5/4] w-full object-cover" />
+              <div class="p-5">
+                <p class="font-display text-2xl uppercase tracking-tight text-ink">Ian Demme</p>
+                <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Action · Close quarters · Investigation</p>
+                <p class="mt-3 text-base text-ink-dim">A young local troublemaker, anchors the game's tense, investigation line, close-quarters encounters, relying on firearms and hand-to-hand combat when the threat gets physical.</p>
+              </div>
+            </div>
+            <div class="overflow-hidden rounded-lg border border-line bg-raised">
+              <img src="/game/concept/saoirse.png" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
+              <div class="p-5">
+                <p class="font-display text-2xl uppercase tracking-tight text-ink">Saoirse Barrell</p>
+                <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Stealth · Observation  · Narrative</p>
+                <p class="mt-3 text-base text-ink-dim">Reluctantly returned after years in New York City, approaches danger through stealth, observation, and careful infiltration, offering a contrasting perspective on both the narrative and gameplay.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Five pillars (bars) -->
+        <div>
+          <h3 class="font-mono text-base uppercase tracking-widest text-violet-bright">Gameplay</h3>
+          <p class="mt-3 text-ink-dim">The core gameplay is built around five interconnected pillars.</p>
+          <div class="mt-6 space-y-5">
+            {pillars.map(([name, pct, desc]) => (
+              <div>
+                <div class="flex items-baseline justify-between gap-4">
+                  <span class="font-display text-lg uppercase tracking-tight text-ink">{name}</span>
+                  <span class="font-mono text-xs text-violet-bright">{pct}%</span>
+                </div>
+                <div class="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-line">
+                  <div class="h-full rounded-full bg-violet-bright shadow-[0_0_12px_rgba(157,78,221,0.55)]" style={`width:${pct}%`}></div>
+                </div>
+                <p class="mt-2 text-sm text-ink-dim">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+ 
+        <!-- Living world -->
+        <div>
+          <h3 class="font-mono text-sm uppercase tracking-widest text-violet-bright">A living world</h3>
+          <p class="mt-3 text-ink-dim" style="text-align: justify">
+            The world itself is dynamic. Locations can be explored during both day and night, and the
+            transition between them fundamentally changes the experience. Areas that are safe
+            during daylight may become hostile after dark, introducing new enemies and altered routes,
+            that question the very nature of reality. You can never be certain how much of what you're 
+            experiencing is real. Players will encounter environmental changes, and previously inaccessible 
+            opportunities. Players are encouraged to revisit familiar locations under different conditions, 
+            as the town itself evolves alongside the story.
+          </p>
+        </div>
+ 
+        <!-- Two core mechanics -->
+        <div>
+          <h3 class="font-mono text-sm uppercase tracking-widest text-violet-bright">Innovative mechanics</h3>
+          <p class="mt-3 text-ink-dim">Two systems set <span class="text-violet-bright"><b>STATIC</b></span> apart from a traditional detective horror.</p>
+          <div class="mt-5 grid gap-4 md:grid-cols-2">
+            <div class="rounded-lg border border-line bg-raised p-5 text-justify">
+              <p class="font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">The Gray Signal</p>
+              <p class="mt-3 text-base text-ink-dim">A mysterious phenomenon that obscures hostile entities from normal perception. During both combat and stealth encounters, players must actively operate a <b>retransmission device</b> to intercept the Gray Signal, revealing enemies that would otherwise remain invisible. Maintaining the signal becomes a constant tactical consideration, transforming every encounter into a balance between awareness, survival, and resource management.</p>
+            </div>
+            <div class="rounded-lg border border-line bg-raised p-5 text-justify">
+              <p class="font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">The investigation board</p>
+              <p class="mt-3 text-base text-ink-dim">Unlike conventional detective games, the investigation board provides no guidance, hints, or hidden validation. Players <b>independently connect evidence and formulate conclusions</b>, making genuine deductions instead of following predetermined solutions. Three pivotal investigation decisions serve as major narrative turning points. An incorrect conclusion does not result in failure or a game over. Instead, the story branches in a different direction.</p>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg border border-violet/40 bg-violet/5 px-6 py-5 text-center">
+            <p class="font-mono text-lg uppercase tracking-[0.2em] text-violet-bright">Your Conclusion Has Altered The Story</p>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </section>
+ 
+
+  <!-- 02 · WORLD & LORE -->
   <section id="world-lore" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <p class="eyebrow mb-3">01 — World &amp; Lore</p>
+      <p class="eyebrow mb-3">02 — World &amp; Lore</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">World &amp; Lore</h2>
       <p class="mt-3 max-w-2xl text-ink-dim">
         [Intro — set the table for the world. Tiles marked “Open file” lead to their own chapters.]
@@ -79,15 +251,53 @@ const missing = [
     </div>
   </section>
 
+ <!-- 03 · INTERACTIVE DIALOGUE -->
+  <section id="interactive-dialogue" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">03 — Interactive dialogue</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Interactive dialogue</h2>
+      <p class="mt-3 text-ink-dim">
+      A branching dialogue scene that shapes the course of the story. Two main playable 
+      characters, Ian and Saoirse cross paths by chance in Mag Point for the first time 
+      since 2008, when Saoirse left for New York City without a word, abandoning both the 
+      town and the relationship they once shared. Their unexpected reunion comes just as 
+      people begin disappearing again, pulling them back into a mystery they thought had 
+      been left behind.
+      </p>
+
+      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.png)" aria-label="Play the scene">
+        <span class="dlg-teaser__play" aria-hidden="true">&#9654;</span>
+        <span class="dlg-teaser__meta">one location · two speakers · 3 possible endings</span>
+        <span class="dlg-teaser__cta">&#9656; Play the scene</span>
+      </a>
+    </div>
+  </section>
+
+
   <!-- Remaining sections (stubs) -->
-  {parts.slice(1).map(([t, d, slug], i) => (
+  {parts.slice(3).map(([t, d, slug], i) => (
     <section id={slug} class="scroll-mt-24 border-t border-line px-6 py-16">
       <div class="mx-auto max-w-4xl">
-        <p class="eyebrow mb-3">{String(i + 2).padStart(2, '0')} — {t}</p>
+        <p class="eyebrow mb-3">{String(i + 4).padStart(2, '0')} — {t}</p>
         <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">{t}</h2>
         <p class="mt-3 max-w-2xl text-ink-dim">{d}</p>
         <p class="mt-6 font-mono text-xs text-ink-dim">// in production</p>
       </div>
     </section>
   ))}
+
+<!-- Back to top button -->
+  <button id="to-top" type="button" aria-label="Back to top" hidden>&#8593;</button>
+
+  <script is:inline>
+    const btn = document.getElementById('to-top');
+    const onScroll = () => { btn.hidden = window.scrollY < 400; };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    btn.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    );
+  </script>
+
+
 </BaseLayout>
