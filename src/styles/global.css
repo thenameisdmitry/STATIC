@@ -1236,12 +1236,12 @@
 
   /* ---- memorial ---- */
   .memorial {
-    text-align: center; max-width: 30rem; margin: 4rem auto 1rem; padding: 1.2rem 1.5rem;
+    text-align: center; max-width: 25rem; max-height: 700px; margin: 2rem auto 1rem; padding: 1rem 1rem;
     border: 1px solid var(--color-line); border-radius: 8px;
     background: linear-gradient(180deg, rgba(157,78,221,0.05), transparent 60%), var(--color-raised);
   }
   .memorial__portrait {
-    width: 120px; height: 400px; object-fit: cover; border-radius: 50%; margin: 0 auto 1.1rem;
+    width: 120px; height: 350px; object-fit: cover; border-radius: 50%; margin: 0 auto 1.1rem;
     border: 1px solid var(--color-line); filter: grayscale(1) brightness(.92);
     box-shadow: 0 0 0 4px rgba(157,78,221,0.12);
   }
@@ -1250,7 +1250,7 @@
   .memorial__role { font-family: var(--font-mono); font-size:.8rem; color:var(--color-ink-dim); margin:0 0 1rem; }
   .memorial__epitaph { color:var(--color-ink-dim); font-style:italic; margin:0 auto 1.2rem; max-width:24rem; }
   .memorial__watch { font-family: var(--font-mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--color-ink-dim); margin:0; }
-  .memorial__watch::before { content:""; display:block; width:40px; height:1px; background:var(--color-violet); margin:0 auto 1rem; opacity:.6; }
+  .memorial__watch::before { content:""; display:block; width:60px; height:1px; background:var(--color-violet); margin:0 auto 1rem; opacity:.6; }
 }
 
 
@@ -1381,3 +1381,241 @@
     margin: 1.5rem auto;
   }
 }
+
+
+
+/* ===== FORUM THREAD (archived evidence) ===== */
+.forum {
+  margin: 2.5rem 0;
+  border: 1px solid #9a9a8e;
+  border-radius: 2px;
+  background: #ece9dc;
+  color: #1d1d1a;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  box-shadow: 0 24px 48px -26px rgba(0, 0, 0, 0.9);
+}
+
+.forum__chrome {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.8rem;
+  background: linear-gradient(180deg, #3c5a80, #2c4666);
+  color: #dfe7f2;
+  font-size: 0.72rem;
+}
+.forum__archived { opacity: 0.75; white-space: nowrap; }
+
+.forum__title {
+  padding: 0.6rem 0.8rem;
+  background: #d9d4c2;
+  border-bottom: 1px solid #b5b0a0;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* пост: колонка юзера + тело */
+.fpost {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  border-bottom: 1px solid #c9c4b2;
+}
+.fpost:nth-child(even) { background: #e2dfd0; }
+.fpost:last-child { border-bottom: none; }
+
+.fpost__user {
+  padding: 0.8rem;
+  border-right: 1px solid #c9c4b2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fpost__avatar {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 1px solid #9a9a8e !important;
+  border-radius: 0 !important;
+  image-rendering: pixelated; /* мелкий аватар нулевых */
+}
+.fpost__avatar--ph {
+  display: block;
+  background:
+    linear-gradient(135deg, #b9b4a2 25%, #a8a392 25%, #a8a392 50%, #b9b4a2 50%, #b9b4a2 75%, #a8a392 75%);
+  background-size: 8px 8px;
+}
+
+.fpost__nick {
+  font-weight: 700;
+  color: #274a75;
+  word-break: break-word;
+}
+.fpost__meta { font-size: 0.68rem; color: #6d685a; }
+
+.fpost__body { padding: 0.8rem 1rem; min-width: 0; }
+
+.fpost__date {
+  font-size: 0.68rem;
+  color: #6d685a;
+  border-bottom: 1px dotted #b5b0a0;
+  padding-bottom: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.fpost__text p { margin: 0.5rem 0; }
+.fpost__text a { color: #1f4fa0; text-decoration: underline; }
+
+/* подпись после --- в тексте поста */
+.fpost__text hr {
+  border: none;
+  border-top: 1px solid #b5b0a0;
+  margin: 0.8rem 0 0.4rem;
+}
+
+/* удалённый пост */
+.fpost--deleted .fpost__removed {
+  font-style: italic;
+  color: #8a4a3d;
+  background: repeating-linear-gradient(-45deg, rgba(0,0,0,.03) 0 8px, transparent 8px 16px);
+  padding: 0.6rem 0.8rem;
+  border: 1px dashed #b08a80;
+}
+
+@media (max-width: 560px) {
+  .fpost { grid-template-columns: 1fr; }
+  .fpost__user {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    border-right: none;
+    border-bottom: 1px dotted #c9c4b2;
+  }
+  .fpost__meta { margin-left: auto; }
+}
+
+
+
+/* ===== PHOTO COMPARE (before/after slider) ===== */
+.pcompare {
+  position: relative;
+  margin: 2.5rem 0;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  --pos: 50%;
+}
+
+.pcompare__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* нижний слой — after — в потоке, задаёт высоту блока */
+/* верхний слой — before — абсолютный, срезается по --pos */
+.pcompare__before-wrap {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.pcompare__before-wrap .pcompare__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* вертикальная ручка на границе среза */
+.pcompare__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: rgba(236, 233, 220, 0.85);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+.pcompare__grip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ece9dc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.55);
+}
+.pcompare__grip::before {
+  content: "◂ ▸";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: #3a372c;
+}
+
+/* невидимый range поверх всего блока — им и управляем */
+.pcompare__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+/* штампы по углам */
+.pcompare__label {
+  position: absolute;
+  top: 0.8rem;
+  z-index: 1;
+  padding: 0.2rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #ece9dc;
+  background: rgba(10, 10, 13, 0.6);
+  border: 1px solid rgba(236, 233, 220, 0.3);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.pcompare__label--before { left: 0.8rem; }
+.pcompare__label--after { right: 0.8rem; }
+
+
+/* ===== FLOAT WRAPPERS (обтекание для любых блоков в MDX) ===== */
+.float-right {
+  float: right;
+  width: 32%;
+  margin: 0.4rem 0 1rem 1.75rem;
+}
+
+.float-left {
+  float: left;
+  width: 42%;
+  margin: 0.4rem 1.75rem 1rem 0;
+}
+
+/* на мобильных обтекание всегда выключаем */
+@media (max-width: 640px) {
+  .float-right,
+  .float-left {
+    float: none;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+}
+
+
+

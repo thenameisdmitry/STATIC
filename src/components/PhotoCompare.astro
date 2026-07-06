@@ -1,0 +1,40 @@
+---
+// Before/after photo comparator. Drag the handle to reveal the second image.
+// Same interaction family as SignalTuner: pointer drag -> CSS variable.
+interface Props {
+  before: string;       // image path under /public
+  after: string;        // image path under /public
+  alt?: string;
+  labelBefore?: string; // corner stamp, e.g. "AUG 2007"
+  labelAfter?: string;  // corner stamp, e.g. "AUG 2008"
+}
+const { before, after, alt = '', labelBefore, labelAfter } = Astro.props;
+---
+<div class="pcompare" data-pcompare>
+  <img class="pcompare__img pcompare__img--after" src={after} alt="" loading="lazy" />
+  <div class="pcompare__before-wrap">
+    <img class="pcompare__img" src={before} alt={alt} loading="lazy" />
+  </div>
+  {labelBefore && <span class="pcompare__label pcompare__label--before">{labelBefore}</span>}
+  {labelAfter && <span class="pcompare__label pcompare__label--after">{labelAfter}</span>}
+  <div class="pcompare__handle" aria-hidden="true">
+    <span class="pcompare__grip"></span>
+  </div>
+  <input
+    class="pcompare__range"
+    type="range" min="0" max="100" value="50" step="0.1"
+    aria-label="Compare photos"
+  />
+</div>
+
+<script>
+  document.querySelectorAll('[data-pcompare]').forEach((root) => {
+    const range = root.querySelector('.pcompare__range') as HTMLInputElement | null;
+    if (!range) return;
+    const set = (v: number) => {
+      (root as HTMLElement).style.setProperty('--pos', `${v}%`);
+    };
+    range.addEventListener('input', () => set(parseFloat(range.value)));
+    set(50);
+  });
+</script>

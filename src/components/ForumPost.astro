@@ -1,0 +1,28 @@
+---
+// Single post inside <ForumThread>. Body goes in the slot.
+interface Props {
+  user: string;      // nickname
+  avatar?: string;   // small avatar image under /public (optional)
+  joined?: string;   // e.g. "Aug 2007"
+  posts?: string;    // e.g. "347"
+  date?: string;     // post date line, e.g. "08/29/2008, 02:14 AM"
+  deleted?: boolean; // render as moderator-removed post
+}
+const { user, avatar, joined, posts, date, deleted = false } = Astro.props;
+---
+<div class={`fpost${deleted ? ' fpost--deleted' : ''}`}>
+  <div class="fpost__user">
+    {avatar
+      ? <img class="fpost__avatar" src={avatar} alt="" loading="lazy" />
+      : <span class="fpost__avatar fpost__avatar--ph"></span>}
+    <span class="fpost__nick">{user}</span>
+    {joined && <span class="fpost__meta">Joined: {joined}</span>}
+    {posts && <span class="fpost__meta">Posts: {posts}</span>}
+  </div>
+  <div class="fpost__body">
+    {date && <div class="fpost__date">Posted: {date}</div>}
+    {deleted
+      ? <div class="fpost__removed">This post has been removed by a moderator.</div>
+      : <div class="fpost__text"><slot /></div>}
+  </div>
+</div>

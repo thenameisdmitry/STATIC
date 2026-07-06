@@ -1,0 +1,20 @@
+---
+// Archived forum thread, early-2000s phpBB style. Light "screenshot" on the
+// dark page — reads as recovered evidence. Put <ForumPost> components in the slot.
+interface Props {
+  title?: string;    // thread title, e.g. "Anyone else picking up the broadcast?"
+  board?: string;    // breadcrumb, e.g. "Mag Point Community > Off-Topic"
+  archived?: string; // archive stamp, e.g. "Archived 09/02/2008 — 4 posts"
+}
+const { title = 'Untitled thread', board = 'Forum', archived } = Astro.props;
+---
+<div class="forum">
+  <div class="forum__chrome">
+    <span class="forum__breadcrumb">{board}</span>
+    {archived && <span class="forum__archived">{archived}</span>}
+  </div>
+  <div class="forum__title">{title}</div>
+  <div class="forum__posts">
+    <slot />
+  </div>
+</div>
