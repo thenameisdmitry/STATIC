@@ -1,6 +1,10 @@
 ---
 // Renders a playable branching scene from a scene object (see src/data/*.json).
 // State the engine keeps: current node id + a flags map. Everything else derives from those.
+// Flags: boolean ("set": {"lied": true}) or counters ("set": {"disgust": 1} adds 1).
+// Requires: {"flag": true|false} or {"flag": {"min": 2, "max": 5}}.
+// Nodes may carry "variants": [{requires, text}] — first match overrides "text".
+// Nodes may carry "auto": {"to": "id", "delay": ms} — echo lines that advance on their own.
 interface Props { scene: any; }
 const { scene } = Astro.props;
 const bg = scene?.meta?.bg;
@@ -59,9 +63,38 @@ const bg = scene?.meta?.bg;
     let flags = {};
     const endings = new Set();
     let typer = null;
+    let autoTimer = null;
     let current = null;
+    let currentText = '';
 
-    const met = (req) => !req || Object.keys(req).every((k) => flags[k] === req[k]);
+    const met = (req) => !req || Object.keys(req).every((k) => {
+      const need = req[k];
+      const have = flags[k];
+      if (need && typeof need === 'object') {
+        const v = typeof have === 'number' ? have : (have ? 1 : 0);
+        if ('min' in need && v < need.min) return false;
+        if ('max' in need && v > need.max) return false;
+        return true;
+      }
+      if (need === false) return !have;
+      return have === need;
+    });
+
+    const applySet = (set) => {
+      Object.entries(set || {}).forEach(([k, v]) => {
+        if (typeof v === 'number') {
+          flags[k] = (typeof flags[k] === 'number' ? flags[k] : 0) + v;
+        } else {
+          flags[k] = v;
+        }
+      });
+    };
+
+    const resolveText = (node) => {
+      const v = (node.variants || []).find((x) => met(x.requires));
+      return (v ? v.text : node.text) || '';
+    };
+
     const progress = () => { elProgress.textContent = `endings found ${endings.size} / ${total}`; };
 
     function portrait(sp) {
@@ -85,16 +118,30 @@ const bg = scene?.meta?.bg;
       typer = setInterval(() => {
         elText.textContent = text.slice(0, ++i);
         if (i >= text.length) { clearInterval(typer); typer = null; elText.classList.remove('is-typing'); done && done(); }
-      }, 18);
+      }, 30);
+    }
+
+    // после текста: либо кнопки, либо авто-переход
+    function afterText(node) {
+      if (node.auto && node.auto.to) {
+        autoTimer = setTimeout(() => { autoTimer = null; go(node.auto.to); }, node.auto.delay ?? 700);
+      } else {
+        choices(node);
+      }
     }
 
     function skip() {
-      if (!elText.classList.contains('is-typing') || !current) return;
-      if (typer) { clearInterval(typer); typer = null; }
+      if (!current) return;
       const node = data.nodes[current];
-      elText.textContent = node.text || '';
-      elText.classList.remove('is-typing');
-      choices(node);
+      if (elText.classList.contains('is-typing')) {
+        if (typer) { clearInterval(typer); typer = null; }
+        elText.textContent = currentText;
+        elText.classList.remove('is-typing');
+        afterText(node);
+      } else if (node.auto && node.auto.to && autoTimer) {
+        clearTimeout(autoTimer); autoTimer = null;
+        go(node.auto.to);
+      }
     }
 
     function choices(node) {
@@ -111,7 +158,7 @@ const bg = scene?.meta?.bg;
           (c.intent ? `<span class="dlg__intent">${c.intent}</span>` : '') +
           `<span class="dlg__choice-label">${label}</span>`;
         if (!ok) { btn.disabled = true; }
-        else { btn.addEventListener('click', (e) => { e.stopPropagation(); if (c.set) Object.assign(flags, c.set); go(c.to); }); }
+        else { btn.addEventListener('click', (e) => { e.stopPropagation(); applySet(c.set); go(c.to); }); }
         elChoices.appendChild(btn);
       });
     }
@@ -119,6 +166,7 @@ const bg = scene?.meta?.bg;
     function go(id) {
       const node = data.nodes[id];
       if (!node) return;
+      if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; }
       current = id;
       const sp = cast[node.speaker] || { name: node.speaker || '' };
       portrait(sp);
@@ -126,6 +174,7 @@ const bg = scene?.meta?.bg;
       if (node.note && met(node.note.requires)) { elNote.textContent = '[ ' + node.note.text + ' ]'; elNote.hidden = false; }
       else { elNote.hidden = true; }
       elChoices.innerHTML = '';
+      currentText = resolveText(node);
       if (node.outcome) {
         elOutTitle.textContent = node.outcome.title || '';
         elOutBlurb.textContent = node.outcome.blurb || '';
@@ -134,11 +183,11 @@ const bg = scene?.meta?.bg;
       } else {
         elOutcome.hidden = true;
       }
-      type(node.text || '', () => choices(node));
+      type(currentText, () => afterText(node));
     }
 
     elStage.addEventListener('click', (e) => { if (e.target.closest('.dlg__choice')) return; skip(); });
-    elReplay.addEventListener('click', (e) => { e.stopPropagation(); flags = {}; elOutcome.hidden = true; go(data.start); });
+    elReplay.addEventListener('click', (e) => { e.stopPropagation(); flags = {}; if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; } elOutcome.hidden = true; go(data.start); });
 
     progress();
     go(data.start);

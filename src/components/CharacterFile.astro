@@ -1,0 +1,56 @@
+---
+// Character dossier: teaser card that expands in place into a full file.
+// Same open/close mechanic as FileFolder, dark sheet styled for the game page.
+// Header comes from props; bio/voice/barks go in the slot (see game page markup).
+interface Props {
+  name: string;
+  role?: string;     // e.g. "Protagonist — action"
+  age?: string;
+  tagline?: string;  // one-liner under the name
+  portrait?: string; // image under /public
+}
+const { name, role, age, tagline, portrait } = Astro.props;
+---
+<div class="cfile" data-cfile>
+  <button type="button" class="cfile__cover" aria-expanded="false" aria-label={`Open file: ${name}`}>
+    {portrait
+      ? <img class="cfile__portrait" src={portrait} alt="" loading="lazy" />
+      : <span class="cfile__portrait cfile__portrait--ph"></span>}
+    <span class="cfile__id">
+      <span class="cfile__name">{name}</span>
+      {role && <span class="cfile__role">{role}</span>}
+      {tagline && <span class="cfile__tagline">{tagline}</span>}
+      <span class="cfile__hint">▸ open file</span>
+    </span>
+  </button>
+
+  <div class="cfile__open" hidden>
+    <header class="cfile__head">
+      {portrait && <img class="cfile__head-portrait" src={portrait} alt="" />}
+      <div>
+        <p class="cfile__head-name">{name}</p>
+        <p class="cfile__head-meta">{[role, age].filter(Boolean).join(' · ')}</p>
+      </div>
+      <button type="button" class="cfile__close">✕ close file</button>
+    </header>
+    <div class="cfile__body">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-cfile]').forEach((root) => {
+    const cover = root.querySelector('.cfile__cover');
+    const open = root.querySelector('.cfile__open');
+    const close = root.querySelector('.cfile__close');
+    if (!cover || !open || !close) return;
+    const show = (on: boolean) => {
+      open.hidden = !on;
+      cover.setAttribute('aria-expanded', on ? 'true' : 'false');
+      (cover as HTMLElement).style.display = on ? 'none' : '';
+    };
+    cover.addEventListener('click', () => show(true));
+    close.addEventListener('click', () => show(false));
+  });
+</script>

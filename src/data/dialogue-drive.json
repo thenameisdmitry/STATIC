@@ -1,49 +1,197 @@
 {
   "meta": {
-    "title": "The Drive",
-    "endingsTotal": 3,
-    "bg": "/game/cards/interactive-dialogue.jpg",
-    "note": "PLACEHOLDER scene to demo the engine. Replace every line with your own writing."
+    "title": "Ian and Saoirse first encounter",
+    "endingsTotal": 4,
+    "bg": "/scene/background.png"
   },
   "cast": {
-    "maya": { "name": "Maya", "portrait": "/scene/maya.jpg" },
-    "you":  { "name": "You",  "portrait": "/scene/you.jpg" }
+    "ian": { "name": "Ian", "portrait": "/scene/ian.png" },
+    "saoirse": { "name": "Saoirse", "portrait": "/scene/saoirse.png" }
   },
   "start": "open",
   "nodes": {
     "open": {
-      "speaker": "maya",
-      "text": "You saw it too. Don't sit there and tell me you didn't.",
+      "speaker": "saoirse",
+      "text": "Thanks for stopping to help us.",
       "choices": [
-        { "label": "I didn't see anything.",            "intent": "deflect", "set": { "lied": true }, "to": "turn" },
-        { "label": "I saw it. We need to talk.",         "intent": "trust",   "to": "turn" },
-        { "label": "Pull over. Now.",                    "intent": "provoke", "to": "turn" }
+        { "label": "Yeah...", "intent": "agree", "to": "dialogue" }
       ]
     },
-    "turn": {
-      "speaker": "maya",
-      "text": "So that's where we are tonight.",
-      "note": { "text": "She heard the lie in your voice.", "requires": { "lied": true } },
+    "dialogue": {
+      "speaker": "saoirse",
+      "text": "It's probably better if you drop me off here.",
       "choices": [
-        { "label": "I lied. I did see it. I'm sorry.", "intent": "confess", "requires": { "lied": true }, "showLocked": true, "lockedLabel": "locked \u2014 depends on an earlier choice", "to": "end_trust" },
-        { "label": "We tell someone. Tonight.",        "intent": "resolve", "to": "end_act" },
-        { "label": "We never talk about this again.",  "intent": "deflect", "to": "end_break" }
+        { "label": "I see... Not how you remembered me, huh?", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-look" },
+        { "label": "It's a long way to the hotel.", "intent": "reasonable", "to": "ian-echo-hotel" },
+        { "label": "*Say nothing. Light a cigarette.*", "intent": "confused", "set": { "disgust": 1 }, "to": "dialogue-3-smoke-1" }
       ]
     },
-    "end_trust": {
-      "speaker": "maya",
-      "text": "...Okay. Okay. Thank you for telling me.",
-      "outcome": { "title": "She trusts you", "blurb": "Coming clean cost you something \u2014 and bought back her trust." }
+
+    "ian-echo-look": {
+      "speaker": "ian",
+      "text": "Right. Not how you remembered me, huh? Go ahead, tell me I look like shit. At least we'd be clear on one thing.",
+      "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
     },
-    "end_act": {
-      "speaker": "maya",
-      "text": "Then we do it together. Drive.",
-      "outcome": { "title": "You act together", "blurb": "No one believes you yet. But you are not alone in it." }
+    "ian-echo-hotel": {
+      "speaker": "ian",
+      "text": "The hotel's still a long way off. You'll be soaked before you're halfway there.",
+      "auto": { "to": "dialogue-2-reasonable-1", "delay": 1200 }
     },
-    "end_break": {
-      "speaker": "maya",
-      "text": "...Fine. Nothing happened. Nothing ever happens here.",
-      "outcome": { "title": "She shuts down", "blurb": "The easiest road tonight \u2014 and you will both pay for it later." }
+
+    "dialogue-1-bitter-1": {
+      "speaker": "saoirse",
+      "text": "Stop the car!",
+      "choices": [
+        { "label": "Okay. Okay. pulling over.", "intent": "reasonable", "to": "dialogue-1-bitter-2" },
+        { "label": "*Slam the brakes.*", "intent": "aggravated", "set": { "disgust": 1 }, "to": "dialogue-1-bitter-2" }
+      ]
+    },
+    "dialogue-1-bitter-2": {
+      "speaker": "saoirse",
+      "text": "I'm sorry you had to see me again, Ian. I promise you never will.",
+      "choices": [
+        { "label": "Wait! Wait...", "intent": "reasonable", "to": "dialogue-1-bitter-3" },
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+      ]
+    },
+    "dialogue-1-bitter-3": {
+      "speaker": "saoirse",
+      "text": "What?",
+      "note": { "text": "Her hand is already on the door handle.", "requires": { "disgust": { "min": 2 } } },
+      "choices": [
+        { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth-bitter" },
+        { "label": "It's about your dad, Saoirse. He's been arrested.", "intent": "deflect", "set": { "to_precinct": true }, "to": "ian-echo-dad-soft" }
+      ]
+    },
+
+    "ian-echo-truth-bitter": {
+      "speaker": "ian",
+      "text": "Saoirse, I don't know why you came back, and I'm not going to ask. But there's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.",
+      "auto": { "to": "end_act_saoirse_reaction_1", "delay": 2300 }
+    },
+    "ian-echo-dad-soft": {
+      "speaker": "ian",
+      "text": "I didn't mean to be rude. But there's something you should hear. It's about your dad. Val's been arrested.",
+      "auto": { "to": "end_act_saoirse_reaction_2", "delay": 1600 }
+    },
+
+    "dialogue-2-reasonable-1": {
+      "speaker": "saoirse",
+      "text": "It's okay. I'll catch a ride.",
+      "choices": [
+        { "label": "Don't be silly. I'll drive you.", "intent": "reasonable", "to": "ian-echo-drive" },
+        { "label": "You can now stop pretending.", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-pretend" },
+        { "label": "Something's happened. You need to hear it.", "intent": "convince", "to": "ian-echo-happened" }
+      ]
+    },
+
+    "ian-echo-drive": {
+      "speaker": "ian",
+      "text": "Don't be silly, Saoirse. You know you won't. I'll get you to the hotel.",
+      "auto": { "to": "dialogue-2-reasonable-2", "delay": 1200 }
+    },
+    "ian-echo-pretend": {
+      "speaker": "ian",
+      "text": "You can stop pretending. Anything, just not to spend a minute with me, right?",
+      "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
+    },
+    "ian-echo-happened": {
+      "speaker": "ian",
+      "text": "Look, I get it. You don't want to be here one second longer than you have to. But something's happened, and you need to know about it.",
+      "auto": { "to": "dialogue-4-convince-1", "delay": 1200 }
+    },
+
+    "dialogue-2-reasonable-2": {
+      "speaker": "saoirse",
+      "text": "Thanks... I'm sorry you had to see me again. I promise you never will again",
+      "choices": [
+        { "label": "Wait. There's something you need to know.", "intent": "reasonable", "to": "dialogue-2-reasonable-3" },
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+      ]
+    },
+    "dialogue-2-reasonable-3": {
+      "speaker": "saoirse",
+      "text": "What is it?",
+      "choices": [
+        { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth" },
+        { "label": "Your dad's been arrested.", "intent": "deflect", "set": { "to_precinct": true }, "to": "ian-echo-dad" },
+        { "label": "I need your help, Saoirse.", "intent": "trust", "requires": { "disgust": { "max": 0 } }, "showLocked": true, "lockedLabel": "locked — she won't hear this from you now", "set": { "asked_help": true }, "to": "ian-echo-help" }
+      ]
+    },
+
+    "ian-echo-truth": {
+      "speaker": "ian",
+      "text": "Saoirse, I don't know why you came back, and I'm not going to ask. But there's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.",
+      "auto": { "to": "end_act_saoirse_reaction_1", "delay": 2300 }
+    },
+    "ian-echo-dad": {
+      "speaker": "ian",
+      "text": "It's about your dad. Val's been arrested.",
+      "auto": { "to": "end_act_saoirse_reaction_2", "delay": 1200 }
+    },
+    "ian-echo-help": {
+      "speaker": "ian",
+      "text": "I know how strange that sounds... but I need your help, Saoirse.",
+      "auto": { "to": "end_act_help_refused", "delay": 1200 }
+    },
+
+    "dialogue-4-convince-1": {
+      "speaker": "saoirse",
+      "text": "What do you mean?",
+      "choices": [
+        { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth" },
+        { "label": "*Change of heart. Say nothing.*", "intent": "confused", "to": "end_act_no_talk" }
+      ]
+    },
+    "dialogue-3-smoke-1": {
+      "speaker": "saoirse",
+      "text": "*Coughs* You never used to smoke.",
+      "choices": [
+        { "label": "Sorry. *Flick the cigarette out the window.*", "intent": "reasonable", "to": "dialogue-3-smoke-2" },
+        { "label": "How would you know?", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-know" }
+      ]
+    },
+
+    "ian-echo-know": {
+      "speaker": "ian",
+      "text": "There's a lot I never used to do. But how would you know — you of all people?",
+      "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
+    },
+
+    "dialogue-3-smoke-2": {
+      "speaker": "saoirse",
+      "text": "Listen, I'm sorry you had to see me again, Ian. I didn't want that. Can you stop the car and let me out?",
+      "choices": [
+        { "label": "Wait. There's something you need to know.", "intent": "reasonable", "to": "dialogue-2-reasonable-3" },
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+      ]
+    },
+
+    "end_act_no_talk": {
+      "speaker": "saoirse",
+      "text": "*She walks away from the car. Ian watches her go.*",
+      "outcome": { "title": "You didn't tell her", "blurb": "Saoirse will remember that you let her walk into it blind. Later, she won't believe Ian when he tells the truth." }
+    },
+    "end_act_saoirse_reaction_1": {
+      "speaker": "saoirse",
+      "text": "Shut up. Shut up. Shut up! Don't you dare say it. You came up with this just now? Go to hell, Ian!",
+      "variants": [
+        {
+          "requires": { "disgust": { "min": 2 } },
+          "text": "Shut up. Shut up. SHUT UP! Don't you dare say his name. You... You... Look at you, freak! You came up with this just now? Fuck you! I hate you! Rot, you bastard!"
+        }
+      ],
+      "outcome": { "title": "Saoirse is shocked", "blurb": "She'll regret the things she said. Later, remorse will bring her back to help Ian." }
+    },
+    "end_act_saoirse_reaction_2": {
+      "speaker": "saoirse",
+      "text": "My father is under arrest? Why? What happened?",
+      "outcome": { "title": "To the precinct", "blurb": "Saoirse asks you to drive her to the Mag Point Police Department. Later, she will help Ian in his investigation." }
+    },
+    "end_act_help_refused": {
+      "speaker": "saoirse",
+      "text": "Whatever it is you need, Ian — I can't help you. I'm sorry we met again. Please don't try to find me before I leave for good.",
+      "outcome": { "title": "She turns you down", "blurb": "You asked without armor, and she still said no. Later, she will help Ian when times comes. " }
     }
   }
 }
