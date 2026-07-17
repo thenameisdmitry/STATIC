@@ -645,6 +645,52 @@
   }
 }
 
+/* ===== FLIP PHOTO (two-sided photograph) ===== */
+.flipphoto {
+  margin: 0 auto;
+  max-width: 380px;
+  transform: rotate(-2.5deg);
+  transition: transform .3s ease;
+}
+
+.flipphoto:hover { transform: rotate(-1deg) translateY(-3px); }
+
+.flipphoto__btn {
+  display: block; width: 100%; padding: 0;
+  border: none; background: none; cursor: pointer;
+  perspective: 1200px; /* глубина 3D-переворота */
+}
+
+.flipphoto__inner {
+  position: relative; display: block; width: 100%;
+  transform-style: preserve-3d;
+  transition: transform .6s cubic-bezier(.4, .1, .2, 1);
+}
+.flipphoto__btn.is-flipped .flipphoto__inner { transform: rotateY(180deg); }
+
+.flipphoto__face {
+  display: block; width: 100%;
+  border-radius: 8px !important;
+  backface-visibility: hidden;
+}
+.flipphoto__face--back {
+  position: absolute; inset: 0; height: 100%;
+  object-fit: cover;
+  transform: rotateY(180deg);
+  border: none !important;
+}
+
+.flipphoto__caption {
+  margin-top: .6rem;
+  font-family: var(--font-mono); font-size: .65rem;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--color-ink-dim); text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flipphoto__inner { transition: none; }
+}
+
 /* ===================================================================
    STATIC component cards — per-card background image + legibility scrim
    =================================================================== */
@@ -1253,6 +1299,58 @@
   .memorial__watch::before { content:""; display:block; width:60px; height:1px; background:var(--color-violet); margin:0 auto 1rem; opacity:.6; }
 }
 
+/* ===== SECRET DOCUMENT (static classified sheets) ===== */
+.sdoc {
+  max-width: 720px;
+  margin: 2.5rem auto;
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+  background: #efe9da;
+  color: #221f18;
+  border-radius: 2px;
+  box-shadow: 0 26px 54px -26px rgba(0, 0, 0, .9);
+  font-family: var(--font-typewriter, ui-monospace, "Courier New", monospace);
+  font-size: .92rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* гриф */
+.sdoc__stamp {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1.4rem;
+  padding: .25rem .9rem;
+  border: 3px double #a3271e;
+  color: #a3271e;
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  transform: rotate(-1.2deg);
+}
+
+/* шапка-реквизиты */
+.sdoc__head {
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #221f18;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.sdoc__head p { margin: .2rem 0; }
+
+.sdoc p { margin: .8rem 0; }
+.sdoc__sig { margin-top: 2rem; }
+
+/* пометка на полях от руки */
+.sdoc__margin {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #a3271e;
+  color: #7a2a24;
+  font-style: italic;
+}
 
 /* ===================================================================
    INTERACTIVE DIALOGUE — teaser (STATIC page) + runner (scene page)
@@ -1325,6 +1423,10 @@
   .dlg__hud { position: relative; z-index: 1; padding: .7rem 1.2rem; border-top: 1px solid var(--color-line); background: rgba(8,8,13,.5);
     font-family: var(--font-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-ink-dim); }
 }
+
+/* DIALOG: нарраторские биты: без плашки спикера, текст курсивом */
+.dlg.is-narrator .dlg__speaker { visibility: hidden; }
+.dlg.is-narrator .dlg__text { font-style: italic; color: var(--color-ink-dim); font-size: clamp(1rem, 2vw, 1.2rem); }
 
 
 /* ===== FIGURE (MDX illustrations) ===== */
@@ -1495,6 +1597,29 @@
   }
   .fpost__meta { margin-left: auto; }
 }
+
+/* --- пагинация треда --- */
+.forum__page[hidden] { display: none; }
+
+/* стабильная высота, чтобы nav не прыгал между страницами разной длины */
+.forum__page { min-height: 420px; }
+
+.forum__nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.45rem 0.8rem;
+  background: linear-gradient(180deg, #3c5a80, #2c4666);
+  color: #dfe7f2;
+}
+.forum__nav-btn {
+  font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 0.72rem;
+  color: #dfe7f2; background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 2px;
+  padding: 0.2rem 0.7rem; cursor: pointer;
+  transition: background 0.15s;
+}
+.forum__nav-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.18); }
+.forum__nav-btn:disabled { opacity: 0.35; cursor: default; }
+.forum__nav-counter { font-size: 0.68rem; opacity: 0.85; }
 
 
 
@@ -1693,4 +1818,152 @@
 }
 
 
+/* ===== COLLECTIBLE CARD (examine items) ===== */
+.ccard { min-width: 0; }
 
+/* --- teaser tile --- */
+.ccard__tile {
+  position: relative; display: block; width: 100%; padding: 0; cursor: pointer; overflow: hidden;
+  border: 1px solid var(--color-line); border-radius: 10px; background: var(--color-raised);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.ccard__tile:hover {
+  border-color: var(--color-violet);
+  box-shadow: 0 18px 40px -24px rgba(157, 78, 221, .55);
+  transform: translateY(-2px);
+}
+.ccard__thumb {
+  display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+  border: none !important; border-radius: 0 !important;
+}
+.ccard__tile-name {
+  position: absolute; left: .9rem; bottom: .8rem; right: .9rem;
+  font-family: var(--font-display); font-size: 1.15rem; text-transform: uppercase; letter-spacing: -.01em;
+  color: var(--color-ink); text-shadow: 0 1px 8px rgba(0, 0, 0, .9); text-align: left;
+}
+.ccard__chip {
+  position: absolute; top: .8rem; left: .9rem;
+  font-family: var(--font-mono); font-size: .56rem; letter-spacing: .5em; text-transform: uppercase;
+  color: var(--color-violet-bright); background: rgba(8, 8, 13, .7);
+  border: 1px solid var(--color-line); border-radius: 3px; padding: .15rem .45rem;
+}
+
+/* --- examine overlay --- */
+.ccard__overlay {
+  position: fixed; inset: 0; z-index: 90;
+  display: grid; place-items: center;
+  background: rgba(5, 5, 8, .88);
+  padding: 4vmin;
+  animation: loreReveal .2s ease both;
+}
+
+.ccard__panel {
+  display: grid; gap: 1.2rem; padding: 1.4rem;
+  width: min(1000px, 100%);
+  max-height: 92vh; overflow-y: auto;
+  border: 1px solid var(--color-violet); border-radius: 10px;
+  background: var(--color-raised);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, .8);
+}
+@media (min-width: 720px) { .ccard__panel { grid-template-columns: minmax(280px, 420px) 1fr; } }
+
+.ccard__media { position: relative; }
+.ccard__zoom { display: block; width: 100%; padding: 0; border: none; background: none; cursor: zoom-in; }
+.ccard__img {
+  display: block; width: 100%; border-radius: 6px;
+  border: 1px solid var(--color-line) !important;
+  transition: opacity .16s ease;
+}
+.ccard__img.is-flipping { opacity: 0; }
+
+.ccard__flip { display: flex; align-items: center; justify-content: center; gap: .9rem; margin-top: .6rem; }
+.ccard__flip-btn {
+  font-size: .9rem; color: var(--color-violet-bright); background: none; cursor: pointer;
+  border: 1px solid var(--color-line); border-radius: 4px; padding: .25rem .7rem;
+  transition: border-color .2s, background .2s;
+}
+.ccard__flip-btn:hover { border-color: var(--color-violet); background: rgba(157, 78, 221, .1); }
+.ccard__flip-hint { font-family: var(--font-mono); font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-ink-dim); min-width: 3.2em; text-align: center; }
+
+.ccard__info { display: flex; flex-direction: column; min-width: 0; }
+.ccard__name { margin: 0; font-family: var(--font-display); font-size: 1.6rem; text-transform: uppercase; color: var(--color-ink); }
+.ccard__meta { margin: .2rem 0 1rem; font-family: var(--font-mono); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-violet-bright); }
+.ccard__flavor { color: var(--color-ink-dim); line-height: 1.65; }
+.ccard__flavor p { margin: .5rem 0; }
+.ccard__flavor em { color: var(--color-ink); } /* examine note персонажа */
+.ccard__close {
+  margin-top: auto; align-self: flex-start; padding-top: 1rem;
+  font-family: var(--font-mono); font-size: .65rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--color-ink-dim); background: none; border: none; cursor: pointer; transition: color .2s;
+}
+.ccard__close:hover { color: var(--color-violet-bright); }
+
+/* --- lightbox --- */
+.ccard-lightbox {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: rgba(5, 5, 8, .92); cursor: zoom-out; padding: 3vmin;
+}
+.ccard-lightbox__img {
+  max-width: 94vw; max-height: 94vh; border-radius: 4px;
+  border: 1px solid var(--color-line) !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .8);
+}
+
+
+/* ===== SCREENPLAY (paginated excerpt) ===== */
+.scr { margin: 2.5rem 0; }
+
+.scr__head {
+  display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .8rem;
+  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+}
+.scr__title { color: var(--color-violet-bright); }
+.scr__meta { color: var(--color-ink-dim); }
+
+/* лист */
+.scr__sheet {
+  background: #f4f1e8; color: #1c1a15; border-radius: 3px;
+  box-shadow: 0 26px 54px -26px rgba(0, 0, 0, .9);
+  padding: clamp(1.6rem, 5vw, 3rem) clamp(1.2rem, 6vw, 3.4rem);
+  font-family: var(--font-typewriter, ui-monospace, "Courier New", monospace);
+  font-size: 1rem; line-height: 1.55;
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+.scr__pages { transition: opacity .14s linear; }
+.scr__pages.is-turning { opacity: 0; }
+
+/* --- формат сценария --- */
+.scr-slug { margin: 0 0 1.2rem; font-weight: 700; text-transform: uppercase; }
+.scr-action { margin: 0 0 1.1rem; max-width: 60ch; }
+.scr-char { padding-left: 32%; }
+.scr-paren { padding-left: 26%; max-width: 30ch; }
+.scr-dial { padding-left: 20%; max-width: 42ch; }
+.scr-trans { margin: 1.2rem 0 0; text-align: right; text-transform: uppercase; font-weight: 700; }
+
+/* заметка на полях */
+.scr-note {
+  margin: 1rem 0; padding: .7rem .9rem; max-width: 46ch;
+  border-left: 3px solid var(--color-violet, #9d4edd);
+  background: rgba(157, 78, 221, .07);
+  font-family: var(--font-mono); font-size: .8rem; line-height: 1.5;
+  letter-spacing: .02em; color: #4a3d5c;
+}
+.scr-note a { color: #6d3fa8; text-decoration: underline; }
+
+@media (min-width: 900px) {
+  .scr__sheet { position: relative; padding-right: calc(clamp(1.2rem, 6vw, 3.4rem) + 11rem); }
+  .scr-note { position: absolute; right: 1rem; width: 9.5rem; margin: 0; }
+}
+
+/* навигация */
+.scr__nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
+.scr__nav-btn {
+  font-size: .9rem; color: var(--color-violet-bright); background: none; cursor: pointer;
+  border: 1px solid var(--color-line); border-radius: 4px; padding: .3rem .8rem;
+  transition: border-color .2s, background .2s, opacity .2s;
+}
+.scr__nav-btn:hover:not(:disabled) { border-color: var(--color-violet); background: rgba(157, 78, 221, .1); }
+.scr__nav-btn:disabled { opacity: .3; cursor: default; }
+.scr__counter { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .25em; color: var(--color-ink-dim); }

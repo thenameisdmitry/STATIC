@@ -171,6 +171,7 @@ const bg = scene?.meta?.bg;
       const sp = cast[node.speaker] || { name: node.speaker || '' };
       portrait(sp);
       elName.textContent = sp.name || '';
+      root.classList.toggle('is-narrator', node.speaker === 'narrator');
       if (node.note && met(node.note.requires)) { elNote.textContent = '[ ' + node.note.text + ' ]'; elNote.hidden = false; }
       else { elNote.hidden = true; }
       elChoices.innerHTML = '';

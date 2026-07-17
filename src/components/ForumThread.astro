@@ -1,20 +1,61 @@
 ---
-// Archived forum thread, early-2000s phpBB style. Light "screenshot" on the
-// dark page — reads as recovered evidence. Put <ForumPost> components in the slot.
+// Archived forum thread, early-2000s phpBB style, paginated.
+// Two usage modes:
+//   flat  — <ForumPost> components directly in the slot (single page, no nav)
+//   paged — posts wrapped in <div class="forum__page"> groups; nav appears
 interface Props {
-  title?: string;    // thread title, e.g. "Anyone else picking up the broadcast?"
-  board?: string;    // breadcrumb, e.g. "Mag Point Community > Off-Topic"
-  archived?: string; // archive stamp, e.g. "Archived 09/02/2008 — 4 posts"
+  title?: string;    // thread title
+  board?: string;    // breadcrumb, e.g. "Web Investigations > Crimes in Alaska"
+  archived?: string; // archive stamp
 }
 const { title = 'Untitled thread', board = 'Forum', archived } = Astro.props;
 ---
-<div class="forum">
+<div class="forum" data-forum>
   <div class="forum__chrome">
     <span class="forum__breadcrumb">{board}</span>
     {archived && <span class="forum__archived">{archived}</span>}
   </div>
   <div class="forum__title">{title}</div>
-  <div class="forum__posts">
+  <div class="forum__posts" data-forum-pages>
     <slot />
   </div>
+  <div class="forum__nav" data-forum-nav hidden>
+    <button type="button" class="forum__nav-btn" data-prev>‹ prev</button>
+    <span class="forum__nav-counter" data-counter>page 1 of 1</span>
+    <button type="button" class="forum__nav-btn" data-next>next ›</button>
+  </div>
 </div>
+
+<script>
+  document.querySelectorAll('[data-forum]').forEach((root) => {
+    const wrap = root.querySelector('[data-forum-pages]');
+    const nav = root.querySelector('[data-forum-nav]') as HTMLElement | null;
+    const counter = root.querySelector('[data-counter]');
+    const prev = root.querySelector('[data-prev]') as HTMLButtonElement | null;
+    const next = root.querySelector('[data-next]') as HTMLButtonElement | null;
+    if (!wrap || !nav || !counter || !prev || !next) return;
+
+    // страницы = только обёртки .forum__page; голые посты = режим без листания
+    const pages = Array.from(wrap.querySelectorAll(':scope > .forum__page')) as HTMLElement[];
+    if (pages.length < 2) return; // одна или ноль групп — nav не нужен
+
+    nav.hidden = false;
+    let i = 0;
+
+    const render = () => {
+      pages.forEach((p, n) => { p.hidden = n !== i; });
+      counter.textContent = `page ${i + 1} of ${pages.length}`;
+      prev.disabled = i === 0;
+      next.disabled = i === pages.length - 1;
+    };
+    const goto = (n: number) => {
+      if (n < 0 || n >= pages.length) return;
+      i = n;
+      render();
+    };
+
+    prev.addEventListener('click', () => goto(i - 1));
+    next.addEventListener('click', () => goto(i + 1));
+    render();
+  });
+</script>

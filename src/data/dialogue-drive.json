@@ -6,10 +6,16 @@
   },
   "cast": {
     "ian": { "name": "Ian", "portrait": "/scene/ian.png" },
-    "saoirse": { "name": "Saoirse", "portrait": "/scene/saoirse.png" }
+    "saoirse": { "name": "Saoirse", "portrait": "/scene/saoirse.png" },
+    "narrator": { "name": "" }
   },
-  "start": "open",
+  "start": "beat-opening",
   "nodes": {
+    "beat-opening": {
+      "speaker": "narrator",
+      "text": "Highway. In twenty yards from Ian's pickup truck, a wrecked car sits on the shoulder, a police cruiser idling beside it. Two people in a pickup truck: Ian and Saoirse. They have not seen each other in ten years. Now the road accident has put them in the same car. Neither of them could find anything to say to a reunion like this. At last Saoirse cleared her throat and spoke quietly:",
+      "auto": { "to": "open", "delay": 3400 }
+    },
     "open": {
       "speaker": "saoirse",
       "text": "Thanks for stopping to help us.",
@@ -21,16 +27,26 @@
       "speaker": "saoirse",
       "text": "It's probably better if you drop me off here.",
       "choices": [
-        { "label": "I see... Not how you remembered me, huh?", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-look" },
-        { "label": "It's a long way to the hotel.", "intent": "reasonable", "to": "ian-echo-hotel" },
-        { "label": "*Say nothing. Light a cigarette.*", "intent": "confused", "set": { "disgust": 1 }, "to": "dialogue-3-smoke-1" }
+        { "label": "Not how you remembered me, huh?", "intent": "aggravated", "set": { "disgust": 1 }, "to": "beat-silent-ride" },
+        { "label": "It's a long way to the hotel.", "intent": "reasonable", "to": "beat-silent-ride-soft" },
+        { "label": "*Say nothing. Light a cigarette.*", "intent": "confused", "set": { "disgust": 1 }, "to": "beat-cigarette" }
       ]
     },
 
+    "beat-silent-ride": {
+      "speaker": "narrator",
+      "text": "For a long while they drove in strained silence. Saoirse watched him from the passenger seat, a once handsome and cheerful young man, with a strange mixture of pity and disgust. Finally, Ian jerked his shoulder and said:",
+      "auto": { "to": "ian-echo-look", "delay": 2600 }
+    },
+    "beat-silent-ride-soft": {
+      "speaker": "narrator",
+      "text": "For a long while they drove in strained silence. Saoirse watched him from the passenger seat, a once handsome and cheerful young man, with a strange mixture of pity and disgust. It was Ian who broke the silence first, eyes still on the road:",
+      "auto": { "to": "ian-echo-hotel", "delay": 2600 }
+    },
     "ian-echo-look": {
       "speaker": "ian",
-      "text": "Right. Not how you remembered me, huh? Go ahead, tell me I look like shit. At least we'd be clear on one thing.",
-      "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
+      "text": "Not how you remembered me, huh? Go ahead, tell me I look like shit. At least we'd be clear on one thing.",
+      "auto": { "to": "dialogue-1-bitter-1", "delay": 1400 }
     },
     "ian-echo-hotel": {
       "speaker": "ian",
@@ -38,20 +54,31 @@
       "auto": { "to": "dialogue-2-reasonable-1", "delay": 1200 }
     },
 
+    "beat-cigarette": {
+      "speaker": "narrator",
+      "text": "Ian shook one out of a crumpled pack on the dash and lit it one-handed, eyes on the road, the way you do a thing you've done ten thousand times.",
+      "auto": { "to": "dialogue-3-smoke-1", "delay": 2200 }
+    },
+
     "dialogue-1-bitter-1": {
       "speaker": "saoirse",
       "text": "Stop the car!",
       "choices": [
-        { "label": "Okay. Okay. pulling over.", "intent": "reasonable", "to": "dialogue-1-bitter-2" },
-        { "label": "*Slam the brakes.*", "intent": "aggravated", "set": { "disgust": 1 }, "to": "dialogue-1-bitter-2" }
+        { "label": "Okay. I'm pulling over.", "intent": "reasonable", "to": "dialogue-1-bitter-2" },
+        { "label": "*Slam the brakes.*", "intent": "aggravated", "set": { "disgust": 1 }, "to": "beat-brakes" }
       ]
+    },
+    "beat-brakes": {
+      "speaker": "narrator",
+      "text": "The truck lurched hard. Saoirse's bag flew off her lap; her palm shot out against the glovebox. For a second the only sound was the rain and the wipers, counting.",
+      "auto": { "to": "dialogue-1-bitter-2", "delay": 2400 }
     },
     "dialogue-1-bitter-2": {
       "speaker": "saoirse",
       "text": "I'm sorry you had to see me again, Ian. I promise you never will.",
       "choices": [
         { "label": "Wait! Wait...", "intent": "reasonable", "to": "dialogue-1-bitter-3" },
-        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "beat-she-leaves" }
       ]
     },
     "dialogue-1-bitter-3": {
@@ -67,12 +94,12 @@
     "ian-echo-truth-bitter": {
       "speaker": "ian",
       "text": "Saoirse, I don't know why you came back, and I'm not going to ask. But there's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.",
-      "auto": { "to": "end_act_saoirse_reaction_1", "delay": 2300 }
+      "auto": { "to": "beat-frozen", "delay": 2300 }
     },
     "ian-echo-dad-soft": {
       "speaker": "ian",
       "text": "I didn't mean to be rude. But there's something you should hear. It's about your dad. Val's been arrested.",
-      "auto": { "to": "end_act_saoirse_reaction_2", "delay": 1600 }
+      "auto": { "to": "beat-dad-lands", "delay": 1600 }
     },
 
     "dialogue-2-reasonable-1": {
@@ -80,7 +107,7 @@
       "text": "It's okay. I'll catch a ride.",
       "choices": [
         { "label": "Don't be silly. I'll drive you.", "intent": "reasonable", "to": "ian-echo-drive" },
-        { "label": "You can now stop pretending.", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-pretend" },
+        { "label": "You can stop pretending now.", "intent": "aggravated", "set": { "disgust": 1 }, "to": "ian-echo-pretend" },
         { "label": "Something's happened. You need to hear it.", "intent": "convince", "to": "ian-echo-happened" }
       ]
     },
@@ -103,10 +130,10 @@
 
     "dialogue-2-reasonable-2": {
       "speaker": "saoirse",
-      "text": "Thanks... I'm sorry you had to see me again. I promise you never will again",
+      "text": "Thanks... I'm sorry you had to see me again. It won't happen anymore.",
       "choices": [
         { "label": "Wait. There's something you need to know.", "intent": "reasonable", "to": "dialogue-2-reasonable-3" },
-        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "beat-she-leaves" }
       ]
     },
     "dialogue-2-reasonable-3": {
@@ -122,17 +149,23 @@
     "ian-echo-truth": {
       "speaker": "ian",
       "text": "Saoirse, I don't know why you came back, and I'm not going to ask. But there's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.",
-      "auto": { "to": "end_act_saoirse_reaction_1", "delay": 2300 }
+      "auto": { "to": "beat-frozen", "delay": 2300 }
     },
     "ian-echo-dad": {
       "speaker": "ian",
       "text": "It's about your dad. Val's been arrested.",
-      "auto": { "to": "end_act_saoirse_reaction_2", "delay": 1200 }
+      "auto": { "to": "beat-dad-lands", "delay": 1200 }
     },
     "ian-echo-help": {
       "speaker": "ian",
       "text": "I know how strange that sounds... but I need your help, Saoirse.",
-      "auto": { "to": "end_act_help_refused", "delay": 1200 }
+      "auto": { "to": "beat-help-hangs", "delay": 1200 }
+    },
+
+    "beat-help-hangs": {
+      "speaker": "narrator",
+      "text": "The words hung in the cab. Saoirse looked at Ian with a mixture of disbelief and disgust. She shook her head, and said:",
+      "auto": { "to": "end_act_help_refused", "delay": 2800 }
     },
 
     "dialogue-4-convince-1": {
@@ -140,7 +173,7 @@
       "text": "What do you mean?",
       "choices": [
         { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth" },
-        { "label": "*Change of heart. Say nothing.*", "intent": "confused", "to": "end_act_no_talk" }
+        { "label": "*Change of heart. Say nothing.*", "intent": "confused", "to": "beat-she-leaves" }
       ]
     },
     "dialogue-3-smoke-1": {
@@ -154,7 +187,7 @@
 
     "ian-echo-know": {
       "speaker": "ian",
-      "text": "There's a lot I never used to do. But how would you know — you of all people?",
+      "text": "There's a lot I never used to do. But how would you know - you of all people?",
       "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
     },
 
@@ -163,13 +196,36 @@
       "text": "Listen, I'm sorry you had to see me again, Ian. I didn't want that. Can you stop the car and let me out?",
       "choices": [
         { "label": "Wait. There's something you need to know.", "intent": "reasonable", "to": "dialogue-2-reasonable-3" },
-        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "end_act_no_talk" }
+        { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "beat-she-leaves" }
       ]
+    },
+
+    "beat-frozen": {
+      "speaker": "narrator",
+      "text": "\"What did you just say?\" Saoirse went very still. She slowly turned her head to look at Ian, and her face went pale.",
+      "auto": { "to": "ian-echo-saoirse", "delay": 2800 }
+    },
+    "ian-echo-saoirse": {
+      "speaker": "ian",
+      "text": "Saoirse...",
+      "auto": { "to": "end_act_saoirse_reaction_1", "delay": 1400 }
+    },
+
+    "beat-dad-lands": {
+      "speaker": "narrator",
+      "text": "Whatever she had been bracing for the whole ride — it wasn't that. The old hurt left her face all at once, and something faster and colder replaced it.",
+      "auto": { "to": "end_act_saoirse_reaction_2", "delay": 2400 }
+    },
+
+    "beat-she-leaves": {
+      "speaker": "narrator",
+      "text": "The door slammed. Through the streaked glass Ian watched her silhouette shrink into the rain until the fog took it. She never looked back. He sat there long after there was nothing left to look at.",
+      "auto": { "to": "end_act_no_talk", "delay": 3000 }
     },
 
     "end_act_no_talk": {
       "speaker": "saoirse",
-      "text": "*She walks away from the car. Ian watches her go.*",
+      "text": "...",
       "outcome": { "title": "You didn't tell her", "blurb": "Saoirse will remember that you let her walk into it blind. Later, she won't believe Ian when he tells the truth." }
     },
     "end_act_saoirse_reaction_1": {
@@ -191,7 +247,7 @@
     "end_act_help_refused": {
       "speaker": "saoirse",
       "text": "Whatever it is you need, Ian — I can't help you. I'm sorry we met again. Please don't try to find me before I leave for good.",
-      "outcome": { "title": "She turns you down", "blurb": "You asked without armor, and she still said no. Later, she will help Ian when times comes. " }
+      "outcome": { "title": "She turns you down", "blurb": "You asked without armor, and she still said no. Later, she will help Ian when the time comes." }
     }
   }
 }

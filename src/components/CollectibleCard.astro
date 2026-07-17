@@ -1,0 +1,122 @@
+---
+// Collectible item card: teaser tile -> opens an "examine" overlay on top of
+// the page. Click the image inside to zoom (lightbox). Items with a `back`
+// image are flippable: arrows cycle front/back, each side has its own flavor
+// (default slot = front, slot name="back" = back side).
+interface Props {
+  name: string;
+  kind?: string;      // category chip
+  found?: string;     // where it's found
+  img: string;        // front image under /public
+  back?: string;      // optional back image -> enables flipping
+  use?: string;       // gameplay relevance chip
+}
+const { name, kind, found, img, back, use } = Astro.props;
+---
+<div class="ccard" data-ccard>
+  <button type="button" class="ccard__tile" aria-haspopup="dialog" aria-label={`Examine: ${name}`}>
+    <img class="ccard__thumb" src={img} alt="" loading="lazy" />
+    <span class="ccard__tile-name">{name}</span>
+    {kind && <span class="ccard__chip">{kind}</span>}
+    {use && <span class="ccard__chip ccard__chip--use">{use}</span>}
+  </button>
+
+  <div class="ccard__overlay" data-overlay hidden>
+    <div class="ccard__panel" role="dialog" aria-label={name}>
+      <div class="ccard__media">
+        <button type="button" class="ccard__zoom" data-zoom aria-label="Enlarge image">
+          <img class="ccard__img" src={img} data-img-front={img} data-img-back={back || ''} alt={name} />
+        </button>
+        {back && (
+          <div class="ccard__flip">
+            <button type="button" class="ccard__flip-btn" data-flip aria-label="Turn over">◂</button>
+            <span class="ccard__flip-hint" data-flip-hint>front</span>
+            <button type="button" class="ccard__flip-btn" data-flip aria-label="Turn over">▸</button>
+          </div>
+        )}
+      </div>
+      <div class="ccard__info">
+        <p class="ccard__name">{name}</p>
+        <p class="ccard__meta">{[kind, found].filter(Boolean).join(' — ')}{use && <span class="ccard__meta-use"> ◆ {use}</span>}</p>
+        <div class="ccard__flavor" data-side-front><slot /></div>
+        {back && <div class="ccard__flavor" data-side-back hidden><slot name="back" /></div>}
+        <button type="button" class="ccard__close">✕ put back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- lightbox (один на страницу) ---
+  function getLightbox() {
+    let lb = document.querySelector('.ccard-lightbox') as HTMLElement | null;
+    if (lb) return lb;
+    lb = document.createElement('div');
+    lb.className = 'ccard-lightbox';
+    lb.hidden = true;
+    lb.innerHTML = '<img class="ccard-lightbox__img" alt="" />';
+    lb.addEventListener('click', () => { lb!.hidden = true; });
+    document.body.appendChild(lb);
+    return lb;
+  }
+
+  document.querySelectorAll('[data-ccard]').forEach((root) => {
+    const tile = root.querySelector('.ccard__tile');
+    const overlay = root.querySelector('[data-overlay]') as HTMLElement | null;
+    const panel = root.querySelector('.ccard__panel');
+    const close = root.querySelector('.ccard__close');
+    const zoom = root.querySelector('[data-zoom]');
+    const img = root.querySelector('.ccard__img') as HTMLImageElement | null;
+    if (!tile || !overlay || !panel || !close || !img) return;
+
+    const show = (on: boolean) => {
+      overlay.hidden = !on;
+      document.body.style.overflow = on ? 'hidden' : ''; // страница под оверлеем не скроллится
+    };
+
+    tile.addEventListener('click', () => show(true));
+    close.addEventListener('click', () => show(false));
+    // клик по затемнению закрывает; по панели — нет
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) show(false); });
+
+    zoom?.addEventListener('click', () => {
+      const lb = getLightbox();
+      (lb.querySelector('.ccard-lightbox__img') as HTMLImageElement).src = img.src;
+      lb.hidden = false;
+    });
+
+    // flip
+    const backSrc = img.dataset.imgBack;
+    if (backSrc) {
+      const frontSrc = img.dataset.imgFront || img.src;
+      const sideFront = root.querySelector('[data-side-front]') as HTMLElement;
+      const sideBack = root.querySelector('[data-side-back]') as HTMLElement;
+      const hint = root.querySelector('[data-flip-hint]') as HTMLElement;
+      let showingBack = false;
+      const flip = () => {
+        showingBack = !showingBack;
+        img.classList.add('is-flipping');
+        setTimeout(() => {
+          img.src = showingBack ? backSrc : frontSrc;
+          sideFront.hidden = showingBack;
+          if (sideBack) sideBack.hidden = !showingBack;
+          if (hint) hint.textContent = showingBack ? 'back' : 'front';
+          img.classList.remove('is-flipping');
+        }, 160);
+      };
+      root.querySelectorAll('[data-flip]').forEach((b) => b.addEventListener('click', flip));
+    }
+  });
+
+  // Esc закрывает верхний оверлей/лайтбокс — один листенер на страницу
+  if (!(window as any).__ccardEscBound) {
+    (window as any).__ccardEscBound = true;
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const lb = document.querySelector('.ccard-lightbox') as HTMLElement | null;
+      if (lb && !lb.hidden) { lb.hidden = true; return; }
+      const openOverlay = document.querySelector('.ccard__overlay:not([hidden])') as HTMLElement | null;
+      if (openOverlay) { openOverlay.hidden = true; document.body.style.overflow = ''; }
+    });
+  }
+</script>

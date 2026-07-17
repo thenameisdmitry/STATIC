@@ -1,0 +1,68 @@
+---
+// Paginated screenplay excerpt. Each direct child <div> in the slot is one page.
+// Margin notes: <aside class="scr-note">...</aside> inside a page floats to the
+// right margin on desktop, inline on mobile.
+interface Props {
+  title?: string;    // e.g. "THE DRIVE — canonical cut"
+  meta?: string;     // e.g. "Excerpt · 3 pages"
+}
+const { title, meta } = Astro.props;
+---
+<div class="scr" data-scr>
+  {(title || meta) && (
+    <div class="scr__head">
+      {title && <span class="scr__title">{title}</span>}
+      {meta && <span class="scr__meta">{meta}</span>}
+    </div>
+  )}
+
+  <div class="scr__sheet">
+    <div class="scr__pages" data-pages>
+      <slot />
+    </div>
+  </div>
+
+  <div class="scr__nav">
+    <button type="button" class="scr__nav-btn" data-prev aria-label="Previous page">◂</button>
+    <span class="scr__counter" data-counter>PAGE 1 / 1</span>
+    <button type="button" class="scr__nav-btn" data-next aria-label="Next page">▸</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('[data-scr]').forEach((root) => {
+    const wrap = root.querySelector('[data-pages]');
+    const counter = root.querySelector('[data-counter]');
+    const prev = root.querySelector('[data-prev]') as HTMLButtonElement | null;
+    const next = root.querySelector('[data-next]') as HTMLButtonElement | null;
+    if (!wrap || !counter || !prev || !next) return;
+
+    const pages = Array.from(wrap.children) as HTMLElement[];
+    if (!pages.length) return;
+    let i = 0;
+
+    const render = () => {
+      pages.forEach((p, n) => { p.hidden = n !== i; });
+      counter.textContent = `PAGE ${i + 1} / ${pages.length}`;
+      prev.disabled = i === 0;
+      next.disabled = i === pages.length - 1;
+    };
+    const goto = (n: number) => {
+      if (n < 0 || n >= pages.length) return;
+      i = n;
+      (wrap as HTMLElement).classList.add('is-turning');
+      setTimeout(() => { render(); (wrap as HTMLElement).classList.remove('is-turning'); }, 140);
+    };
+
+    prev.addEventListener('click', () => goto(i - 1));
+    next.addEventListener('click', () => goto(i + 1));
+    root.addEventListener('keydown', (e) => {
+      const k = (e as KeyboardEvent).key;
+      if (k === 'ArrowLeft') goto(i - 1);
+      if (k === 'ArrowRight') goto(i + 1);
+    });
+    (root as HTMLElement).tabIndex = 0;
+
+    render();
+  });
+</script>

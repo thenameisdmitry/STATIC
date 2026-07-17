@@ -4,15 +4,17 @@ import Redact from '../../components/Redact.astro';
 import ArtifactCard from '../../components/ArtifactCard.astro';
 import Carousel from '../../components/Carousel.astro';
 import CharacterFile from '../../components/CharacterFile.astro';
+import CollectibleCard from '../../components/CollectibleCard.astro';
+import Screenplay from '../../components/Screenplay.astro';
+import FlipPhoto from '../../components/FlipPhoto.astro'
 
 const parts = [
-  ['Game concept & plot', 'Game genre, concept, key mechanics, and the story plot', 'concept'],
-  ['World & Lore', 'World description, gray signal lore, and artifacts: files, footage, field notes.', 'world-lore'],
-  ['Interactive dialogue', 'A playable branching scene where you can influence the game plot.', 'interactive-dialogue'],
-  ['Character files', 'Cards, voice, barks.', 'character-files'],
-  ['Collectibles', 'Tapes, case files, pages the player can find during the gameplay.', 'collectibles'],
-  ['Screenplay scene', 'An excerpt  of a screenplay.', 'screenplay-scene'],
-  ['Design commentary', 'My narrative choices.', 'design-commentary'],
+  ['Game concept & plot', 'Genre, core mechanics, and the story of a town that stopped answering.', 'concept'],
+  ['World & lore', 'Mag Point and the Gray Signal: case files, footage, and field notes.', 'world-lore'],
+  ['Interactive dialogue', 'A playable branching scene: four endings, one hidden.', 'interactive-dialogue'],
+  ['Character files', 'Dossiers on the cast: bios, voice guides, and systemic barks.', 'character-files'],
+  ['Collectibles', 'Findable items and their examine texts: story told through objects.', 'collectibles'],
+  ['Screenplay scene', 'The same scene as linear film script, with margin notes on the craft.', 'screenplay-scene'],
 ];
 
 // Missing-persons carousel — rewrite captions; add `src` when you have photos.
@@ -65,7 +67,7 @@ const pillars = [
   <!-- 01 · CONCEPT & PLOT -->
   <section id="concept" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <p class="eyebrow mb-3">01 — Game concept &amp; plot</p>
+      <p class="eyebrow mb-3">01</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Genre, Gameplay Mechanics, and Story</h2>
  
       <p class="mt-4 max-w-5xl text-lg text-ink-dim" style="">
@@ -222,10 +224,12 @@ const pillars = [
   <!-- 02 · WORLD & LORE -->
   <section id="world-lore" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <p class="eyebrow mb-3">02 — World &amp; Lore</p>
+      <p class="eyebrow mb-3">02</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">World &amp; Lore</h2>
-      <p class="mt-3 max-w-2xl text-ink-dim">
-        [Intro — set the table for the world. Tiles marked “Open file” lead to their own chapters.]
+      <p class="mt-3 max-w-5xl text-ink-dim">
+        What follows is the world's paper trail: locations, case files, broadcast records, and the artifacts left behind
+        by those who got too close to the Gray Signal. Tiles marked "Open file" lead to
+        their own chapters.
       </p>
 
       <div class="mt-10 grid gap-5 md:grid-cols-2">
@@ -246,7 +250,12 @@ const pillars = [
         <Carousel items={missing} />
 
         <!-- Row 4: Orson (clickable) | secret documents (clickable) -->
-        <ArtifactCard href="/lore/orson" kind="Reference" title="Orson" img="/lore/orson/orson-0.png" />
+        <FlipPhoto
+          front="/lore/stuff/ian-saoirse-front.png"
+          back="/lore/stuff/ian-saoirse-back.png"
+          alt="Ian and Saoirse, 2008"
+          caption=""
+        />        
         <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.png" />
       </div>
     </div>
@@ -255,7 +264,7 @@ const pillars = [
  <!-- 03 · INTERACTIVE DIALOGUE -->
   <section id="interactive-dialogue" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <p class="eyebrow mb-3">03 — Interactive dialogue</p>
+      <p class="eyebrow mb-3">03</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Interactive dialogue</h2>
       <p class="mt-3 text-ink-dim">
       A branching dialogue scene that shapes the course of the story. Two main playable 
@@ -277,7 +286,7 @@ const pillars = [
 <!-- 04 · CHARACTER FILES -->
   <section id="character-files" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-5xl">
-      <p class="eyebrow mb-3">04 — Character files</p>
+      <p class="eyebrow mb-3">04</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Character files</h2>
       <p class="mt-3 max-w-2xl text-ink-dim">
         Dossiers on the people of Mag Point: who they are, how they speak, and what they
@@ -462,18 +471,316 @@ const pillars = [
     </div>
   </section>  
 
+<!-- 05 · COLLECTIBLES -->
+  <section id="collectibles" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">05</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Collectibles</h2>
+      <p class="mt-3 max-w-5xl text-ink-dim">
+        A showcase of findable items and their examine texts. In <b>STATIC</b>, objects carry the
+        story sideways. Each description is written to do two jobs at once: tell the
+        player what they're holding, and let slip a fragment of history nobody says out loud.
+        Click an item to examine it; click the image to enhance it.
+      </p>
 
-<!-- Remaining sections (stubs) -->
-  {parts.slice(4).map(([t, d, slug], i) => (
-    <section id={slug} class="scroll-mt-24 border-t border-line px-6 py-16">
-      <div class="mx-auto max-w-4xl">
-        <p class="eyebrow mb-3">{String(i + 5).padStart(2, '0')} — {t}</p>
-        <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">{t}</h2>
-        <p class="mt-3 max-w-2xl text-ink-dim">{d}</p>
-        <p class="mt-6 font-mono text-xs text-ink-dim">// in production</p>
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+        <CollectibleCard
+          name='Hockey puck with "Alaska Aces" logo'
+          kind="Evidence"
+          found="Sidewalk outside Colin Hall's house"
+          img="/collectibles/hockey-puck.png"
+        >
+          <p>Kyren Hall's hockey puck.</p>
+          <p>His dad, Colin Hall, caught this puck at the Alaska Aces game against the Orson Hunters. 
+            That was the night Kyren decided he would become a professional hockey player someday.</p>
+            <p>Kyren has been missing for two days.</p>
+            <br/>
+          <p><em>Ian: "Val only helped the boy fish it out of the drain. No good deed goes unpunished."</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Ian Demme ICE Card"
+          kind="Document"
+          found="Ian's wallet, behind Saoirse's photograph"
+          img="/collectibles/card-help.png"
+        >
+          <p><i>My name is Ian Demme. I have a serious mental disorder. If you find me sitting or 
+            lying motionless, unresponsive, and unable to blink, I am experiencing a 
+            temporary catatonic episode. It usually lasts between twenty minutes and one hour. 
+            I am not dangerous. Please stay with me until I regain consciousness, or call 
+            an ambulance.</i></p>
+          <p>This emergency card was issued to Ian upon his discharge from the Anchorage 
+            Psychiatric Institute. More than once, it has saved his life.</p>
+            <br/>
+          <p><em>Reggie: "I'd have left you lying there if I hadn't read that you're not all there. Got it?"</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Photograph of Saoirse"
+          kind="Keepsake"
+          found="Ian's wallet"
+          img="/collectibles/saoirse-photo-1.png"
+          back="/collectibles/saoirse-photo-2.png"
+        >
+          <p>A worn photograph of Saoirse Barrell that Ian keeps tucked inside his wallet.</p>
+          <p>He took it himself when they were both seventeen and in love. He has carried it ever since. 
+            In a life stripped of almost everything worth holding onto, the memories are 
+            all he has left.</p>
+            <br/>
+          <p><em>Reggie: "Pretty girl. Yours? ...Yeah, don't strain yourself, I get it. I'm not an idiot.</em></p>
+          <p slot="back">On the back is Reggie's phone number written by himself. 
+              He said he has a motorboat for sale.
+              It might come in handy.</p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Plush toy heart"
+          kind="Keepsake"
+          found="Ian's room"
+          img="/collectibles/heart-toy.png"
+        >
+          <p>A small plush heart Saoirse gave Ian on Valentine's Day.</p>
+          <p>Before handing it to him, she sprayed it with the perfume Ian had given her. 
+            The fragrance has long since faded, and the little toy is worn and frayed with 
+            age. It still sits on a shelf in Ian's living room. It's the only shelf in the 
+            house untouched by dust.</p>
+          <br/>
+          <p><em>Saoirse: "It was such a silly little gift. But Ian absolutely loved it."</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Prescription bottle"
+          kind="Personal effect"
+          found="Mag Point pharmacy"
+          img="/collectibles/demme-pills.png"
+        >
+          <p>Ian's name is printed on the prescription label, yet the bottle is still full.</p>
+          <p>Prescribed in 2008. The seal was broken in 2018.
+            They make the hallucinations easier to endure.</p>
+          <br/>
+          <p><em>Ian: "Damn smug shrinks... Those pills only make things worse..."</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Saoirse's medical records"
+          kind="Document"
+          found="Mag Point hospital"
+          img="/collectibles/medical-record-saoirse.png"
+        >
+          <p>A folder with Saoirse's old medical records.</p>
+          <p>During an appointment at a cardiology center in NYC, the doctor asked Saoirse to 
+            retrieve her original paper records to confirm the best course of treatment 
+            for her heart condition.
+            That request forced Saoirse to return to the the hometown she'd sworn never to see again.</p>
+          <br/>
+          <p><em>Saoirse: "Mom, do you realize I have to go back to that shithole just to grab 
+            a notebook with a diagnosis everyone already knows?"</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Ian's swimming goggles"
+          kind="Keepsake"
+          found="Ian's parents' house"
+          img="/collectibles/swimming-goggles.png"
+        >
+          <p>An old pair of swimming goggles.</p>
+          <p>Back in 2007, Ian wore them when he defeated Norman Petrich, the Southeast 
+            Conference champion who came within a hair of making the U.S. Olympic 
+            swimming team. They are a reminder of the greatest victory of his youth, and 
+            of everything he lost afterward.</p>
+          <br/>
+          <p><em>Ian: "Why the hell do they still keep this junk? It belongs in the trash. Just like me."</em></p>
+        </CollectibleCard>
+
+        <CollectibleCard
+          name="Key from Creed's study"
+          kind="Key"
+          found="Creed Clemence's house, in a bathrobe pocket"
+          img="/collectibles/key-creed.png"
+        >
+          <p>A brass key stained with a green patina.</p>
+          <p>It unlocks the door to Creed Clemence's study on the second floor of his house.
+            Creed can no longer remember what is so important inside. Alzheimer's has stolen 
+            that from him. Yet of one thing he is certain: if he doesn't get into that 
+            room soon, something terrible will happen.</p>
+          <br/>
+          <p><em>Paige: "And just what is so important in your old study that makes you 
+            climb the second floor? Shame on you, mr. Clemence!" </em></p>
+        </CollectibleCard>
+
+          <CollectibleCard
+          name="Crystal Peak VHS tape"
+          kind="Tape"
+          found="August Pruett's house"
+          img="/collectibles/vhs.png"
+        >
+          <p>A VHS tape that somehow survived the fire at "Crystal Peak" Military Base.</p>
+          <p>It was recorded as part of an official report documenting the attempt to decipher 
+            the intercepted signal. Only the first twenty minutes contain footage.
+            The rest of the tape is blank.</p>
+          <br/>
+          <p><em>Ian: "Twenty minutes. Somebody watched the rest and made sure nobody else would."</em></p>
+        </CollectibleCard>
+
       </div>
-    </section>
-  ))}
+    </div>
+  </section>
+
+  <!-- 06 · SCREENPLAY SCENE -->
+  <section id="screenplay-scene" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">06</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Screenplay scene</h2>
+      <p class="mt-3 max-w-5xl text-ink-dim">
+        Screenplay scene: the same scene that runs as an <a href="#interactive-dialogue" class="text-violet-bright underline">interactive dialogue</a>,
+        written as linear film script. This is the canonical cut: the version where Ian
+        decides to tell Saoirse the truth about disappearances and pays for it. Margin notes 
+        mark where the canonical script and the game scenarios part ways.
+      </p>
+
+            <Screenplay title="STATIC - 'The Drive' (canonical cut)" meta="Excerpt · 3 pages">
+        <div>
+          <p class="scr-slug">INT. IAN'S PICKUP — PARKED ON THE MONTEGO HIGHWAY — NIGHT</p>
+
+          <p class="scr-action">Rain. Twenty yards back, a car sits crumpled against the guardrail, a police cruiser idling beside it, light bar sweeping the trees.</p>
+
+          <p class="scr-action">Ian climbs in, locks his hands on the steering wheel. Doesn't start the engine. Beside him: SAOIRSE BARRELL, bag on her lap, eyes on the floor mat. Neither speaks. The silence gets heavy enough to hear.</p>
+
+          <p class="scr-action">Saoirse clears her throat.</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-paren">(quietly, not looking up)</p>
+          <p class="scr-dial">Thanks for stopping to help us.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-paren">(wooden)</p>
+          <p class="scr-dial">Yeah.</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-dial">I'll probably just ask the officer to give me a ride to the hotel.</p>
+
+          <p class="scr-action">Ian turns away, forehead against his palm.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-dial">They're about to head into the woods. Looking for whoever it was you saw on the road.</p>
+          <p class="scr-paren">(a whisper, mostly to himself)</p>
+          <p class="scr-dial">Not that there's any point.</p>
+
+          <aside class="scr-note" style="top: ...">
+            In the playable version this beat is the player's first choice: three ways to answer her.
+            <a href="/game/dialogue">Play the scene →</a>
+          </aside>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-dial">I'll wait.</p>
+
+          <p class="scr-action">Her hand finds the door handle. It's already a goodbye.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-dial">That's hours. I'll drive you.</p>
+
+          <p class="scr-action">He starts the engine before she can answer - decision made the only way he can make one, fast and forward. The pickup swings slowly toward town.</p>
+
+          <p class="scr-char">IAN (CONT'D)</p>
+          <p class="scr-dial">The Central?</p>
+
+          <p class="scr-action">Saoirse nods.</p>
+        </div>
+
+        <div>
+          <p class="scr-slug">INT. IAN'S PICKUP — MOVING — NIGHT</p>
+
+          <p class="scr-action">Wipers. Road noise. Two people not talking, loudly.</p>
+
+          <p class="scr-action">Saoirse studies Ian from the passenger seat when he isn't looking. Whatever she's remembering - the handsome cheerful guy with a charming smile - it isn't what's driving this truck: gaunt, unshaven, hair nobody's touched in weeks, mean stare.</p>
+
+          <p class="scr-action">Without thinking, Ian fishes a cigarette from his pocket. Lights it one-handed. Saoirse immediately coughs.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-paren">(voice cracked)</p>
+          <p class="scr-dial">Sorry.</p>
+
+          <p class="scr-action">He cracks the window, flicks the cigarette out.</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-paren">(narrowing her eyes)</p>
+          <p class="scr-dial">You never smoked before...</p>
+
+          <p class="scr-action">Ian rolls his neck. Gives his passenger a first, brief glance.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-dial">Yeah, well...</p>
+
+          <p class="scr-action">The pause comes back. This time it's Ian who can't stand it.</p>
+
+          <p class="scr-char">IAN (CONT'D)</p>
+          <p class="scr-dial">Not how you remembered me, huh? Go ahead, tell me I look like shit. At least we'd be clear on one thing.</p>
+
+          <p class="scr-action">Saoirse says nothing.</p>
+
+          <p class="scr-action">Ian spins the wheel; the pickup jolts over a speed bump and pulls into the lot of a four-story hotel. He brakes, kills the ignition, and turns to her, meeting her eyes for the first time.</p>
+
+          <p class="scr-action">He's made a decision.</p>
+
+          <p class="scr-char">IAN (CONT'D)</p>
+          <p class="scr-paren">(hoarse)</p>
+          <p class="scr-dial">Saoirse. I don't know why you came back, and I'm not going to ask. But there's something you need to know. Whatever killed Caleb and the others ten years ago - it's back in Mag Point.</p>
+        </div>
+
+        <div>
+          <p class="scr-slug">INT. IAN'S PICKUP — HOTEL PARKING LOT — CONTINUOUS</p>
+
+          <p class="scr-action">Stillness. Rain on the roof.</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-dial">What did you just say?</p>
+
+          <p class="scr-action">Ian pulls a slow breath through his nose. Starts again.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-dial">Whatever killed Caleb and the others—</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-paren">(quiet; iron)</p>
+          <p class="scr-dial">Shut up. Shut up. Shut your filthy mouth.</p>
+
+          <p class="scr-action">Ian rocks back like he's taken one on the jaw. She's glaring at him from under her brow, and something in her eyes has caught fire.</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-paren">(rasping)</p>
+          <p class="scr-dial">Saoirse—</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-paren">(shrieking; the control snaps)</p>
+          <p class="scr-dial">I said shut up! Don't you dare put my name in that dirty mouth of yours! Or my brother's! You— you— you're nothing, how dare you! You made this up on the drive over, didn't you?! So I'd believe you and fall into bed with you - like you wanted back then, after prom!</p>
+
+          <p class="scr-char">IAN</p>
+          <p class="scr-paren">(barely audible; white as chalk)</p>
+          <p class="scr-dial">But I—</p>
+
+          <p class="scr-char">SAOIRSE</p>
+          <p class="scr-dial">Shut it, Demme! Look at yourself, you freak! You make me sick, you always made me sick! Always, you hear me?! I only went out with you out of pity, because nobody else would ever look at you! Nobody!</p>
+
+          <aside class="scr-note" style="top: 22rem">
+            In the game this eruption scales with a hidden counter: the crueler the ride, the crueler the speech. On the page there is only one version: the worst one.
+          </aside>
+
+          <p class="scr-action">She gropes behind her for the door handle, yanks at it, frantic.</p>
+
+          <p class="scr-char">SAOIRSE (CONT'D)</p>
+          <p class="scr-dial">I knew I'd have the bad luck of seeing your face when I flew out here. I knew it! Rot in this shithole, son of a bitch! I hate you!</p>
+
+          <p class="scr-action">The door gives. Slams. Through the streaked glass: her silhouette shrinking into the rain, bag on her shoulder, until the fog takes it.</p>
+
+          <p class="scr-action">Ian doesn't move. The wipers count. He sits there long after there's nothing left to look at.</p>
+
+          <p class="scr-trans">CUT TO:</p>
+        </div>
+      </Screenplay>
+    </div>
+  </section>
+
 
 <!-- Back to top button -->
   <button id="to-top" type="button" aria-label="Back to top" hidden>&#8593;</button>

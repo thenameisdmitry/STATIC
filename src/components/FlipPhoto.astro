@@ -1,0 +1,28 @@
+---
+// A photo that flips to its back side on click. For lore grids.
+// front/back — images under /public. caption — optional line under the photo.
+interface Props {
+  front: string;
+  back: string;
+  alt?: string;
+  caption?: string;
+}
+const { front, back, alt = '', caption } = Astro.props;
+---
+<figure class="flipphoto">
+  <button type="button" class="flipphoto__btn" data-flipphoto aria-label="Turn the photograph over">
+    <span class="flipphoto__inner">
+      <img class="flipphoto__face flipphoto__face--front" src={front} alt={alt} loading="lazy" />
+      <img class="flipphoto__face flipphoto__face--back" src={back} alt="" loading="lazy" />
+    </span>
+  </button>
+  {caption && <figcaption class="flipphoto__caption">{caption}</figcaption>}
+</figure>
+
+<script>
+  document.querySelectorAll('[data-flipphoto]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('is-flipped');
+    });
+  });
+</script>
