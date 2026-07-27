@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Redact from '../components/Redact.astro';
 
 const channels = [
-  { href: '/writer', ch: '01', label: 'DZ: The Writer', blurb: 'Who I am, the career change, and why narrative.', featured: false, img: '/home/the-writer.png' },
-  { href: '/game', ch: '02', label: 'STATIC: The Game', blurb: 'A vertical slice — lore, playable dialogue, case files, screenplay.', featured: true, img: '/home/the-game.png' },
-  { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.png' },
-  { href: '/lab', ch: '04', label: 'MY LAB: Ideas', blurb: 'Short experiments, barks, and micro-fiction.', featured: false, img: '/home/the-lab.png' },
-  { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'CV, email, and where to reach me.', featured: false, img: '/home/the-contact.png' },
+  { href: '/writer', ch: '01', label: 'DZ: The Writer', blurb: 'My bio, career, skills, and a CV to download.', featured: false, img: '/home/the-writer.png' },
+  { href: '/game', ch: '02', label: 'STATIC: The Game', blurb: 'A full game concept: lore, playable dialogue, character files, collectibles, screenplay.', featured: true, img: '/home/the-game.png' },
+  { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Original book: excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.png' },
+  { href: '/lab', ch: '04', label: 'LAB: The Tools', blurb: 'The craft side: branching graphs, prototypes, and the tools I build them in.', featured: false, img: '/home/the-lab.png' },
+  { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'Get in contact with me: email, messengers, phone.', featured: false, img: '/home/the-contact.png' },
 ];
 ---
 
@@ -95,7 +95,7 @@ const channels = [
               <h2 class="mt-3 font-display text-3xl font-semibold uppercase tracking-tight text-ink md:text-4xl">
                 {c.label}
               </h2>
-              <p class="mt-2 max-w-md text-ink-dim">{c.blurb}</p>
+              <p class="mt-2 max-w-md text-ink">{c.blurb}</p>
               <span class="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-violet-bright">Open →</span>
             </a>
           ))

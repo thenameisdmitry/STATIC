@@ -1967,3 +1967,50 @@
 .scr__nav-btn:hover:not(:disabled) { border-color: var(--color-violet); background: rgba(157, 78, 221, .1); }
 .scr__nav-btn:disabled { opacity: .3; cursor: default; }
 .scr__counter { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .25em; color: var(--color-ink-dim); }
+
+/* ===== PIPELINE CARDS (LAB PAGE) ===== */
+.pipe {
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: var(--color-raised);
+  overflow: hidden;
+}
+.pipe[open] { border-color: var(--color-violet); }
+
+.pipe__head {
+  display: flex; align-items: baseline; gap: .8rem;
+  padding: 1rem 1.2rem; cursor: pointer;
+  font-family: var(--font-mono); font-size: .78rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink);
+  transition: color .2s;
+}
+.pipe__head:hover { color: var(--color-violet-bright); }
+.pipe__head::-webkit-details-marker { display: none; }
+.pipe__head::after {
+  content: "+"; margin-left: auto; color: var(--color-violet-bright); font-size: 1rem;
+}
+.pipe[open] .pipe__head::after { content: "−"; }
+
+.pipe__n { color: var(--color-violet-bright); }
+
+.pipe__body {
+  padding: 0 1.2rem 1.4rem;
+  color: var(--color-ink-dim); line-height: 1.65;
+  animation: loreReveal .25s ease both;
+}
+.pipe__body p { margin: .6rem 0; }
+
+/* screenplay - paper background */
+.pipe__body--script {
+  margin: 0 1.2rem 1.4rem; padding: 1.4rem 1.6rem;
+  background: #f4f1e8; color: #1c1a15; border-radius: 3px;
+  font-family: var(--font-typewriter, ui-monospace, "Courier New", monospace);
+  font-size: .88rem;
+}
+
+.pipe__code {
+  margin: 0; padding: 1rem 1.1rem; overflow-x: auto;
+  background: #0a0a0f; border: 1px solid var(--color-line); border-radius: 6px;
+  font-family: var(--font-mono); font-size: .72rem; line-height: 1.55;
+  color: #b9b4c8;
+}

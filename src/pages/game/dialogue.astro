@@ -22,13 +22,18 @@ import scene from '../../data/dialogue-drive.json';
 <section class="px-6 pb-24">
     <div class="mx-auto max-w-5xl">
       <DialogueRunner scene={scene} />
-      <p class="mt-8 text-ink-dim">
-        <strong class="text-ink">Design note:</strong> This scene is a compact demo of the
-        dialogue system: persistent flags, gated choices, escalating reactions, and a hidden
-        ending that rewards restraint. Choices made in the opening beats change what Saoirse
-        says, and what Ian is allowed to say, at the end. In the full game, scenes like this
-        run deeper and feed a persistent story state: what you say in the car follows you
-        for the rest of the investigation.
+    <p class="mt-8 text-ink-dim">
+        <strong class="text-ink">Design note:</strong> This scene runs on the game's dialogue
+        system: persistent flags, gated choices, escalating reactions, and a hidden ending
+        that rewards restraint. Choices made in the opening beats change what Ian and Saoirse say. 
+        Narration beats pace the scene between
+        lines, the way they would in the full game, where what you say in the car follows
+        you for the rest of the investigation.
+     </p>
+     <p class="mt-8 text-ink-dim">   
+        This scene also exists as a <a href="/game#screenplay-scene" class="text-violet-bright underline">linear
+        screenplay</a> — the canonical cut, as it happens in the novel, with margin notes on
+        where the two versions diverge.
       </p>
     </div>
   </section>

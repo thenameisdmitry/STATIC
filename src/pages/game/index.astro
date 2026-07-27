@@ -249,7 +249,7 @@ const pillars = [
         <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.png" />
         <Carousel items={missing} />
 
-        <!-- Row 4: Orson (clickable) | secret documents (clickable) -->
+        <!-- Row 4: Photo (clickable) | secret documents (clickable) -->
         <FlipPhoto
           front="/lore/stuff/ian-saoirse-front.png"
           back="/lore/stuff/ian-saoirse-back.png"
@@ -289,21 +289,21 @@ const pillars = [
       <p class="eyebrow mb-3">04</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Character files</h2>
       <p class="mt-3 max-w-2xl text-ink-dim">
-        Dossiers on the people of Mag Point: who they are, how they speak, and what they
+        Dossiers on the game characters: who they are, how they speak, and what they
         say under pressure. Voice guides and systemic barks for each.
       </p>
 
       <div class="mt-10 grid gap-5">
         <CharacterFile
           name="Ian Demme"
-          role="Protagonist — action"
+          role="Protagonist - action, investigation"
           age="28"
-          tagline="A main character with dark past and demons in his heart. Whatever he knows about the town, he keeps to himself. Known troublemaker."
+          tagline="A main character with dark past and demons in his heart. Whatever he knows about the town, he keeps to himself."
           portrait="/characters/ian.png"
         >
           <div>
             <p class="cf-h">Bio</p>
-            <p class="cf-p">28-year-old lifelong resident of Mag Point and a graduate of White High School. After the traumatic events of August 2008, he spent nearly a year at the Alaska Psychiatric Institute in Anchorage before returning to his hometown. </p>
+            <p class="cf-p">28, lifelong resident of Mag Point and a graduate of White High School. After the traumatic events of August 2008, he spent nearly a year at the Alaska Psychiatric Institute in Anchorage before returning to his hometown. </p>
             <p class="cf-p">He is one of the few people who knows the truth about the Gray Signal and its connection to the town's disappearances. Although he has uncovered fragments of the mystery, his primary concern is protecting his younger brother, Victor, whom he believes is now in danger.</p>
           </div>
 
@@ -319,7 +319,7 @@ const pillars = [
             <div class="cf-says">
               <div class="cf-says--yes">
                 <span class="cf-says__label">Says</span>
-                <p>"Everything I'd tell you would sound insane. You'd question every word."</p>
+                <p>"Everything I'm about to tell you would sound insane. You'd question every word."</p>
               </div>
               <div class="cf-says--no">
                 <span class="cf-says__label">Never says</span>
@@ -337,7 +337,7 @@ const pillars = [
               <div class="cf-bark"><span class="cf-bark__trigger">combat · enemy down</span><span class="cf-bark__line">"<i>*spits*</i>"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">combat · enemy boss</span><span class="cf-bark__line">"And I thought you'd be taller."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">stealth · near-miss</span><span class="cf-bark__line">"Shit... That was too close..."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"I'll take it. Can be useful."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"I'll take it. Could be useful."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">explore · landmark</span><span class="cf-bark__line">"We used to go there when we where students. Remember that?"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">signal rising</span><span class="cf-bark__line">"Hear that? We better keep moving."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"Why am I still here?"</span></div>
@@ -348,15 +348,18 @@ const pillars = [
             <p class="cf-h">Relationships</p>
             <p class="cf-p">
               <p>
-              <b class="text-ink">Saoirse</b>: his former high school girlfriend who broke his heart. 
+              <b class="text-ink">Saoirse</b>: his former high school girlfriend who broke his heart.
+              He is still in love with her and holds on to the memories of their past. 
               Talks to her in apologetic tone. Never looks her in the eye.
               </p>
+              <br/>
               <p>
-              <b class="text-ink">Lt. Maisey</b>: a local cop who is still trying to make difference 
-              in this town. The only cop he doesn't needle, and who can stretch a helping hand.
+              <b class="text-ink">Lt. Maisey</b>: the only cop he doesn't needle, 
+              and who can stretch a helping hand.
               </p>
+              <br/>
               <p>
-              <b class="text-ink">Donal Hockley</b>: his former classmate and a close friend of his.
+              <b class="text-ink">Donal Hockley</b>: his former classmate and a close friend.
               Together they started the investigation into the disappearances, but they something
               happened between them. They rarely talk.
               </p>
@@ -366,33 +369,34 @@ const pillars = [
 
         <CharacterFile
           name="Saoirse Barrell"
-          role="Protagonist — stealth / narrative"
-          age="28"
-          tagline="Came back for paperwork. Stayed for the thing she ran from."
+          role="Protagonist - stealth, narrative"
+          age="27"
+          tagline="Second playable character. Came back right into her past she tried so desperately to forget."
           portrait="/characters/saoirse.png"
         >
           <div>
             <p class="cf-h">Bio</p>
-            <p class="cf-p">Left Mag Point at eighteen, two months after her brother Caleb vanished, and built a careful, quiet life in New York — new vocabulary, new posture, no Alaska in her voice. Returns in 2018 for her old medical records; plans to stay forty-eight hours.</p>
-            <p class="cf-p">Then the disappearances resume, her father becomes the prime suspect, and the forty-eight hours stop mattering.</p>
+            <p class="cf-p">27, a New York City resident and a graduate of Columbia University. She shares an apartment with her boyfriend, Rust. Born and raised in Mag Point, she has spent the last decade trying to erase the town from her life. To Saoirse, Mag Point is a place of grief and memories best left buried. She returns only because her cardiologist has requested her original paper medical records, forcing her back to the hometown. </p>
+            <p class="cf-p">Expected to stay in Mag Point for no more than three days. Instead, a series of unsettling coincidences traps her in town. Her father, Val Burrell, is arrested by the local police as the prime suspect in the abduction of a young boy. Saoirse has no choice but to remain and uncover the truth before it's too late.</p>
           </div>
 
           <div>
             <p class="cf-h">Voice</p>
             <ul class="cf-voice">
-              <li>Precise, composed sentences — the practiced neutrality of someone who rehearsed leaving.</li>
-              <li>The polish cracks on personal ground: shorter breaths, dropped articles, Mag Point vowels sneaking back.</li>
-              <li>Deflects with questions. Answers a feeling with a fact.</li>
-              <li>Never says Caleb's name first. Ever.</li>
+              <li>• Speaks with a distinct New York accent. Confident and articulate, often coming across as arrogant or dismissive.</li>
+              <li>• Her voice turns sharp and steely whenever she needs something or takes control of a situation.</li>
+              <li>• Usually composed and emotionally restrained, but when pushed too far, she doesn't hesitate to swear.</li>
+              <li>• Exceptionally gentle and affectionate with the people she loves.</li>
+              <li>• She never has a single kind word to say about Mag Point.</li>
             </ul>
             <div class="cf-says">
               <div class="cf-says--yes">
                 <span class="cf-says__label">Says</span>
-                <p>"I need three signatures and a copy. Then I'm gone."</p>
+                <p>"Now listen, you have absolutely no right to keep my dad under custody unless you press charges!"</p>
               </div>
               <div class="cf-says--no">
                 <span class="cf-says__label">Never says</span>
-                <p>"I've missed this place, deep down."</p>
+                <p>"Deep down... I've missed this place."</p>
               </div>
             </div>
           </div>
@@ -400,70 +404,92 @@ const pillars = [
           <div>
             <p class="cf-h">Barks</p>
             <div class="cf-barks">
-              <div class="cf-bark"><span class="cf-bark__trigger">stealth · hiding</span><span class="cf-bark__line">"Breathe. Count the exits. Same as always."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">stealth · near-miss</span><span class="cf-bark__line">"...Okay. That was closer than it gets to be."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">stealth · distraction</span><span class="cf-bark__line">"Look at that. Not at me."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">combat · forced fight</span><span class="cf-bark__line">"I didn't want this. Remember I didn't want this."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"Dated, signed... and wrong. Someone rewrote this."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">explore · childhood spot</span><span class="cf-bark__line">"Smaller than I remember. Everything here is smaller than I remember."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">signal rising</span><span class="cf-bark__line">"The static again. It's — no. Keep moving."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"Forty-eight hours. That was the plan. That was the whole plan."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">stealth · hiding</span><span class="cf-bark__line">"Quite... Be very still..."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">stealth · near-miss</span><span class="cf-bark__line">"...Okay. That was close."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">stealth · distraction</span><span class="cf-bark__line">"Focus, Saoirse!"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">combat · forced fight</span><span class="cf-bark__line">"Think girls can't fight back?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"See what the MPPD thinks about that."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">explore · old spot</span><span class="cf-bark__line">"Enough memories for the day..."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">signal rising</span><span class="cf-bark__line">"It's gotten louder! Did you notice?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"How I wish I never would be here in a first place."</span></div>
             </div>
           </div>
 
           <div>
             <p class="cf-h">Relationships</p>
-            <p class="cf-p"><b class="text-ink">Ian</b> — guilt she's dressed up as politeness; she owes him a goodbye and they both know it. <b class="text-ink">Val</b> — she calls him "my father" to strangers and nothing at all to his face.</p>
-          </div>
+            <p class="cf-p">
+              <p>
+              <b class="text-ink">Ian</b>: Saoirse's high school boyfriend during their senior year at White High School.
+              When she left Mag Point, she never told him she was leaving. Seeing him again after ten years is the last thing she wanted. 
+              To Saoirse, Ian is a living reminder of the past she worked so hard to escape.
+              </p>
+              <br/>
+              <p>
+              <b class="text-ink">Donal Hockley</b>: A former classmate and one of Saoirse's closest friends 
+              in high school. During their senior year, tensions between Donal, Ian, and Saoirse drove 
+              a wedge between them. Despite the years apart, Saoirse still speaks to Donal with 
+              warmth and genuine affection.
+              </p>
+              </p>
+            </div>
         </CharacterFile>
 
         <CharacterFile
           name="Donal Hockley"
-          role="[Role — уточни]"
-          age="—"
-          tagline="[PLACEHOLDER — скажи, кто он, перепишу прицельно.]"
+          role="Friendly NPC"
+          age="28"
+          tagline="Spent a five years serving in Coast Guard. Came back to Mag Point a few years ago and stayed."
           portrait="characters/donal.png"
         >
           <div>
             <p class="cf-h">Bio</p>
-            <p class="cf-p">[Написан вслепую как «местный, который слишком охотно помогает»: всегда рядом, всегда в курсе, всегда с алиби. Замени под реальную роль.]</p>
+            <p class="cf-p">28, graduated alongside Ian Demme and Saoirse Barrell at White High School. Once Ian's closest friend, Donal chose a different path after graduation, serving as a psychologist in the United States Coast Guard. After leaving the service, he returned to Mag Point and decided to stay.</p>
+            <p class="cf-p">As a senior, Donal investigated the unexplained disappearances that had haunted Mag Point for decades. His independent research uncovered a disturbing pattern behind the incidents, one that points directly toward the mystery of the Gray Signal.</p>
           </div>
           <div>
-            <p class="cf-h">Barks / sample lines</p>
+            <p class="cf-h">Voice</p>
+            <ul class="cf-voice">
+              <li>• Thick, deep voice. Speaks with pauses, thinking beforehand.</li>
+              <li>• Shy and unsure around former classmates.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="cf-h">Barks</p>
             <div class="cf-barks">
-              <div class="cf-bark"><span class="cf-bark__trigger">greeting</span><span class="cf-bark__line">"Well now. Day just got interesting."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">questioned</span><span class="cf-bark__line">"Careful what you go digging for. Ground's soft around here."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">deflecting</span><span class="cf-bark__line">"Me? I just keep the lights on. Ask anybody."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">greeting</span><span class="cf-bark__line">"Hey... It's been a minute, right?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">questioned</span><span class="cf-bark__line">"You remember, huh? I'm genuinly surprised."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">deflecting</span><span class="cf-bark__line">"Why sudden change of heart?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">conflict</span><span class="cf-bark__line">"Little shits... Get out of here now!"</span></div>
             </div>
           </div>
         </CharacterFile>
 
         <CharacterFile
-          name="Lt. Keith Maisy"
-          role="NPC — Mag Point PD"
-          age="52"
-          tagline="Twenty-nine years on a force built for lost dogs and bar fights."
+          name="Lt. Keith Maisey"
+          role="Friendly NPC, Mag Point PD"
+          age="43"
+          tagline="Valor and dedication. One of the rare cops who bleeds blue."
           portrait="/characters/maisey.png"
         >
           <div>
             <p class="cf-h">Bio</p>
-            <p class="cf-p">Was a young officer during the '08 disappearances; watched the case eat his mentor and then get quietly shelved. Never bought the official line, never said so on the record. When it starts again, Maisy becomes the one door in the department that opens for Ian and Saoirse — at the cost of his pension, and he knows it.</p>
+            <p class="cf-p">43, is the Chief of the Mag Point Police Department. A lifelong resident of Mag Point, he is a devoted husband and the father of two daughters.</p>
+            <p class="cf-p">In 2008, Maisey led the response to the August disappearances. During the investigation, his officers were ambushed by Faraday Kavanagh, a grieving father whose son had vanished. A decade later, the memory of that day still haunts him.</p>
           </div>
           <div>
             <p class="cf-h">Voice</p>
             <ul class="cf-voice">
-              <li>Procedural calm: report-speak that occasionally fails him mid-sentence.</li>
-              <li>Understates everything. "Not great" is a catastrophe.</li>
-              <li>Protects people by lying to them gently, and hates himself for how good he is at it.</li>
+              <li>• Sharp around the edges. Capable of raising voice in critical situation.</li>
+              <li>• Looks directly in the eye when he speaks</li>
             </ul>
           </div>
           <div>
-            <p class="cf-h">Sample lines</p>
+            <p class="cf-h">Barks</p>
             <div class="cf-barks">
-              <div class="cf-bark"><span class="cf-bark__trigger">handing over a file</span><span class="cf-bark__line">"You didn't get this from me. You got this from nobody, in fact."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">radio · checking in</span><span class="cf-bark__line">"Maisy here. Still nothing. Which around here means something."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">warning the pair</span><span class="cf-bark__line">"Whatever you two are doing — do it quieter."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">signal event</span><span class="cf-bark__line">"...Dispatch, say again. Dispatch? Say again."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">handing over a file</span><span class="cf-bark__line">"You didn't get this from me. In fact, you never got it from anyone."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">radio · checking in</span><span class="cf-bark__line">"Maisey here. No. Still nothing."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">warning the pair</span><span class="cf-bark__line">"Whatever you two are doing, I don't want to know. Just do it quetly."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">command</span><span class="cf-bark__line">"Set up a perimeter. Report 10-79."</span></div>
             </div>
           </div>
         </CharacterFile>

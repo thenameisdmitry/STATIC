@@ -142,7 +142,7 @@
       "choices": [
         { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth" },
         { "label": "Your dad's been arrested.", "intent": "deflect", "set": { "to_precinct": true }, "to": "ian-echo-dad" },
-        { "label": "I need your help, Saoirse.", "intent": "trust", "requires": { "disgust": { "max": 0 } }, "showLocked": true, "lockedLabel": "locked — she won't hear this from you now", "set": { "asked_help": true }, "to": "ian-echo-help" }
+        { "label": "I need your help, Saoirse.", "intent": "trust", "requires": { "disgust": { "max": 0 } }, "showLocked": true, "lockedLabel": "Locked. Saoirse won't hear this from you now", "set": { "asked_help": true }, "to": "ian-echo-help" }
       ]
     },
 

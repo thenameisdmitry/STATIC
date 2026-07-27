@@ -1,17 +1,134 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Figure from '../components/Figure.astro';
 ---
-<BaseLayout title="Fragments — [Your Name]">
-  <section class="px-6 pt-16">
-    <div class="mx-auto max-w-3xl">
-      <p class="eyebrow mb-4">CH 04</p>
-      <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">Fragments</h1>
-      <p class="mt-6 text-lg text-ink-dim">Short experiments — proof you write constantly.</p>
-      <div class="mt-10 space-y-4">
-        <p class="placeholder block">A dozen character "barks".</p>
-        <p class="placeholder block">A 200-word micro-story.</p>
-        <p class="placeholder block">A drabble or two.</p>
+<BaseLayout title="LAB — The Craft">
+  <!-- HERO with banner -->
+  <section class="px-6 pt-16 pb-16">
+    <div class="mx-auto max-w-4xl">
+      <div class="grid gap-8 md:grid-cols-[400px_1fr] md:items-center">
+        <img src="/lab/the-lab.png" alt=""
+             class="w-full rounded-lg border border-line object-cover" />
+        <div>
+          <p class="eyebrow mb-4">CH 04 · Process</p>
+          <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">Lab: the Tools</h1>
+          <p class="mt-6 text-lg text-ink-dim">
+            The finished narrative project lives on the <b><a href="/game" class="text-violet-bright underline">STATIC</a></b> page.
+            This page shows the workbench was built on: the tools, the prototypes, and one scene traced
+            from the novel all the way to data a game engine can run.
+          </p>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 01 · ARTICY -->
+  <section class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-4xl">
+      <p class="eyebrow mb-3">01 — Branching design</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">articy:draft X</h2>
+      <p class="mt-3 max-w-4xl text-ink-dim">
+        A third-act scene: three characters are forced to take the boar from an NPC, 
+        It has four endings, and a hidden branch that
+        opens only if the player has told the truth and never been caught in a lie. Built as
+        dialogue fragments, hubs, instructions and conditions over three global variables.
+      </p>
+
+      <Figure src="/lab/articy-01-hub.png" alt="Choice hub branching into three approaches"
+        caption="A choice hub fans out into three approaches — each with its own menu text and spoken line." />
+      <Figure src="/lab/articy-02-instructions.png" alt="Instruction nodes setting flags"
+        caption="Instruction nodes write to global variables the moment a branch is taken." />
+      <Figure src="/lab/articy-03-condition.png" alt="Condition node gating a hidden branch"
+        caption="A condition gates the hidden branch: truthTold == true && caught == false." />
+      <Figure src="/lab/articy-04-flow.png" alt="Full scene flow"
+        caption="Branches diverge, converge, and one path loops back to the hub with the state changed." />
+    </div>
+  </section>
+
+  <!-- 02 · TWINE -->
+  <section class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">02 — Prototyping</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Twine</h2>
+      <p class="mt-3 max-w-3xl text-ink-dim">
+        Before a scene reaches an engine it gets play-tested cheaply. "The Drive" as a Twine
+        prototype: same flags, same gate, same four endings. Playable right here.
+      </p>
+      <div class="mt-8 overflow-hidden rounded-lg border border-line">
+        <iframe src="/lab/the-drive.html" title="Twine prototype — The Drive"
+          class="block h-[560px] w-full bg-black"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · PIPELINE -->
+  <section class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">03 — Pipeline</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">One scene, four formats</h2>
+      <p class="mt-3 max-w-3xl text-ink-dim">
+        Reggie will not sell his boat, and there are minutes left. The same scene carried
+        through every stage of the work — click to open each one.
+      </p>
+
+      <div class="mt-8 space-y-3">
+        <details class="pipe">
+          <summary class="pipe__head"><span class="pipe__n">01</span> Prose — as written in the novel</summary>
+          <div class="pipe__body">
+            <p>[абзацы из книги]</p>
+          </div>
+        </details>
+
+        <details class="pipe">
+          <summary class="pipe__head"><span class="pipe__n">02</span> Screenplay — the canonical cut</summary>
+          <div class="pipe__body pipe__body--script">
+            <p class="scr-slug">INT./EXT. REGGIE'S PORCH — NIGHT</p>
+            <p class="scr-action">[сценарный фрагмент]</p>
+          </div>
+        </details>
+
+        <details class="pipe">
+          <summary class="pipe__head"><span class="pipe__n">03</span> Flow — mapped in articy:draft</summary>
+          <div class="pipe__body">
+            <img src="/lab/pipeline-flow.png" alt="The scene as an articy flow" class="w-full rounded" />
+          </div>
+        </details>
+
+        <details class="pipe">
+          <summary class="pipe__head"><span class="pipe__n">04</span> Data — what the engine reads</summary>
+          <div class="pipe__body">
+            <pre class="pipe__code">[JSON-фрагмент]</pre>
+            <p class="mt-4 text-sm text-ink-dim">
+              The same gate the condition node draws as a diamond is three words here:
+              <code>"requires": &#123; "truthTold": true, "caught": false &#125;</code>
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · BARKS SYSTEM -->
+  <section class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="eyebrow mb-3">04 — Systemic dialogue</p>
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Bark system spec</h2>
+      <p class="mt-3 max-w-3xl text-ink-dim">
+        Barks aren't a list of funny lines — they're a system. Every line has a trigger, a
+        condition, a priority, and a cooldown, or the game repeats itself into comedy. This is
+        how STATIC's ambient dialogue is specified before a single line is written.
+      </p>
+      <!-- сюда таблица -->
+    </div>
+  </section>
+
+  <section class="border-t border-line px-6 py-12">
+    <div class="mx-auto max-w-5xl">
+      <p class="note">
+        Full articy and Twine project files are available to recruiters on request. They're kept
+        off the public page because the flow contains the complete branching structure and story
+        resolution — I'd rather you played the scene than read its map.
+      </p>
     </div>
   </section>
 </BaseLayout>
