@@ -1,106 +1,314 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Figure from '../components/Figure.astro';
+
+const boatJson = `{
+  "meta": { "title": "Getting the Boat from Reggie", "endingsTotal": 4 },
+
+  "cast": {
+    "ian":      { "name": "Ian",    "portrait": "/scene/ian.png" },
+    "reggie":   { "name": "Reggie", "portrait": "/scene/reggie.png" },
+    "donal":    { "name": "Donal",  "portrait": "/scene/donal.png" },
+    "narrator": { "name": "" }
+  },
+
+  "start": "beat-porch",
+
+  "nodes": {
+    "beat-porch": {
+      "speaker": "narrator",
+      "text": "Rain. The Ford idles at the foot of the steps. Reggie comes out in a leather jacket over bare skin, a bottle in his hand, buzzed and delighted about it.",
+      "auto": { "to": "reggie-open", "delay": 2400 }
+    },
+
+    "reggie-open": {
+      "speaker": "reggie",
+      "text": "Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something? The boat's in the shed, already in the water, tank full.",
+      "choices": [
+        { "label": "We need her on rental.", "intent": "reasonable",
+          "to": "ian-echo-rent" },
+        { "label": "The buyer's right behind us.", "intent": "deceive",
+          "set": { "caught": true }, "to": "ian-echo-lie" },
+        { "label": "There's no buyer, Reggie.", "intent": "truth",
+          "set": { "truthTold": true }, "to": "ian-echo-truth" }
+      ]
+    },
+
+    "ian-echo-rent": {
+      "speaker": "ian",
+      "text": "Listen, Reggie. We can't buy the boat today. We need to take her on rental for a few hours.",
+      "auto": { "to": "reggie-refuses", "delay": 1200 }
+    },
+
+    "reggie-refuses": {
+      "speaker": "reggie",
+      "text": "Hold on, mate... You said on the phone a buyer was coming right now. That him? Then get the hell off my porch. Pay in full or get lost.",
+      "auto": { "to": "escalation", "delay": 1600 }
+    },
+
+    "escalation": {
+      "speaker": "reggie",
+      "text": "Well? I'm getting wet out here.",
+      "note": {
+        "text": "His hand hasn't left the door frame.",
+        "requires": { "caught": true }
+      },
+      "choices": [
+        { "label": "We're compelled to insist.", "intent": "force",
+          "set": { "armed": true }, "to": "beat-pistol" },
+
+        { "label": "What's in the shed, Reggie?", "intent": "blackmail",
+          "to": "ian-echo-blackmail" },
+
+        { "label": "Donal. Talk to the man.", "intent": "ally",
+          "requires": { "armed": false },
+          "showLocked": true,
+          "lockedLabel": "locked — there's a gun in your hand",
+          "to": "donal-makes-the-case" },
+
+        { "label": "I'm asking you.", "intent": "trust",
+          "requires": { "truthTold": true, "caught": false },
+          "to": "ian-echo-ask" }
+      ]
+    },
+
+    "beat-pistol": {
+      "speaker": "narrator",
+      "text": "Three strides. Ian knocks the bottle out of his hand — glass on the boards — and puts the muzzle against bare chest. Reggie reads his face and finds no bluff in it.",
+      "auto": { "to": "reggie-under-the-gun", "delay": 2600 }
+    },
+
+    "reggie-yields": {
+      "speaker": "reggie",
+      "text": "I can't believe it. Damn punks, robbing me in my own house.",
+      "variants": [
+        {
+          "requires": { "truthTold": true, "armed": false },
+          "text": "...Take the damn keys. Radio's by the door, channel sixteen. And whatever you're going out there to look at — if it looks back, you come home."
+        }
+      ],
+      "outcome": {
+        "title": "Taken at gunpoint",
+        "blurb": "You have the boat. But Reggie will call 911 and Saoirse will have to avoid the cops' pursuit on her way to the abandoned docks."
+      }
+    }
+  }
+}`;
 ---
 <BaseLayout title="LAB — The Craft">
   <!-- HERO with banner -->
   <section class="px-6 pt-16 pb-16">
     <div class="mx-auto max-w-4xl">
-      <div class="grid gap-8 md:grid-cols-[400px_1fr] md:items-center">
+      <div class="grid gap-8 md:grid-cols-[410px_1fr] md:items-center">
         <img src="/lab/the-lab.png" alt=""
              class="w-full rounded-lg border border-line object-cover" />
         <div>
-          <p class="eyebrow mb-4">CH 04 · Process</p>
+          <p class="eyebrow mb-4">CH 04 · The Craft</p>
           <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">Lab: the Tools</h1>
           <p class="mt-6 text-lg text-ink-dim">
             The finished narrative project lives on the <b><a href="/game" class="text-violet-bright underline">STATIC</a></b> page.
-            This page shows the workbench was built on: the tools, the prototypes, and one scene traced
-            from the novel all the way to data a game engine can run.
+            This page shows the workbench was built on: the software, the tools, the prototypes, and one scene traced
+            from the novel all the way to the script for a game engine.
           </p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CONTENTS -->
+  <nav class="px-6 pb-8">
+    <div class="mx-auto max-w-4xl">
+      <ol class="toc">
+        <li class="toc__item">
+          <a href="#articy">
+            <span class="toc__n">01</span>
+            <span class="toc__title">articy:draft X</span>
+            <span class="toc__desc">Branching flow, variables, gated choices</span>
+          </a>
+        </li>
+        <li class="toc__item">
+          <a href="#twine">
+            <span class="toc__n">02</span>
+            <span class="toc__title">Twine</span>
+            <span class="toc__desc">A playable prototype, running right here</span>
+          </a>
+        </li>
+        <li class="toc__item">
+          <a href="#pipeline">
+            <span class="toc__n">03</span>
+            <span class="toc__title">Pipeline</span>
+            <span class="toc__desc">One scene from novel to engine data</span>
+          </a>
+        </li>
+        <li class="toc__item">
+          <a href="#barks">
+            <span class="toc__n">04</span>
+            <span class="toc__title">Bark system</span>
+            <span class="toc__desc">Rules that keep ambient lines from grating</span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
   <!-- 01 · ARTICY -->
-  <section class="scroll-mt-24 border-t border-line px-6 py-16">
+  <section id="articy" class="scroll-mt-24 border-t border-line px-6 py-16">
     <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-3">01 — Branching design</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">articy:draft X</h2>
       <p class="mt-3 max-w-4xl text-ink-dim">
-        A third-act scene: three characters are forced to take the boar from an NPC, 
-        It has four endings, and a hidden branch that
+        A third-act scene: three characters are forced to take a boat from an NPC, 
+        It has three endings, including a hidden branch that
         opens only if the player has told the truth and never been caught in a lie. Built as
         dialogue fragments, hubs, instructions and conditions over three global variables.
       </p>
 
-      <Figure src="/lab/articy-01-hub.png" alt="Choice hub branching into three approaches"
-        caption="A choice hub fans out into three approaches — each with its own menu text and spoken line." />
-      <Figure src="/lab/articy-02-instructions.png" alt="Instruction nodes setting flags"
-        caption="Instruction nodes write to global variables the moment a branch is taken." />
-      <Figure src="/lab/articy-03-condition.png" alt="Condition node gating a hidden branch"
-        caption="A condition gates the hidden branch: truthTold == true && caught == false." />
-      <Figure src="/lab/articy-04-flow.png" alt="Full scene flow"
-        caption="Branches diverge, converge, and one path loops back to the hub with the state changed." />
-    </div>
+        <Figure src="/lab/articy-flow.png" alt="Branching dialogue flow with hubs, instructions and a conditional gate"
+          caption="'Getting the Boat from Reggie': a three-character scene built as a flow: choice hubs, instruction nodes that write to global variables, and a condition that gates one branch behind the player's earlier honesty." />
+
+        <Figure src="/lab/articy-simulation.png" alt="The scene running in articy's simulation mode"
+          caption="Simulation mode: walking the scene as a player would, to check the branching holds up before a single line reaches an engine." />
+
+        <Figure src="/lab/articy-hero-card.png" alt="Character entity for Ian Demme"
+          caption="Ian Demme as a character entity. Traits, voice and references live in one place, so writers, designers and artists all work from the same source." />
+
+        <Figure src="/lab/articy-export-script.png" alt="The flow exported to an MS Word document"
+          caption="The same flow exported to MS Word in screenplay formatЖ how a scene reaches producers, actors and anyone else who doesn't open articy." />
+
+        <aside class="req">
+        <p class="req__label">// Access restricted</p>
+        <p class="req__body">
+          The playable project file is available to the recruiters on request. The file stays off 
+          the public page because the flow contains the full branching structure and the story's
+          resolution (narrative motives, endings, and script spoilers).
+        </p>
+        <a class="req__cta" href="/contact">Request the file &#8594;</a>
+      </aside>
+
+      </div>
   </section>
 
   <!-- 02 · TWINE -->
-  <section class="scroll-mt-24 border-t border-line px-6 py-16">
-    <div class="mx-auto max-w-5xl">
+  <section id="twine" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-3">02 — Prototyping</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Twine</h2>
-      <p class="mt-3 max-w-3xl text-ink-dim">
-        Before a scene reaches an engine it gets play-tested cheaply. "The Drive" as a Twine
-        prototype: same flags, same gate, same four endings. Playable right here.
+      <p class="mt-3 max-w-4xl text-ink-dim">
+        Before a scene reaches the engine it gets tested (for example, in Twine). 
+        Here is the <b>"The First Encounter of Ian and Saoirse"</b> scene as a Twine
+        prototype: same flags, same gate, same four endings. The JSON-formatted dialogue
+        is available of the <b><a href="/game#interactive-dialogue" class="text-violet-bright underline">STATIC</a></b> page.
       </p>
       <div class="mt-8 overflow-hidden rounded-lg border border-line">
-        <iframe src="/lab/the-drive.html" title="Twine prototype — The Drive"
+        <iframe src="/lab/the-drive.html" title="Twine prototype: The First Encounter"
           class="block h-[560px] w-full bg-black"></iframe>
       </div>
     </div>
   </section>
 
   <!-- 03 · PIPELINE -->
-  <section class="scroll-mt-24 border-t border-line px-6 py-16">
-    <div class="mx-auto max-w-5xl">
+  <section id="pipeline" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-3">03 — Pipeline</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">One scene, four formats</h2>
-      <p class="mt-3 max-w-3xl text-ink-dim">
-        Reggie will not sell his boat, and there are minutes left. The same scene carried
-        through every stage of the work — click to open each one.
+      <p class="mt-3 max-w-4xl text-ink-dim">
+        This is the standard pipeline I use in my workflow It includes four stages: the piece of prose taken form the
+        <i>"Myst"</i> novel; the screenplay based on the canonical chain of events; the flow designed in articy:draft with
+        alternative choices and outcomes; the JSON file that the game engine can read. The example of such workflow
+        is presented with "Getting the Boat from Reggie" scene.
       </p>
 
       <div class="mt-8 space-y-3">
         <details class="pipe">
-          <summary class="pipe__head"><span class="pipe__n">01</span> Prose — as written in the novel</summary>
+          <summary class="pipe__head"><span class="pipe__n">01</span> Prose (taken from the novel)</summary>
           <div class="pipe__body">
-            <p>[абзацы из книги]</p>
+            <p>Reggie met them on the porch of the house in a leather jacket pulled on over bare skin. In his hand he held a bottle of beer, and from his broad, floating smile it could be concluded that this bottle was far from the first of the evening. Donal parked the Ford a few yards from the house, and when all three got out of the car, Reggie whistled in surprise:</p>
+            <p>“Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something?  The boat's in the shed, already in the water, tank full, ready to go wherever you like this very minute." The young man pointed at the lopsided hut to the left of the house, took a substantial sip from the bottle and belched. </p>
+            <p>"Listen, Reggie," Ian pronounced, climbing onto the porch and wiping the raindrops from his face. "We can't buy the boat today, but we very much need to take it on rental."</p>
+            <p>Reggie hiccupped drunkenly and frowned:</p>
+            <p>"Hold on, mate… You said on the phone a buyer was coming right now. Is that him?" he nodded in Donal's direction.
+            <p>"There is no buyer," Demme said impatiently. "We need your boat for a few hours; we’ll pay you..."</p>
+            <p>“Go fuck yourself!" Reggie cut him off and spat angrily at the porch deck. “Pay the full price or get the hell out of my house!”</p>
+            <p>Ian glanced back at Donal and Saoirse, as though seeking their support. Donal answered his friend with a microscopic nod.</p>
+            <p>"I'm sorry, Reggie, but we're compelled to insist," Ian pronounced grimly, and drew the pistol from behind his belt.</p>
+            <p>"What the-” The young man's eyes went round with indignation when he saw the weapon aimed in his direction. "Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with!"</p>
+            <p>In three strides Ian flew at Reggie, knocked the bottle out of his hand, and set the gun against his bare chest.</p>
+            <p>"I'm very sorry, but if you don't bring the keys now, I'll pull the trigger.”</p>
+            <p>Reggie stared with wide eyes at Demme's contorted face, in which desperation and entreaty could be read. Donal took his place beside Ian and clicked open a switchblade, trying not to look at the stunned owner of the boat.</p>
+            <p>"I can't fucking believe it," Reggie said with bitterness, shoving his hands into his pockets. "Damn punks robbing me in my own house."</p>
+            <p>Donal cleared his throat and answered:</p>
+            <p>"We'll return the boat to you. We don't want her for free. It's just that right now you're the only person we can get one from."</p>
+            <p>Reggie drew a deep breath, turned on his heels, and opened the front door. Saoirse followed the men, keeping a step behind Donal.</p>
+          </p>
           </div>
         </details>
 
         <details class="pipe">
-          <summary class="pipe__head"><span class="pipe__n">02</span> Screenplay — the canonical cut</summary>
+          <summary class="pipe__head"><span class="pipe__n">02</span> Screenplay (the canonical cut)</summary>
           <div class="pipe__body pipe__body--script">
             <p class="scr-slug">INT./EXT. REGGIE'S PORCH — NIGHT</p>
-            <p class="scr-action">[сценарный фрагмент]</p>
+
+            <p class="scr-action">Rain. The Ford idles at the foot of the steps. REGGIE, mid-20s, comes out in a leather jacket over bare skin, a bottle of beer in his hand, buzzed and delighted about it.</p>
+
+            <p class="scr-char">REGGIE</p>
+            <p class="scr-dial">Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something?  The boat's in the shed, already in the water, tank full.</p>
+
+            <p class="scr-char">IAN</p>
+            <p class="scr-dial">Listen, Reggie. We can't buy the boat today. We need to take her on rental for a few hours.</p>
+
+            <p class="scr-action">Reggie hiccups. The smile goes.</p>
+
+            <p class="scr-char">REGGIE</p>
+            <p class="scr-dial">Hold on, mate… You said on the phone a buyer was coming right now. That him?</p>
+
+            <p class="scr-action">He nods at DONAL. Nobody answers.</p>
+
+            <p class="scr-char">REGGIE (CONT'D)</p>
+            <p class="scr-dial">Then get the hell out off my porch. Pay in full or get lost.</p>
+
+            <p class="scr-action">Ian looks back at Donal and SAOIRSE. Donal gives him a small nod.</p>
+
+            <p class="scr-char">IAN</p>
+            <p class="scr-dial">I'm sorry, Reggie. We're compelled to insist.</p>
+
+            <p class="scr-action">He draws the pistol from behind his belt.</p>
+
+            <p class="scr-char">REGGIE</p>
+            <p class="scr-dial">What the- Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with.</p>
+
+            <p class="scr-action">Three strides. Ian knocks the bottle out of his hand — glass on the floor — and puts the muzzle against bare chest. Reggie reads his face and finds no bluff in it. Only desperation, and something close to begging.</p>
+
+            <p class="scr-char">IAN</p>
+            <p class="scr-dial">I'm very sorry, but if you don't bring the keys now, I'll pull the trigger.</p>
+
+            <p class="scr-action">Donal takes his place at Ian's shoulder and clicks open a switchblade, trying not to look at the man he is helping to rob.</p>
+
+            <p class="scr-char">REGGIE</p>
+            <p class="scr-paren">(hands into his pockets)</p>
+            <p class="scr-dial">I can't fucking believe it. Damn punks, robbing me in my own house.</p>
+
+            <p class="scr-char">DONAL</p>
+            <p class="scr-dial">We'll return the boat to you. We don't want her for free. It's just that right now you're the only person we can get one from.</p>
+
+            <p class="scr-action">Reggie looks at the crowd angrily, then turns and goes inside the house.</p>
           </div>
         </details>
 
         <details class="pipe">
-          <summary class="pipe__head"><span class="pipe__n">03</span> Flow — mapped in articy:draft</summary>
+          <summary class="pipe__head"><span class="pipe__n">03</span> Flow (mapped in articy:draft)</summary>
           <div class="pipe__body">
-            <img src="/lab/pipeline-flow.png" alt="The scene as an articy flow" class="w-full rounded" />
+            <img src="/lab/articy-flow-2.png" alt="The scene as an articy:draft flow" class="w-full rounded" />
           </div>
         </details>
 
         <details class="pipe">
-          <summary class="pipe__head"><span class="pipe__n">04</span> Data — what the engine reads</summary>
+          <summary class="pipe__head"><span class="pipe__n">04</span> Data (what the engine reads)</summary>
           <div class="pipe__body">
-            <pre class="pipe__code">[JSON-фрагмент]</pre>
+            <pre class="pipe__code">{boatJson}</pre>
             <p class="mt-4 text-sm text-ink-dim">
-              The same gate the condition node draws as a diamond is three words here:
-              <code>"requires": &#123; "truthTold": true, "caught": false &#125;</code>
+              The gate that articy draws as a diamond is three words here:
+              <code class="text-violet-bright">"requires": &#123; "truthTold": true, "caught": false &#125;</code>.
+              One project, two languages: one for the designers' tools, one for the game engine.
             </p>
           </div>
         </details>
@@ -108,27 +316,98 @@ import Figure from '../components/Figure.astro';
     </div>
   </section>
 
-  <!-- 04 · BARKS SYSTEM -->
-  <section class="scroll-mt-24 border-t border-line px-6 py-16">
-    <div class="mx-auto max-w-5xl">
+<!-- 04 · BARKS -->
+  <section id="barks" class="scroll-mt-24 border-t border-line px-6 py-16">
+    <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-3">04 — Systemic dialogue</p>
-      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Bark system spec</h2>
-      <p class="mt-3 max-w-3xl text-ink-dim">
-        Barks aren't a list of funny lines — they're a system. Every line has a trigger, a
-        condition, a priority, and a cooldown, or the game repeats itself into comedy. This is
-        how STATIC's ambient dialogue is specified before a single line is written.
+      <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Bark system</h2>
+      <p class="mt-3 max-w-4xl text-ink-dim">
+        Barks are the lines the player never chooses: the character speaks because the game state
+        changed. Below is the set of triggers and rules that governs what protagonists and NPCs say under
+        different circumstances.
       </p>
-      <!-- сюда таблица -->
+
+      <div class="bark-rules">
+        <p class="bark-rules__label">// Rules</p>
+        <ul>
+          <li><b>Suppression.</b> Barks never fire during scripted dialogue or cutscenes.</li>
+          <li><b>Priority.</b> One bark at a time. Higher priority cancels lower; equal priority drops the newcomer.</li>
+          <li><b>Shuffle bag.</b> No line repeats until its pool is exhausted.</li>
+          <li><b>Cooldowns.</b> Per category and per character, so the two protagonists never trade lines like a duet.</li>
+          <li><b>Stress narrowing.</b> Under fire the pool drops to its shortest lines.</li>
+        </ul>
+      </div>
+
+      <div class="bark-table-wrap">
+        <table class="bark-table">
+          <thead>
+            <tr>
+              <th>Trigger</th>
+              <th>Condition</th>
+              <th>Prio</th>
+              <th>Cooldown</th>
+              <th>Pool</th>
+              <th>Sample line</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>combat · spotted</td>
+              <td>first contact, per encounter</td>
+              <td>high</td>
+              <td>45s</td>
+              <td>6</td>
+              <td class="bark-table__line">"Damn it! *cracks the knuckle bones*."</td>
+            </tr>
+            <tr>
+              <td>combat · hurt</td>
+              <td>health &lt; 30%</td>
+              <td>high</td>
+              <td>60s</td>
+              <td>4</td>
+              <td class="bark-table__line">"*sigh of pain*."</td>
+            </tr>
+            <tr>
+              <td>stealth · near-miss</td>
+              <td>detection peaked, then fell</td>
+              <td>med</td>
+              <td>30s</td>
+              <td>5</td>
+              <td class="bark-table__line">"Close... Too close."</td>
+            </tr>
+            <tr>
+              <td>explore · clue found</td>
+              <td>first inspection of this clue</td>
+              <td>med</td>
+              <td>—</td>
+              <td>unique</td>
+              <td class="bark-table__line">"Honestly, I never thought we'd find anything here."</td>
+            </tr>
+            <tr>
+              <td>signal · proximity</td>
+              <td>signal rising AND fog present</td>
+              <td>low</td>
+              <td>90s</td>
+              <td>8</td>
+              <td class="bark-table__line">"Did you hear that? It's getting loader."</td>
+            </tr>
+            <tr>
+              <td>idle</td>
+              <td>40s no input, no threat</td>
+              <td>lowest</td>
+              <td>120s</td>
+              <td>10</td>
+              <td class="bark-table__line">"Why am I still here? What am I even doing alive?"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="mt-5 max-w-4xl text-sm text-ink-dim">
+        The concrete examples of the characters barks live in the character files on the 
+         <a href="/game#character-files" class="text-violet-bright underline"> STATIC</a>  page.
+      </p>
     </div>
   </section>
 
-  <section class="border-t border-line px-6 py-12">
-    <div class="mx-auto max-w-5xl">
-      <p class="note">
-        Full articy and Twine project files are available to recruiters on request. They're kept
-        off the public page because the flow contains the complete branching structure and story
-        resolution — I'd rather you played the scene than read its map.
-      </p>
-    </div>
-  </section>
 </BaseLayout>
