@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Ian and Saoirse first encounter",
+    "title": "The Drive",
     "endingsTotal": 4,
     "bg": "/scene/background.png"
   },
@@ -13,7 +13,7 @@
   "nodes": {
     "beat-opening": {
       "speaker": "narrator",
-      "text": "Highway. In twenty yards from Ian's pickup truck, a wrecked car sits on the shoulder, a police cruiser idling beside it. Two people in a pickup truck: Ian and Saoirse. They have not seen each other in ten years. Now the road accident has put them in the same car. Neither of them could find anything to say to a reunion like this. At last Saoirse cleared her throat and spoke quietly:",
+      "text": "Highway. Twenty yards back from Ian's pickup, a wrecked car sits on the shoulder, a police cruiser idling beside it. Two people in the cab: Ian and Saoirse. They have not seen each other in ten years. Now the road accident has put them in the same car. Neither of them could find anything to say to a reunion like this. At last Saoirse cleared her throat and spoke quietly:",
       "auto": { "to": "open", "delay": 3400 }
     },
     "open": {
@@ -75,7 +75,7 @@
     },
     "dialogue-1-bitter-2": {
       "speaker": "saoirse",
-      "text": "I'm sorry you had to see me again, Ian. I promise you never will.",
+      "text": "I'm sorry you had to see me again, Ian. I promise you never will again.",
       "choices": [
         { "label": "Wait! Wait...", "intent": "reasonable", "to": "dialogue-1-bitter-3" },
         { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "beat-she-leaves" }
@@ -119,7 +119,7 @@
     },
     "ian-echo-pretend": {
       "speaker": "ian",
-      "text": "You can stop pretending. Anything, just not to spend a minute with me, right?",
+      "text": "You can stop pretending. Anything rather than spend one more minute with me, right?",
       "auto": { "to": "dialogue-1-bitter-1", "delay": 1200 }
     },
     "ian-echo-happened": {
@@ -130,7 +130,7 @@
 
     "dialogue-2-reasonable-2": {
       "speaker": "saoirse",
-      "text": "Thanks... I'm sorry you had to see me again. It won't happen anymore.",
+      "text": "Thanks... I'm sorry you had to see me again. It won't happen again.",
       "choices": [
         { "label": "Wait. There's something you need to know.", "intent": "reasonable", "to": "dialogue-2-reasonable-3" },
         { "label": "*Say nothing. Let her go.*", "intent": "confused", "to": "beat-she-leaves" }
@@ -142,7 +142,7 @@
       "choices": [
         { "label": "There's something you need to know. Whatever killed Caleb and the others ten years ago... it's back in Mag Point.", "intent": "reveal", "set": { "truth": true }, "to": "ian-echo-truth" },
         { "label": "Your dad's been arrested.", "intent": "deflect", "set": { "to_precinct": true }, "to": "ian-echo-dad" },
-        { "label": "I need your help, Saoirse.", "intent": "trust", "requires": { "disgust": { "max": 0 } }, "showLocked": true, "lockedLabel": "Locked. Saoirse won't hear this from you now", "set": { "asked_help": true }, "to": "ian-echo-help" }
+        { "label": "I need your help, Saoirse.", "intent": "trust", "requires": { "disgust": { "max": 0 } }, "showLocked": true, "lockedLabel": "Locked. Saoirse won't hear this from you now.", "set": { "asked_help": true }, "to": "ian-echo-help" }
       ]
     },
 
