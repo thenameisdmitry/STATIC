@@ -19,11 +19,11 @@ const parts = [
 
 // Missing-persons carousel — rewrite captions; add `src` when you have photos.
 const missing = [
-{ src: '/lore/missing/missing-1.png', caption: 'Caleb Barrell. Missing since Aug. 2008. Last seen at home.' },
-{ src: '/lore/missing/missing-2.png', caption: 'Siobhan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
-{ src: '/lore/missing/missing-3.png', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
-{ src: '/lore/missing/missing-4.png', caption: 'Daniel Tully. Missing since Aug. 1999. Last seen at the "Duck" pub.' },
-{ src: '/lore/missing/missing-5.png', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at Crystal Peak Station.' },
+{ src: '/lore/missing/missing-1.webp', caption: 'Caleb Barrell. Missing since Aug. 2008. Last seen at home.' },
+{ src: '/lore/missing/missing-2.webp', caption: 'Siobhan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-3.webp', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-4.webp', caption: 'Daniel Tully. Missing since Aug. 1999. Last seen at the "Duck" pub.' },
+{ src: '/lore/missing/missing-5.webp', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at Crystal Peak Station.' },
 ];
 
 //Five gameplay pillars in the concept section.
@@ -53,7 +53,7 @@ const pillars = [
 
       <div class="mt-14 grid gap-4 md:grid-cols-2">
         {parts.map(([t, d, slug], i) => (
-          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.png)`}>
+          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.webp)`}>
             <span class="font-mono text-sm text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
             <h2 class="mt-2 font-display text-3xl uppercase tracking-tight text-ink">{t}</h2>
             <p class="mt-2 text-sm text-ink">{d}</p>
@@ -98,7 +98,7 @@ const pillars = [
       </dl>
  
       <!-- key art — one wide cinematic image sets the tone -->
-      <img src="/game/concept/concept-6.png" alt="STATIC key art"
+      <img src="/game/concept/concept-6.webp" alt="STATIC key art"
            class="mt-8 aspect-[16/4] w-full rounded-lg border border-line object-cover" />
  
       <!-- structured reading content (single column for readability) -->
@@ -146,7 +146,7 @@ const pillars = [
           </p>
           <div class="mt-5 grid gap-4 sm:grid-cols-2">
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/ian.png" alt="Ian" class="aspect-[5/4] w-full object-cover" />
+              <img src="/game/concept/ian.webp" alt="Ian" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Ian Demme</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Action · Close quarters · Investigation</p>
@@ -154,7 +154,7 @@ const pillars = [
               </div>
             </div>
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/saoirse.png" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
+              <img src="/game/concept/saoirse.webp" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Saoirse Barrell</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Stealth · Observation  · Narrative</p>
@@ -234,29 +234,29 @@ const pillars = [
 
       <div class="mt-10 grid gap-5 md:grid-cols-2">
         <!-- Row 1: city (clickable) | text -->
-        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.png" />
+        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.webp" />
         <div class="lore-note lore-note--pinned">
           Saoirse, don't forget your flight to that shithole on the edge of the Earth is tomorrow. Be strong, it's only for a couple of days. You'll be back in no time. Love you, babe! Rust
         </div>
 
         <!-- Row 2: pass | gray signal -->
         <figure class="lore-photo">
-          <img src="/lore/stuff/boarding-pass.png" alt="Boarding pass to Mag Point" />
+          <img src="/lore/stuff/boarding-pass.webp" alt="Boarding pass to Mag Point" />
         </figure>
-        <ArtifactCard href="/lore/gray-signal" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.png" />
+        <ArtifactCard href="/lore/gray-signal" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.webp" />
 
         <!-- Row 3: evidence archive (clickable) | missing-persons carousel -->
-        <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.png" />
+        <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.webp" />
         <Carousel items={missing} />
 
         <!-- Row 4: Photo (clickable) | secret documents (clickable) -->
         <FlipPhoto
-          front="/lore/stuff/ian-saoirse-front.png"
-          back="/lore/stuff/ian-saoirse-back.png"
+          front="/lore/stuff/ian-saoirse-front.webp"
+          back="/lore/stuff/ian-saoirse-back.webp"
           alt="Ian and Saoirse, 2008"
           caption=""
         />        
-        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.png" />
+        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.webp" />
       </div>
     </div>
   </section>
@@ -275,7 +275,7 @@ const pillars = [
       been left behind.
       </p>
 
-      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.png)" aria-label="Play the scene">
+      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.webp)" aria-label="Play the scene">
         <span class="dlg-teaser__play" aria-hidden="true">&#9654;</span>
         <span class="dlg-teaser__meta">one location · two speakers · four possible endings</span>
         <span class="dlg-teaser__cta">&#9656; Play the scene</span>
@@ -299,7 +299,7 @@ const pillars = [
           role="Protagonist - action, investigation"
           age="28"
           tagline="A main character with a dark past and demons in his heart. Whatever he knows about the town, he keeps to himself."
-          portrait="/characters/ian.png"
+          portrait="/characters/ian.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -372,7 +372,7 @@ const pillars = [
           role="Protagonist - stealth, narrative"
           age="27"
           tagline="Second playable character. Came back right into her past she tried so desperately to forget."
-          portrait="/characters/saoirse.png"
+          portrait="/characters/saoirse.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -439,7 +439,7 @@ const pillars = [
           role="Friendly NPC"
           age="28"
           tagline="Spent five years in the Coast Guard. Came back to Mag Point a few years ago and stayed."
-          portrait="characters/donal.png"
+          portrait="characters/donal.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -469,7 +469,7 @@ const pillars = [
           role="Friendly NPC, Mag Point PD"
           age="43"
           tagline="Valor and dedication. One of the rare cops who bleeds blue."
-          portrait="/characters/maisey.png"
+          portrait="/characters/maisey.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -515,7 +515,7 @@ const pillars = [
           name='Hockey puck with "Alaska Aces" logo'
           kind="Evidence"
           found="Sidewalk outside Colin Hall's house"
-          img="/collectibles/hockey-puck.png"
+          img="/collectibles/hockey-puck.webp"
         >
           <p>Kyren Hall's hockey puck.</p>
           <p>His dad, Colin Hall, caught this puck at the Alaska Aces game against the Orson Hunters. 
@@ -529,7 +529,7 @@ const pillars = [
           name="Ian Demme ICE Card"
           kind="Document"
           found="Ian's wallet, behind Saoirse's photograph"
-          img="/collectibles/card-help.png"
+          img="/collectibles/card-help.webp"
         >
           <p><i>My name is Ian Demme. I have a serious mental disorder. If you find me sitting or 
             lying motionless, unresponsive, and unable to blink, I am experiencing a 
@@ -546,8 +546,8 @@ const pillars = [
           name="Photograph of Saoirse"
           kind="Keepsake"
           found="Ian's wallet"
-          img="/collectibles/saoirse-photo-1.png"
-          back="/collectibles/saoirse-photo-2.png"
+          img="/collectibles/saoirse-photo-1.webp"
+          back="/collectibles/saoirse-photo-2.webp"
         >
           <p>A worn photograph of Saoirse Barrell that Ian keeps tucked inside his wallet.</p>
           <p>He took it himself when they were both seventeen and in love. He has carried it ever since. 
@@ -564,7 +564,7 @@ const pillars = [
           name="Plush toy heart"
           kind="Keepsake"
           found="Ian's room"
-          img="/collectibles/heart-toy.png"
+          img="/collectibles/heart-toy.webp"
         >
           <p>A small plush heart Saoirse gave Ian on Valentine's Day.</p>
           <p>Before handing it to him, she sprayed it with the perfume Ian had given her. 
@@ -579,7 +579,7 @@ const pillars = [
           name="Prescription bottle"
           kind="Personal effect"
           found="Ian's bathroom cabinet"
-          img="/collectibles/demme-pills.png"
+          img="/collectibles/demme-pills.webp"
         >
           <p>Ian's name is printed on the prescription label, yet the bottle is still full.</p>
           <p>Prescribed in 2008. The seal was not broken until 2018.
@@ -592,7 +592,7 @@ const pillars = [
           name="Saoirse's medical records"
           kind="Document"
           found="Mag Point hospital"
-          img="/collectibles/medical-record-saoirse.png"
+          img="/collectibles/medical-record-saoirse.webp"
         >
           <p>A folder with Saoirse's old medical records.</p>
           <p>During an appointment at a cardiology center in NYC, the doctor asked Saoirse to 
@@ -608,7 +608,7 @@ const pillars = [
           name="Ian's swimming goggles"
           kind="Keepsake"
           found="Ian's parents' house"
-          img="/collectibles/swimming-goggles.png"
+          img="/collectibles/swimming-goggles.webp"
         >
           <p>An old pair of swimming goggles.</p>
           <p>Back in 2007, Ian wore them when he defeated Norman Petrich, the Southeast
@@ -623,7 +623,7 @@ const pillars = [
           name="Key from Creed's study"
           kind="Key"
           found="Creed Clemens's house, in a bathrobe pocket"
-          img="/collectibles/key-creed.png"
+          img="/collectibles/key-creed.webp"
         >
           <p>A brass key stained with a green patina.</p>
           <p>It unlocks the door to Creed Clemens's study on the second floor of his house.
@@ -639,7 +639,7 @@ const pillars = [
           name="Crystal Peak VHS tape"
           kind="Tape"
           found="August Pruett's house"
-          img="/collectibles/vhs.png"
+          img="/collectibles/vhs.webp"
         >
           <p>A VHS tape that somehow survived the fire at Crystal Peak Station.</p>
           <p>It was recorded as part of an official report documenting the attempt to decipher 

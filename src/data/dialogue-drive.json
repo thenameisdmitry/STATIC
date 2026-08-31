@@ -2,11 +2,11 @@
   "meta": {
     "title": "The Drive",
     "endingsTotal": 4,
-    "bg": "/scene/background.png"
+    "bg": "/scene/background.webp"
   },
   "cast": {
-    "ian": { "name": "Ian", "portrait": "/scene/ian.png" },
-    "saoirse": { "name": "Saoirse", "portrait": "/scene/saoirse.png" },
+    "ian": { "name": "Ian", "portrait": "/scene/ian.webp" },
+    "saoirse": { "name": "Saoirse", "portrait": "/scene/saoirse.webp" },
     "narrator": { "name": "" }
   },
   "start": "beat-opening",
