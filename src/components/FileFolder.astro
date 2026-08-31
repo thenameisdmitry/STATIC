@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // A single police file folder that opens on click to reveal one report excerpt.
 // Cover is a transparent PNG of a folder lying on the desk.
 // Put the excerpt as the default slot. Arrange several inside <div class="file-grid">.
@@ -6,7 +7,8 @@ interface Props {
   label?: string;
   cover?: string;   // transparent folder PNG under /public; optional (CSS fallback)
 }
-const { label = 'File', cover } = Astro.props;
+const { label = 'File', cover: coverRaw } = Astro.props;
+const cover = withBase(coverRaw);
 ---
 <div class="file-folder" data-folder>
   <button

@@ -6,6 +6,7 @@ banner: "/lore/evidence-archive/banner.webp"
 order: 3
 ---
 
+import { withBase } from '../../lib/base';
 import FileFolder from '../../components/FileFolder.astro';
 import Figure from '../../components/Figure.astro';
 import Redact from '../../components/Redact.astro';
@@ -154,7 +155,7 @@ Quote from the police report following the mass shooting on Calhoun Avenue:
   <FileFolder label="" cover="/lore/evidence-archive/file-card-1.webp">
     <h4>Faraday Kavanagh</h4>
     <img
-      src="/lore/evidence-archive/file1-kavanagh-1.webp"
+      src={withBase('/lore/evidence-archive/file1-kavanagh-1.webp')}
       alt="F Kavanagh"
       style="width: 200px; float: right; margin: 0 0 0.6rem 1rem; border: none; border-radius: 0;"
     />
@@ -207,7 +208,7 @@ Quote from the police report following the mass shooting on Calhoun Avenue:
 
 {/* ---- MEMORIAL ---- */}
 <div class="memorial">
-  <img class="memorial__portrait" src="/lore/evidence-archive/sam.webp" alt="Officer Sam Kosinky" />
+  <img class="memorial__portrait" src={withBase('/lore/evidence-archive/sam.webp')} alt="Officer Sam Kosinky" />
   <p class="memorial__eyebrow">In memory of</p>
   <h3 class="memorial__name">Sam Kosinky</h3>
   <p class="memorial__epitaph">Who gave his life in service and protection of the community.</p>
@@ -220,7 +221,7 @@ Quote from the police report following the mass shooting on Calhoun Avenue:
 ---
 
 <div class="lore-links">
-  <a href="/lore/secret-documents">→ Reference files: Secret Documents</a>
-  <a href="/lore/mag-point">→ Location: Mag Point</a>
-  <a href="/lore/gray-signal">→ Classified: Gray Signal</a>
+  <a href={withBase('/lore/secret-documents')}>→ Reference files: Secret Documents</a>
+  <a href={withBase('/lore/mag-point')}>→ Location: Mag Point</a>
+  <a href={withBase('/lore/gray-signal')}>→ Classified: Gray Signal</a>
 </div>

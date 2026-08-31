@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -7,14 +8,15 @@ interface Props {
   description: string;
   banner?: string;
 }
-const { title, kind = 'File', description, banner } = Astro.props;
+const { title, kind = 'File', description, banner: bannerRaw } = Astro.props;
+const banner = withBase(bannerRaw);
 ---
 
 <BaseLayout title={`${title} — STATIC`}>
   <article class="px-6 pt-12 pb-24">
     <div class="mx-auto max-w-5xl">
       <a
-        href="/game#world-lore"
+        href={withBase('/game#world-lore')}
         class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink-dim transition-colors hover:text-violet-bright"
       >
         <span class="transition-transform group-hover:-translate-x-0.5">←</span> World &amp; Lore

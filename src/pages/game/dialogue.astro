@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/base';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import DialogueRunner from '../../components/DialogueRunner.astro';
 import scene from '../../data/dialogue-drive.json';
@@ -6,7 +7,7 @@ import scene from '../../data/dialogue-drive.json';
 <BaseLayout title="The Drive — STATIC">
   <section class="px-6 pt-16 pb-8">
     <div class="mx-auto max-w-5xl">
-      <a href="/game#interactive-dialogue" class="font-mono text-xs text-ink-dim transition-colors hover:text-violet-bright">&larr; back to STATIC</a>
+      <a href={withBase('/game#interactive-dialogue')} class="font-mono text-xs text-ink-dim transition-colors hover:text-violet-bright">&larr; back to STATIC</a>
       <p class="eyebrow mt-5 mb-3">CH 02 · Playable scene</p>
       <h1 class="font-display text-5xl font-semibold uppercase tracking-tight text-ink md:text-6xl">{scene.meta.title}</h1>
       <p class="mt-4 text-ink-dim">
@@ -31,7 +32,7 @@ import scene from '../../data/dialogue-drive.json';
         you for the rest of the investigation.
      </p>
      <p class="mt-8 text-ink-dim">   
-        This scene also exists as a <a href="/game#screenplay-scene" class="text-violet-bright underline">linear
+        This scene also exists as a <a href={withBase('/game#screenplay-scene')} class="text-violet-bright underline">linear
         screenplay</a> — the canonical cut, as it happens in the novel, with margin notes on
         where the two versions diverge.
       </p>

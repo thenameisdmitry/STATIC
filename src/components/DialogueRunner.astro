@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Renders a playable branching scene from a scene object (see src/data/*.json).
 // State the engine keeps: current node id + a flags map. Everything else derives from those.
 // Flags: boolean ("set": {"lied": true}) or counters ("set": {"disgust": 1} adds 1).
@@ -6,7 +7,15 @@
 // Nodes may carry "variants": [{requires, text}] — first match overrides "text".
 // Nodes may carry "auto": {"to": "id", "delay": ms} — echo lines that advance on their own.
 interface Props { scene: any; }
-const { scene } = Astro.props;
+const { scene: sceneRaw } = Astro.props;
+// Пути внутри сцены уезжают в клиентский скрипт через JSON, поэтому префикс
+// нужно проставить здесь, до сериализации.
+const scene = sceneRaw ? {
+  ...sceneRaw,
+  meta: sceneRaw.meta ? { ...sceneRaw.meta, bg: withBase(sceneRaw.meta.bg) } : sceneRaw.meta,
+  cast: sceneRaw.cast ? Object.fromEntries(Object.entries(sceneRaw.cast).map(
+    ([k, v]) => [k, { ...(v as any), portrait: withBase((v as any).portrait) }])) : sceneRaw.cast,
+} : sceneRaw;
 const bg = scene?.meta?.bg;
 ---
 <div class="dlg" style={bg ? `--dlg-bg:url(${bg})` : undefined} data-dialogue>

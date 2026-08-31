@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Illustration block for MDX pages.
 // Default look matches project illustrations (border + radius).
 //
@@ -16,7 +17,8 @@ interface Props {
   width?: string;
   align?: 'center' | 'left' | 'right' | 'full';
 }
-const { src, alt = '', caption, width, align = 'center' } = Astro.props;
+const { src: srcRaw, alt = '', caption, width, align = 'center' } = Astro.props;
+const src = withBase(srcRaw);
 ---
 <figure
   class={`fig fig--${align}`}

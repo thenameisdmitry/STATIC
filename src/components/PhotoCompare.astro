@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Before/after photo comparator. Drag the handle to reveal the second image.
 // Same interaction family as SignalTuner: pointer drag -> CSS variable.
 interface Props {
@@ -9,7 +10,9 @@ interface Props {
   labelAfter?: string;  // corner stamp 
   start?: number;       // initial handle position, 0-100. Default 95
 }
-const { before, after, alt = '', labelBefore, labelAfter, start = 95 } = Astro.props;
+const { before: beforeRaw, after: afterRaw, alt = '', labelBefore, labelAfter, start = 95 } = Astro.props;
+const before = withBase(beforeRaw);
+const after = withBase(afterRaw);
 const startClamped = Math.max(0, Math.min(100, start));
 ---
 <div class="pcompare" data-pcompare style={`--pos: ${startClamped}%`}>

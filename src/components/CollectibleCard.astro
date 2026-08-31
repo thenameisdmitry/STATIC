@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Collectible item card: teaser tile -> opens an "examine" overlay on top of
 // the page. Click the image inside to zoom (lightbox). Items with a `back`
 // image are flippable: arrows cycle front/back, each side has its own flavor
@@ -11,7 +12,9 @@ interface Props {
   back?: string;      // optional back image -> enables flipping
   use?: string;       // gameplay relevance chip
 }
-const { name, kind, found, img, back, use } = Astro.props;
+const { name, kind, found, img: imgRaw, back: backRaw, use } = Astro.props;
+const img = withBase(imgRaw);
+const back = withBase(backRaw);
 ---
 <div class="ccard" data-ccard>
   <button type="button" class="ccard__tile" aria-haspopup="dialog" aria-label={`Examine: ${name}`}>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Figure from '../components/Figure.astro';
 
@@ -100,13 +101,13 @@ const boatJson = `{
   <section class="px-6 pt-16 pb-16">
     <div class="mx-auto max-w-4xl">
       <div class="grid gap-8 md:grid-cols-[410px_1fr] md:items-center">
-        <img src="/lab/the-lab.webp" alt=""
+        <img src={withBase('/lab/the-lab.webp')} alt=""
              class="w-full rounded-lg border border-line object-cover" />
         <div>
           <p class="eyebrow mb-4">CH 04 · The Craft</p>
           <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">LAB: The Tools</h1>
           <p class="mt-6 text-lg text-ink-dim">
-            The finished narrative project lives on the <b><a href="/game" class="text-violet-bright underline">STATIC</a></b> page.
+            The finished narrative project lives on the <b><a href={withBase('/game')} class="text-violet-bright underline">STATIC</a></b> page.
             This page shows the workbench it was built on: the software, the tools, the prototypes, and one scene traced
             from the novel all the way to the script for a game engine.
           </p>
@@ -163,16 +164,16 @@ const boatJson = `{
         dialogue fragments, hubs, instructions and conditions over three global variables.
       </p>
 
-        <Figure src="/lab/articy-flow.webp" alt="Branching dialogue flow with hubs, instructions and a conditional gate"
+        <Figure src={withBase('/lab/articy-flow.webp')} alt="Branching dialogue flow with hubs, instructions and a conditional gate"
           caption="'Getting the Boat from Reggie': a three-character scene built as a flow: choice hubs, instruction nodes that write to global variables, and a condition that gates one branch behind the player's earlier honesty." />
 
-        <Figure src="/lab/articy-simulation.webp" alt="The scene running in articy's simulation mode"
+        <Figure src={withBase('/lab/articy-simulation.webp')} alt="The scene running in articy's simulation mode"
           caption="Simulation mode: walking the scene as a player would, to check the branching holds up before a single line reaches an engine." />
 
-        <Figure src="/lab/articy-hero-card.webp" alt="Character entity for Ian Demme"
+        <Figure src={withBase('/lab/articy-hero-card.webp')} alt="Character entity for Ian Demme"
           caption="Ian Demme as a character entity. Traits, voice and references live in one place, so writers, designers and artists all work from the same source." />
 
-        <Figure src="/lab/articy-export-script.webp" alt="The flow exported to an MS Word document"
+        <Figure src={withBase('/lab/articy-export-script.webp')} alt="The flow exported to an MS Word document"
           caption="The same flow exported to MS Word in screenplay format: how a scene reaches producers, actors and anyone else who doesn't open articy." />
 
         <aside class="req">
@@ -182,7 +183,7 @@ const boatJson = `{
           the public page because the flow contains the full branching structure and the story's
           resolution (narrative motives, endings, and script spoilers).
         </p>
-        <a class="req__cta" href="/contact">Request the file &#8594;</a>
+        <a class="req__cta" href={withBase('/contact')}>Request the file &#8594;</a>
       </aside>
 
       </div>
@@ -197,10 +198,10 @@ const boatJson = `{
         Before a scene reaches the engine it gets tested (for example, in Twine). 
         Here is the <b>"The Drive"</b> scene as a Twine
         prototype: same flags, same gate, same four endings. The JSON-formatted dialogue
-        is available on the <b><a href="/game#interactive-dialogue" class="text-violet-bright underline">STATIC</a></b> page.
+        is available on the <b><a href={withBase('/game#interactive-dialogue')} class="text-violet-bright underline">STATIC</a></b> page.
       </p>
       <div class="mt-8 overflow-hidden rounded-lg border border-line">
-        <iframe src="/lab/the-drive.html" title="Twine prototype: The Drive"
+        <iframe src={withBase('/lab/the-drive.html')} title="Twine prototype: The Drive"
           class="block h-[560px] w-full bg-black"></iframe>
       </div>
     </div>
@@ -296,7 +297,7 @@ const boatJson = `{
         <details class="pipe">
           <summary class="pipe__head"><span class="pipe__n">03</span> Flow (mapped in articy:draft)</summary>
           <div class="pipe__body">
-            <img src="/lab/articy-flow-2.webp" alt="The scene as an articy:draft flow" class="w-full rounded" />
+            <img src={withBase('/lab/articy-flow-2.webp')} alt="The scene as an articy:draft flow" class="w-full rounded" />
           </div>
         </details>
 
@@ -404,7 +405,7 @@ const boatJson = `{
 
       <p class="mt-5 max-w-4xl text-sm text-ink-dim">
         The concrete examples of the characters' barks live in the character files on the
-         <a href="/game#character-files" class="text-violet-bright underline"> STATIC</a>  page.
+         <a href={withBase('/game#character-files')} class="text-violet-bright underline"> STATIC</a>  page.
       </p>
     </div>
   </section>

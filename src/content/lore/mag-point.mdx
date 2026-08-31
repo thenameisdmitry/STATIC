@@ -6,6 +6,7 @@ banner: "/lore/mag-point/mp2.webp"
 order: 1
 ---
 
+import { withBase } from '../../lib/base';
 import Collapsible from '../../components/Collapsible.astro';
 import MapExplorer from '../../components/MapExplorer.astro';
 import Redact from '../../components/Redact.astro';
@@ -35,7 +36,7 @@ leave in search of a better future, businesses struggle to survive, and abandone
 stand as reminders of more prosperous days. The town has earned a grim reputation among 
 outsiders.
 
-<video src="/lore/mag-point/mpvid2.mp4" autoplay muted loop playsinline></video>
+<video src={withBase('/lore/mag-point/mpvid2.mp4')} autoplay muted loop playsinline></video>
 
 Since the late 1980s, Mag Point has been plagued by a series of unexplained disappearances. 
 Many dismiss them as unfortunate accidents caused by the unforgiving Alaskan wilderness or 
@@ -217,7 +218,7 @@ export const locations = [
 ---
 
 <div class="lore-links">
-  <a href="/lore/secret-documents">→ Reference files: Secret Documents</a>
-  <a href="/lore/evidence-archive">→ Case files: Evidence Archive</a>
-  <a href="/lore/gray-signal">→ Classified: Gray Signal</a>
+  <a href={withBase('/lore/secret-documents')}>→ Reference files: Secret Documents</a>
+  <a href={withBase('/lore/evidence-archive')}>→ Case files: Evidence Archive</a>
+  <a href={withBase('/lore/gray-signal')}>→ Classified: Gray Signal</a>
 </div>

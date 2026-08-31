@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Character dossier: teaser card that expands in place into a full file.
 // Same open/close mechanic as FileFolder, dark sheet styled for the game page.
 // Header comes from props; bio/voice/barks go in the slot (see game page markup).
@@ -9,7 +10,8 @@ interface Props {
   tagline?: string;  // one-liner under the name
   portrait?: string; // image under /public
 }
-const { name, role, age, tagline, portrait } = Astro.props;
+const { name, role, age, tagline, portrait: portraitRaw } = Astro.props;
+const portrait = withBase(portraitRaw);
 ---
 <div class="cfile" data-cfile>
   <button type="button" class="cfile__cover" aria-expanded="false" aria-label={`Open file: ${name}`}>

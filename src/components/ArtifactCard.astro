@@ -1,11 +1,14 @@
 ---
+import { withBase } from '../lib/base';
 interface Props {
   href: string;
   kind?: string;
   title: string;
   img?: string;
 }
-const { href, kind = 'File', title, img } = Astro.props;
+const { href: hrefRaw, kind = 'File', title, img: imgRaw } = Astro.props;
+const href = withBase(hrefRaw);
+const img = withBase(imgRaw);
 ---
 
 <a href={href} class="artifact group lore-tile">

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/base';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Redact from '../../components/Redact.astro';
 import ArtifactCard from '../../components/ArtifactCard.astro';
@@ -53,7 +54,7 @@ const pillars = [
 
       <div class="mt-14 grid gap-4 md:grid-cols-2">
         {parts.map(([t, d, slug], i) => (
-          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.webp)`}>
+          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(${withBase(`/game/cards/${slug}.webp`)})`}>
             <span class="font-mono text-sm text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
             <h2 class="mt-2 font-display text-3xl uppercase tracking-tight text-ink">{t}</h2>
             <p class="mt-2 text-sm text-ink">{d}</p>
@@ -98,7 +99,7 @@ const pillars = [
       </dl>
  
       <!-- key art — one wide cinematic image sets the tone -->
-      <img src="/game/concept/concept-6.webp" alt="STATIC key art"
+      <img src={withBase('/game/concept/concept-6.webp')} alt="STATIC key art"
            class="mt-8 aspect-[16/4] w-full rounded-lg border border-line object-cover" />
  
       <!-- structured reading content (single column for readability) -->
@@ -146,7 +147,7 @@ const pillars = [
           </p>
           <div class="mt-5 grid gap-4 sm:grid-cols-2">
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/ian.webp" alt="Ian" class="aspect-[5/4] w-full object-cover" />
+              <img src={withBase('/game/concept/ian.webp')} alt="Ian" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Ian Demme</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Action · Close quarters · Investigation</p>
@@ -154,7 +155,7 @@ const pillars = [
               </div>
             </div>
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/saoirse.webp" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
+              <img src={withBase('/game/concept/saoirse.webp')} alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Saoirse Barrell</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Stealth · Observation  · Narrative</p>
@@ -234,19 +235,19 @@ const pillars = [
 
       <div class="mt-10 grid gap-5 md:grid-cols-2">
         <!-- Row 1: city (clickable) | text -->
-        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.webp" />
+        <ArtifactCard href={withBase('/lore/mag-point')} kind="Location" title="Mag Point" img="/lore/mag-point/mp0.webp" />
         <div class="lore-note lore-note--pinned">
           Saoirse, don't forget your flight to that shithole on the edge of the Earth is tomorrow. Be strong, it's only for a couple of days. You'll be back in no time. Love you, babe! Rust
         </div>
 
         <!-- Row 2: pass | gray signal -->
         <figure class="lore-photo">
-          <img src="/lore/stuff/boarding-pass.webp" alt="Boarding pass to Mag Point" />
+          <img src={withBase('/lore/stuff/boarding-pass.webp')} alt="Boarding pass to Mag Point" />
         </figure>
-        <ArtifactCard href="/lore/gray-signal" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.webp" />
+        <ArtifactCard href={withBase('/lore/gray-signal')} kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.webp" />
 
         <!-- Row 3: evidence archive (clickable) | missing-persons carousel -->
-        <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.webp" />
+        <ArtifactCard href={withBase('/lore/evidence-archive')} kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.webp" />
         <Carousel items={missing} />
 
         <!-- Row 4: Photo (clickable) | secret documents (clickable) -->
@@ -256,7 +257,7 @@ const pillars = [
           alt="Ian and Saoirse, 2008"
           caption=""
         />        
-        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.webp" />
+        <ArtifactCard href={withBase('/lore/secret-documents')} kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.webp" />
       </div>
     </div>
   </section>
@@ -275,7 +276,7 @@ const pillars = [
       been left behind.
       </p>
 
-      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.webp)" aria-label="Play the scene">
+      <a href={withBase('/game/dialogue')} class="dlg-teaser mt-8" style={`--card-img:url(${withBase('/game/cards/interactive-dialogue.webp')})`} aria-label="Play the scene">
         <span class="dlg-teaser__play" aria-hidden="true">&#9654;</span>
         <span class="dlg-teaser__meta">one location · two speakers · four possible endings</span>
         <span class="dlg-teaser__cta">&#9656; Play the scene</span>
@@ -695,7 +696,7 @@ const pillars = [
 
           <aside class="scr-note" style="top: 18rem">
             In the playable version this beat is the player's first choice: three ways to answer her.
-            <a href="/game/dialogue">Play the scene →</a>
+            <a href={withBase('/game/dialogue')}>Play the scene →</a>
           </aside>
 
           <p class="scr-char">SAOIRSE</p>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Single post inside <ForumThread>. Body goes in the slot.
 interface Props {
   user: string;      // nickname
@@ -8,7 +9,8 @@ interface Props {
   date?: string;     // post date line, e.g. "08/29/2008, 02:14 AM"
   deleted?: boolean; // render as moderator-removed post
 }
-const { user, avatar, joined, posts, date, deleted = false } = Astro.props;
+const { user, avatar: avatarRaw, joined, posts, date, deleted = false } = Astro.props;
+const avatar = withBase(avatarRaw);
 ---
 <div class={`fpost${deleted ? ' fpost--deleted' : ''}`}>
   <div class="fpost__user">

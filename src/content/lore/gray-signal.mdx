@@ -6,6 +6,7 @@ banner: "/lore/gray-signal/gs-banner.webp"
 order: 2
 ---
 
+import { withBase } from '../../lib/base';
 import CaseFile from '../../components/CaseFile.astro';
 import SignalTuner from '../../components/SignalTuner.astro';
 import Figure from '../../components/Figure.astro';
@@ -57,7 +58,7 @@ clearance.
   <div slot="right">
 
     <h4>Crystal Peak Station</h4>
-    <img src="/lore/gray-signal/gs-crystal-peak-case.webp" alt="Crystal Peak Signals Intelligence Station" />
+    <img src={withBase('/lore/gray-signal/gs-crystal-peak-case.webp')} alt="Crystal Peak Signals Intelligence Station" />
     <p>The station's communications equipment, research materials, and classified 
     archives were destroyed in the fire. The facility is declared a total loss.</p>
 
@@ -88,7 +89,7 @@ or something beyond human understanding remains unknown.
 ---
 
 <div class="lore-links">
-  <a href="/lore/secret-documents">→ Reference files: Secret Documents</a>
-  <a href="/lore/evidence-archive">→ Case files: Evidence Archive</a>
-  <a href="/lore/mag-point">→ Location: Mag Point</a>
+  <a href={withBase('/lore/secret-documents')}>→ Reference files: Secret Documents</a>
+  <a href={withBase('/lore/evidence-archive')}>→ Case files: Evidence Archive</a>
+  <a href={withBase('/lore/mag-point')}>→ Location: Mag Point</a>
 </div>

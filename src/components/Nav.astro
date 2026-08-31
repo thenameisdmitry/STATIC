@@ -1,16 +1,17 @@
 ---
+import { withBase } from '../lib/base';
 const links = [
   { href: '/writer', ch: '01', label: 'DZ: The Writer' },
   { href: '/game', ch: '02', label: 'STATIC: The Game' },
   { href: '/book', ch: '03', label: 'MYST: The Book' },
   { href: '/lab', ch: '04', label: 'LAB: The Tools' },
   { href: '/contact', ch: '05', label: 'Intercept My Signal' },
-];
+].map((l) => ({ ...l, href: withBase(l.href) }));
 ---
 
 <header class="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-sm">
   <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="font-mono text-sm uppercase tracking-widest text-ink">
+    <a href={withBase('/')} class="font-mono text-sm uppercase tracking-widest text-ink">
       <span class="text-violet-bright">▚</span>&nbsp; [Static]
     </a>
     <ul class="hidden gap-6 md:flex">

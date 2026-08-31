@@ -1,11 +1,13 @@
 ---
+import { withBase } from '../lib/base';
 // A military-style case folder that opens on click to reveal two sheets.
 // Pass the two sheets via named slots: <div slot="left">…</div> / <div slot="right">…</div>
 interface Props {
   label?: string;
   cover?: string;   // folder image under /public; optional (CSS fallback)
 }
-const { label = 'Classified case file', cover } = Astro.props;
+const { label = 'Classified case file', cover: coverRaw } = Astro.props;
+const cover = withBase(coverRaw);
 ---
 <div class="case-file" data-casefile>
   <button

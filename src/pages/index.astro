@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Redact from '../components/Redact.astro';
 
@@ -8,7 +9,7 @@ const channels = [
   { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Original book: excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.webp' },
   { href: '/lab', ch: '04', label: 'LAB: The Tools', blurb: 'The craft side: branching graphs, prototypes, and the tools I build them in.', featured: false, img: '/home/the-lab.webp' },
   { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'Get in contact with me: email, messengers, phone.', featured: false, img: '/home/the-contact.webp' },
-];
+].map((c) => ({ ...c, href: withBase(c.href), img: withBase(c.img) }));
 ---
 
 <BaseLayout title="Dmitrii Zhukov — Writer">
@@ -43,9 +44,9 @@ const channels = [
 
         <!-- right: looping trailer (see ASSETS.md) -->
         <div class="trailer">
-          <video class="trailer__video" autoplay muted loop playsinline preload="metadata" poster="/media/trailer-poster.jpg">
-            <source src="/media/trailer.mp4" type="video/mp4" />
-            <source src="/media/trailer.webm" type="video/webm" />
+          <video class="trailer__video" autoplay muted loop playsinline preload="metadata" poster={withBase('/media/trailer-poster.jpg')}>
+            <source src={withBase('/media/trailer.mp4')} type="video/mp4" />
+            <source src={withBase('/media/trailer.webm')} type="video/webm" />
           </video>
           <div class="trailer__placeholder">
             <span class="font-mono text-xs uppercase tracking-widest text-violet-bright">◉ Trailer</span>

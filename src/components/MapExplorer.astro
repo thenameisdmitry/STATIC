@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // Interactive city map.
 // Pass a map image and an array of locations; each hotspot is placed by x/y
 // percent over the image, and clicking it swaps the detail panel below.
@@ -21,7 +22,9 @@ interface Props {
   locations: MapLocation[];
   calibrate?: boolean;
 }
-const { mapSrc, locations, calibrate = false } = Astro.props;
+const { mapSrc: mapSrcRaw, locations: locationsRaw, calibrate = false } = Astro.props;
+const mapSrc = withBase(mapSrcRaw);
+const locations = locationsRaw.map((l) => ({ ...l, images: l.images?.map((s) => withBase(s)) }));
 ---
 <div class="map-explorer lore-wide" data-map data-calibrate={calibrate ? 'true' : 'false'}>
   <div class="map-explorer__stage">

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/base';
 // A receiver with a rotary knob you drag to tune. At 0% the screen shows a
 // flickering NO SIGNAL frame; the scene image emerges from 3% to 98%;
 // at lock (~98%) it swaps to the Operator frame with heavy glitching.
@@ -8,7 +9,11 @@ interface Props {
   screenIdle?: string;    // scene image, fades in from 3% to 98%
   screenLock?: string;    // Operator frame after lock
 }
-const { receiver, screenNoSignal, screenIdle, screenLock } = Astro.props;
+const { receiver: receiverRaw, screenNoSignal: nsRaw, screenIdle: idleRaw, screenLock: lockRaw } = Astro.props;
+const receiver = withBase(receiverRaw);
+const screenNoSignal = withBase(nsRaw);
+const screenIdle = withBase(idleRaw);
+const screenLock = withBase(lockRaw);
 
 const screenVars = [
   screenNoSignal ? `--screen-nosignal: url('${screenNoSignal}')` : '',
