@@ -13,7 +13,7 @@
   --color-ink-dim: #8a8a99;     /* muted text */
   --color-violet: #9d4edd;      /* primary — phosphor */
   --color-violet-bright: #c77dff; /* glow highlight */
-  --color-dialog-card: #858585 /*font for the dialog play icon*/
+  --color-dialog-card: #858585; /*font for the dialog play icon*/
   --color-magenta: #c026d3;     /* rare hot accent — "signal break" */
 
   --font-display: "Oswald Variable", system-ui, sans-serif;

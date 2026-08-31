@@ -6,7 +6,7 @@ const boatJson = `{
   "meta": { "title": "Getting the Boat from Reggie", "endingsTotal": 4 },
 
   "cast": {
-    "ian":      { "name": "Ian",    "portrait": "/scene/ian.png" },
+    "ian":      { "name": "Ian",    "portrait": "/scene/ian.webp" },
     "reggie":   { "name": "Reggie", "portrait": "/scene/reggie.png" },
     "donal":    { "name": "Donal",  "portrait": "/scene/donal.png" },
     "narrator": { "name": "" }
@@ -63,7 +63,7 @@ const boatJson = `{
         { "label": "Donal. Talk to the man.", "intent": "ally",
           "requires": { "armed": false },
           "showLocked": true,
-          "lockedLabel": "locked — there's a gun in your hand",
+          "lockedLabel": "Locked. There's a gun in your hand.",
           "to": "donal-makes-the-case" },
 
         { "label": "I'm asking you.", "intent": "trust",
@@ -89,25 +89,25 @@ const boatJson = `{
       ],
       "outcome": {
         "title": "Taken at gunpoint",
-        "blurb": "You have the boat. But Reggie will call 911 and Saoirse will have to avoid the cops' pursuit on her way to the abandoned docks."
+        "blurb": "You have the boat. But Reggie will call 911 and Saoirse will have to avoid the cops' pursuit on her way to the Old Docks."
       }
     }
   }
 }`;
 ---
-<BaseLayout title="LAB — The Craft">
+<BaseLayout title="LAB: The Tools — Dmitrii Zhukov">
   <!-- HERO with banner -->
   <section class="px-6 pt-16 pb-16">
     <div class="mx-auto max-w-4xl">
       <div class="grid gap-8 md:grid-cols-[410px_1fr] md:items-center">
-        <img src="/lab/the-lab.png" alt=""
+        <img src="/lab/the-lab.webp" alt=""
              class="w-full rounded-lg border border-line object-cover" />
         <div>
           <p class="eyebrow mb-4">CH 04 · The Craft</p>
-          <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">Lab: the Tools</h1>
+          <h1 class="font-display text-6xl font-semibold uppercase tracking-tight md:text-7xl">LAB: The Tools</h1>
           <p class="mt-6 text-lg text-ink-dim">
             The finished narrative project lives on the <b><a href="/game" class="text-violet-bright underline">STATIC</a></b> page.
-            This page shows the workbench was built on: the software, the tools, the prototypes, and one scene traced
+            This page shows the workbench it was built on: the software, the tools, the prototypes, and one scene traced
             from the novel all the way to the script for a game engine.
           </p>
         </div>
@@ -157,23 +157,23 @@ const boatJson = `{
       <p class="eyebrow mb-3">01 — Branching design</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">articy:draft X</h2>
       <p class="mt-3 max-w-4xl text-ink-dim">
-        A third-act scene: three characters are forced to take a boat from an NPC, 
-        It has three endings, including a hidden branch that
+        A third-act scene: three characters are forced to take a boat from an NPC.
+        It has four endings, including a hidden branch that
         opens only if the player has told the truth and never been caught in a lie. Built as
         dialogue fragments, hubs, instructions and conditions over three global variables.
       </p>
 
-        <Figure src="/lab/articy-flow.png" alt="Branching dialogue flow with hubs, instructions and a conditional gate"
+        <Figure src="/lab/articy-flow.webp" alt="Branching dialogue flow with hubs, instructions and a conditional gate"
           caption="'Getting the Boat from Reggie': a three-character scene built as a flow: choice hubs, instruction nodes that write to global variables, and a condition that gates one branch behind the player's earlier honesty." />
 
-        <Figure src="/lab/articy-simulation.png" alt="The scene running in articy's simulation mode"
+        <Figure src="/lab/articy-simulation.webp" alt="The scene running in articy's simulation mode"
           caption="Simulation mode: walking the scene as a player would, to check the branching holds up before a single line reaches an engine." />
 
-        <Figure src="/lab/articy-hero-card.png" alt="Character entity for Ian Demme"
+        <Figure src="/lab/articy-hero-card.webp" alt="Character entity for Ian Demme"
           caption="Ian Demme as a character entity. Traits, voice and references live in one place, so writers, designers and artists all work from the same source." />
 
-        <Figure src="/lab/articy-export-script.png" alt="The flow exported to an MS Word document"
-          caption="The same flow exported to MS Word in screenplay formatЖ how a scene reaches producers, actors and anyone else who doesn't open articy." />
+        <Figure src="/lab/articy-export-script.webp" alt="The flow exported to an MS Word document"
+          caption="The same flow exported to MS Word in screenplay format: how a scene reaches producers, actors and anyone else who doesn't open articy." />
 
         <aside class="req">
         <p class="req__label">// Access restricted</p>
@@ -195,12 +195,12 @@ const boatJson = `{
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">Twine</h2>
       <p class="mt-3 max-w-4xl text-ink-dim">
         Before a scene reaches the engine it gets tested (for example, in Twine). 
-        Here is the <b>"The First Encounter of Ian and Saoirse"</b> scene as a Twine
+        Here is the <b>"The Drive"</b> scene as a Twine
         prototype: same flags, same gate, same four endings. The JSON-formatted dialogue
-        is available of the <b><a href="/game#interactive-dialogue" class="text-violet-bright underline">STATIC</a></b> page.
+        is available on the <b><a href="/game#interactive-dialogue" class="text-violet-bright underline">STATIC</a></b> page.
       </p>
       <div class="mt-8 overflow-hidden rounded-lg border border-line">
-        <iframe src="/lab/the-drive.html" title="Twine prototype: The First Encounter"
+        <iframe src="/lab/the-drive.html" title="Twine prototype: The Drive"
           class="block h-[560px] w-full bg-black"></iframe>
       </div>
     </div>
@@ -212,10 +212,10 @@ const boatJson = `{
       <p class="eyebrow mb-3">03 — Pipeline</p>
       <h2 class="font-display text-3xl uppercase tracking-tight text-ink md:text-4xl">One scene, four formats</h2>
       <p class="mt-3 max-w-4xl text-ink-dim">
-        This is the standard pipeline I use in my workflow It includes four stages: the piece of prose taken form the
-        <i>"Myst"</i> novel; the screenplay based on the canonical chain of events; the flow designed in articy:draft with
-        alternative choices and outcomes; the JSON file that the game engine can read. The example of such workflow
-        is presented with "Getting the Boat from Reggie" scene.
+        This is the standard pipeline I use in my workflow. It includes four stages: the piece of prose taken from the
+        <i>Myst</i> novel; the screenplay based on the canonical chain of events; the flow designed in articy:draft with
+        alternative choices and outcomes; the JSON file that the game engine can read. The example of such a workflow
+        is presented with the "Getting the Boat from Reggie" scene.
       </p>
 
       <div class="mt-8 space-y-3">
@@ -223,23 +223,22 @@ const boatJson = `{
           <summary class="pipe__head"><span class="pipe__n">01</span> Prose (taken from the novel)</summary>
           <div class="pipe__body">
             <p>Reggie met them on the porch of the house in a leather jacket pulled on over bare skin. In his hand he held a bottle of beer, and from his broad, floating smile it could be concluded that this bottle was far from the first of the evening. Donal parked the Ford a few yards from the house, and when all three got out of the car, Reggie whistled in surprise:</p>
-            <p>“Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something?  The boat's in the shed, already in the water, tank full, ready to go wherever you like this very minute." The young man pointed at the lopsided hut to the left of the house, took a substantial sip from the bottle and belched. </p>
+            <p>"Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something? The boat's in the shed, already in the water, tank full, ready to go wherever you like this very minute." The young man pointed at the lopsided hut to the left of the house, took a substantial sip from the bottle and belched. </p>
             <p>"Listen, Reggie," Ian pronounced, climbing onto the porch and wiping the raindrops from his face. "We can't buy the boat today, but we very much need to take it on rental."</p>
             <p>Reggie hiccupped drunkenly and frowned:</p>
-            <p>"Hold on, mate… You said on the phone a buyer was coming right now. Is that him?" he nodded in Donal's direction.
-            <p>"There is no buyer," Demme said impatiently. "We need your boat for a few hours; we’ll pay you..."</p>
-            <p>“Go fuck yourself!" Reggie cut him off and spat angrily at the porch deck. “Pay the full price or get the hell out of my house!”</p>
+            <p>"Hold on, mate... You said on the phone a buyer was coming right now. Is that him?" he nodded in Donal's direction.</p>
+            <p>"There is no buyer," Demme said impatiently. "We need your boat for a few hours; we'll pay you..."</p>
+            <p>"Go fuck yourself!" Reggie cut him off and spat angrily at the porch deck. "Pay the full price or get the hell out of my house!"</p>
             <p>Ian glanced back at Donal and Saoirse, as though seeking their support. Donal answered his friend with a microscopic nod.</p>
             <p>"I'm sorry, Reggie, but we're compelled to insist," Ian pronounced grimly, and drew the pistol from behind his belt.</p>
-            <p>"What the-” The young man's eyes went round with indignation when he saw the weapon aimed in his direction. "Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with!"</p>
+            <p>"What the—" The young man's eyes went round with indignation when he saw the weapon aimed in his direction. "Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with!"</p>
             <p>In three strides Ian flew at Reggie, knocked the bottle out of his hand, and set the gun against his bare chest.</p>
-            <p>"I'm very sorry, but if you don't bring the keys now, I'll pull the trigger.”</p>
+            <p>"I'm very sorry, but if you don't bring the keys now, I'll pull the trigger."</p>
             <p>Reggie stared with wide eyes at Demme's contorted face, in which desperation and entreaty could be read. Donal took his place beside Ian and clicked open a switchblade, trying not to look at the stunned owner of the boat.</p>
             <p>"I can't fucking believe it," Reggie said with bitterness, shoving his hands into his pockets. "Damn punks robbing me in my own house."</p>
             <p>Donal cleared his throat and answered:</p>
             <p>"We'll return the boat to you. We don't want her for free. It's just that right now you're the only person we can get one from."</p>
             <p>Reggie drew a deep breath, turned on his heels, and opened the front door. Saoirse followed the men, keeping a step behind Donal.</p>
-          </p>
           </div>
         </details>
 
@@ -251,7 +250,7 @@ const boatJson = `{
             <p class="scr-action">Rain. The Ford idles at the foot of the steps. REGGIE, mid-20s, comes out in a leather jacket over bare skin, a bottle of beer in his hand, buzzed and delighted about it.</p>
 
             <p class="scr-char">REGGIE</p>
-            <p class="scr-dial">Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something?  The boat's in the shed, already in the water, tank full.</p>
+            <p class="scr-dial">Wow, there's a whole lot of you! Buying that rusty tub by joint contribution or something? The boat's in the shed, already in the water, tank full.</p>
 
             <p class="scr-char">IAN</p>
             <p class="scr-dial">Listen, Reggie. We can't buy the boat today. We need to take her on rental for a few hours.</p>
@@ -259,12 +258,12 @@ const boatJson = `{
             <p class="scr-action">Reggie hiccups. The smile goes.</p>
 
             <p class="scr-char">REGGIE</p>
-            <p class="scr-dial">Hold on, mate… You said on the phone a buyer was coming right now. That him?</p>
+            <p class="scr-dial">Hold on, mate... You said on the phone a buyer was coming right now. That him?</p>
 
             <p class="scr-action">He nods at DONAL. Nobody answers.</p>
 
             <p class="scr-char">REGGIE (CONT'D)</p>
-            <p class="scr-dial">Then get the hell out off my porch. Pay in full or get lost.</p>
+            <p class="scr-dial">Then get the hell off my porch. Pay in full or get lost.</p>
 
             <p class="scr-action">Ian looks back at Donal and SAOIRSE. Donal gives him a small nod.</p>
 
@@ -274,7 +273,7 @@ const boatJson = `{
             <p class="scr-action">He draws the pistol from behind his belt.</p>
 
             <p class="scr-char">REGGIE</p>
-            <p class="scr-dial">What the- Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with.</p>
+            <p class="scr-dial">What the— Do you have any idea what you're doing, asshole? You cretin, you don't even understand who you're messing with.</p>
 
             <p class="scr-action">Three strides. Ian knocks the bottle out of his hand — glass on the floor — and puts the muzzle against bare chest. Reggie reads his face and finds no bluff in it. Only desperation, and something close to begging.</p>
 
@@ -297,7 +296,7 @@ const boatJson = `{
         <details class="pipe">
           <summary class="pipe__head"><span class="pipe__n">03</span> Flow (mapped in articy:draft)</summary>
           <div class="pipe__body">
-            <img src="/lab/articy-flow-2.png" alt="The scene as an articy:draft flow" class="w-full rounded" />
+            <img src="/lab/articy-flow-2.webp" alt="The scene as an articy:draft flow" class="w-full rounded" />
           </div>
         </details>
 
@@ -357,7 +356,7 @@ const boatJson = `{
               <td>high</td>
               <td>45s</td>
               <td>6</td>
-              <td class="bark-table__line">"Damn it! *cracks the knuckle bones*."</td>
+              <td class="bark-table__line">"Damn it!" *cracks his knuckles*</td>
             </tr>
             <tr>
               <td>combat · hurt</td>
@@ -365,7 +364,7 @@ const boatJson = `{
               <td>high</td>
               <td>60s</td>
               <td>4</td>
-              <td class="bark-table__line">"*sigh of pain*."</td>
+              <td class="bark-table__line">*sigh of pain*</td>
             </tr>
             <tr>
               <td>stealth · near-miss</td>
@@ -389,7 +388,7 @@ const boatJson = `{
               <td>low</td>
               <td>90s</td>
               <td>8</td>
-              <td class="bark-table__line">"Did you hear that? It's getting loader."</td>
+              <td class="bark-table__line">"It's gotten louder! Did you notice?"</td>
             </tr>
             <tr>
               <td>idle</td>
@@ -404,7 +403,7 @@ const boatJson = `{
       </div>
 
       <p class="mt-5 max-w-4xl text-sm text-ink-dim">
-        The concrete examples of the characters barks live in the character files on the 
+        The concrete examples of the characters' barks live in the character files on the
          <a href="/game#character-files" class="text-violet-bright underline"> STATIC</a>  page.
       </p>
     </div>

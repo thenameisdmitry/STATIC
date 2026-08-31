@@ -3,11 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Redact from '../components/Redact.astro';
 
 const channels = [
-  { href: '/writer', ch: '01', label: 'DZ: The Writer', blurb: 'My bio, career, skills, and a CV to download.', featured: false, img: '/home/the-writer.png' },
-  { href: '/game', ch: '02', label: 'STATIC: The Game', blurb: 'A full game concept: lore, playable dialogue, character files, collectibles, screenplay.', featured: true, img: '/home/the-game.png' },
-  { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Original book: excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.png' },
-  { href: '/lab', ch: '04', label: 'LAB: The Tools', blurb: 'The craft side: branching graphs, prototypes, and the tools I build them in.', featured: false, img: '/home/the-lab.png' },
-  { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'Get in contact with me: email, messengers, phone.', featured: false, img: '/home/the-contact.png' },
+  { href: '/writer', ch: '01', label: 'DZ: The Writer', blurb: 'My bio, career, skills, and a CV to download.', featured: false, img: '/home/the-writer.webp' },
+  { href: '/game', ch: '02', label: 'STATIC: The Game', blurb: 'A full game concept: lore, playable dialogue, character files, collectibles, screenplay.', featured: true, img: '/home/the-game.webp' },
+  { href: '/book', ch: '03', label: 'MYST: The Book', blurb: 'Original book: excerpts, illustrations, and a screen adaptation.', featured: false, img: '/home/the-book.webp' },
+  { href: '/lab', ch: '04', label: 'LAB: The Tools', blurb: 'The craft side: branching graphs, prototypes, and the tools I build them in.', featured: false, img: '/home/the-lab.webp' },
+  { href: '/contact', ch: '05', label: 'Intercept My Signal', blurb: 'Get in contact with me: email, messengers, phone.', featured: false, img: '/home/the-contact.webp' },
 ];
 ---
 
@@ -30,7 +30,7 @@ const channels = [
           >
             STATIC
           </h1>
-          <p class="mt-7 max-w-xl text-lg text-ink-dim">
+          <p class="mt-7 max-w-xl text-lg text-ink">
             <span class="note_home_page">A mystery-horror adventure game concept created by Dmitrii Zhukov. 
               Based on <Redact label="still in progress">the original novel <i>Myst</i></Redact>, combining psychological thriller and survival 
               horror genres with immersive investigation mechanics, branching narrative, stealth gameplay, and 
@@ -63,8 +63,8 @@ const channels = [
         My name is Dmitrii Zhukov, I am a game writer. I design worlds, lore, and narrative experiences that blend mystery, emotion, 
         and player agency. From memorable characters and branching storylines to detective 
         plots and carefully crafted twists, I build stories that reward curiosity and 
-        culminate in meaningful catharsis. My game concept <span class="text-violet">Static</span> adapts the world 
-        and story of my<Redact label="still in progress">original novel <i>"Myst"</i></Redact>.
+        culminate in meaningful catharsis. My game concept <span class="text-violet">STATIC</span> adapts the world
+        and story of my <Redact label="still in progress">original novel <i>Myst</i></Redact>.
       </p>
       
     </div>
@@ -74,7 +74,7 @@ const channels = [
   <!-- CHANNEL INDEX -->
   <section id="channels" class="relative scroll-mt-24 px-6 py-20">
     {/* 
-    <div class="fog fog--soft" aria-hidden="true"> //uncomment to add og behing the channel cards
+    <div class="fog fog--soft" aria-hidden="true"> //uncomment to add fog behind the channel cards
       <div class="fog__layer fog__layer--a"></div>
       <div class="fog__layer fog__layer--b"></div>
       <div class="fog__layer fog__layer--c"></div>

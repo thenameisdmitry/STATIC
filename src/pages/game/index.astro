@@ -19,11 +19,11 @@ const parts = [
 
 // Missing-persons carousel — rewrite captions; add `src` when you have photos.
 const missing = [
-{ src: '/lore/missing/missing-1.png', caption: 'Caleb Barrell. Missing since Aug. 2008. Last seen at home.' },
-{ src: '/lore/missing/missing-2.png', caption: 'Siobhan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
-{ src: '/lore/missing/missing-3.png', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
-{ src: '/lore/missing/missing-4.png', caption: 'Daniel Tally. Missing since Aug. 1998. Last seen at the "Duck" pub.' },
-{ src: '/lore/missing/missing-5.png', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at "Crystal Peak" MB.' },
+{ src: '/lore/missing/missing-1.webp', caption: 'Caleb Barrell. Missing since Aug. 2008. Last seen at home.' },
+{ src: '/lore/missing/missing-2.webp', caption: 'Siobhan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-3.webp', caption: 'Ewan Lyles. Missing since Aug. 2006. Last seen at White High School.' },
+{ src: '/lore/missing/missing-4.webp', caption: 'Daniel Tully. Missing since Aug. 1999. Last seen at the "Duck" pub.' },
+{ src: '/lore/missing/missing-5.webp', caption: 'Boris Dotsenko. Missing since Aug. 1992. Last seen at Crystal Peak Station.' },
 ];
 
 //Five gameplay pillars in the concept section.
@@ -38,7 +38,7 @@ const pillars = [
 
 
 ---
-<BaseLayout title="STATIC the Game">
+<BaseLayout title="STATIC: The Game — Dmitrii Zhukov">
   <section class="px-6 pt-16 pb-16">
     <div class="mx-auto max-w-4xl">
       <p class="eyebrow mb-4">CH 02 · Featured project</p>
@@ -53,8 +53,8 @@ const pillars = [
 
       <div class="mt-14 grid gap-4 md:grid-cols-2">
         {parts.map(([t, d, slug], i) => (
-          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.png)`}>
-            <span class="font-mono text-m text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
+          <a href={`#${slug}`} class="channel p-6" style={`--card-img: url(/game/cards/${slug}.webp)`}>
+            <span class="font-mono text-sm text-violet-bright">{String(i + 1).padStart(2, '0')}</span>
             <h2 class="mt-2 font-display text-3xl uppercase tracking-tight text-ink">{t}</h2>
             <p class="mt-2 text-sm text-ink">{d}</p>
           </a>
@@ -98,7 +98,7 @@ const pillars = [
       </dl>
  
       <!-- key art — one wide cinematic image sets the tone -->
-      <img src="/game/concept/concept-6.png" alt="STATIC key art"
+      <img src="/game/concept/concept-6.webp" alt="STATIC key art"
            class="mt-8 aspect-[16/4] w-full rounded-lg border border-line object-cover" />
  
       <!-- structured reading content (single column for readability) -->
@@ -106,10 +106,10 @@ const pillars = [
  
         <!-- Premise (your Story goes here) -->
         <div>
-          <h3 class="font-mono text-m uppercase tracking-widest text-violet-bright">Story</h3>
+          <h3 class="font-mono text-sm uppercase tracking-widest text-violet-bright">Story</h3>
           <div class="mt-3 text-ink-dim" style="text-align: justify">
 
-          <p><span class="text-violet-bright"><b>STATIC</b></span> is built upon the events 
+          <p><span class="text-violet-bright"><b>STATIC</b></span> is built on the events
             of the novel <span class="text-violet-bright"><i>Myst</i></span>, but instead of 
             retelling its story, it invites players to rewrite it. The game follows the 
             same world, characters, and central mystery while allowing pivotal choices to 
@@ -122,7 +122,7 @@ const pillars = [
             The moment she arrives, people begin disappearing again. When Saoirse's father becomes the 
             prime suspect, she is forced to launch her own investigation.</p>
             <br />
-          <p>She finds ally in Ian Demme, her former high school boyfriend. Ten years ago, she left 
+          <p>She finds an ally in Ian Demme, her former high school boyfriend. Ten years ago, she left 
             Mag Point without saying goodbye, shattering his life and leaving wounds that never 
             truly healed. Their unexpected reunion forces them to confront both their shared past 
             and the secrets they have kept from one another.</p>
@@ -146,19 +146,19 @@ const pillars = [
           </p>
           <div class="mt-5 grid gap-4 sm:grid-cols-2">
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/ian.png" alt="Ian" class="aspect-[5/4] w-full object-cover" />
+              <img src="/game/concept/ian.webp" alt="Ian" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Ian Demme</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Action · Close quarters · Investigation</p>
-                <p class="mt-3 text-base text-ink-dim">A young local troublemaker, anchors the game's tense, investigation line, close-quarters encounters, relying on firearms and hand-to-hand combat when the threat gets physical.</p>
+                <p class="mt-3 text-base text-ink-dim">A young local troublemaker. He anchors the game's tense investigation line and its close-quarters encounters, relying on firearms and hand-to-hand combat when the threat gets physical.</p>
               </div>
             </div>
             <div class="overflow-hidden rounded-lg border border-line bg-raised">
-              <img src="/game/concept/saoirse.png" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
+              <img src="/game/concept/saoirse.webp" alt="Saoirse" class="aspect-[5/4] w-full object-cover" />
               <div class="p-5">
                 <p class="font-display text-2xl uppercase tracking-tight text-ink">Saoirse Barrell</p>
                 <p class="mt-1 font-mono text-[0.80rem] uppercase tracking-widest text-violet-bright">Stealth · Observation  · Narrative</p>
-                <p class="mt-3 text-base text-ink-dim">Reluctantly returned after years in New York City, approaches danger through stealth, observation, and careful infiltration, offering a contrasting perspective on both the narrative and gameplay.</p>
+                <p class="mt-3 text-base text-ink-dim">Reluctantly returned after years in New York City, she approaches danger through stealth, observation, and careful infiltration, offering a contrasting perspective on both the narrative and the gameplay.</p>
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ const pillars = [
  
         <!-- Five pillars (bars) -->
         <div>
-          <h3 class="font-mono text-base uppercase tracking-widest text-violet-bright">Gameplay</h3>
+          <h3 class="font-mono text-sm uppercase tracking-widest text-violet-bright">Gameplay</h3>
           <p class="mt-3 text-ink-dim">The core gameplay is built around five interconnected pillars.</p>
           <div class="mt-6 space-y-5">
             {pillars.map(([name, pct, desc]) => (
@@ -234,29 +234,29 @@ const pillars = [
 
       <div class="mt-10 grid gap-5 md:grid-cols-2">
         <!-- Row 1: city (clickable) | text -->
-        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.png" />
+        <ArtifactCard href="/lore/mag-point" kind="Location" title="Mag Point" img="/lore/mag-point/mp0.webp" />
         <div class="lore-note lore-note--pinned">
           Saoirse, don't forget your flight to that shithole on the edge of the Earth is tomorrow. Be strong, it's only for a couple of days. You'll be back in no time. Love you, babe! Rust
         </div>
 
         <!-- Row 2: pass | gray signal -->
         <figure class="lore-photo">
-          <img src="/lore/stuff/boarding-pass.png" alt="Boarding pass to Mag Point" />
+          <img src="/lore/stuff/boarding-pass.webp" alt="Boarding pass to Mag Point" />
         </figure>
-        <ArtifactCard href="/lore/gray-signal" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.png" />
+        <ArtifactCard href="/lore/gray-signal" kind="Investigation" title="Gray Signal" img="/lore/gray-signal/gs-0.webp" />
 
         <!-- Row 3: evidence archive (clickable) | missing-persons carousel -->
-        <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.png" />
+        <ArtifactCard href="/lore/evidence-archive" kind="Case files & exhibits" title="Evidence Archive" img="/lore/missing/missing-0.webp" />
         <Carousel items={missing} />
 
         <!-- Row 4: Photo (clickable) | secret documents (clickable) -->
         <FlipPhoto
-          front="/lore/stuff/ian-saoirse-front.png"
-          back="/lore/stuff/ian-saoirse-back.png"
+          front="/lore/stuff/ian-saoirse-front.webp"
+          back="/lore/stuff/ian-saoirse-back.webp"
           alt="Ian and Saoirse, 2008"
           caption=""
         />        
-        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.png" />
+        <ArtifactCard href="/lore/secret-documents" kind="Classified" title="Secret documents" img="/lore/xfiles/xfiles-0.webp" />
       </div>
     </div>
   </section>
@@ -275,9 +275,9 @@ const pillars = [
       been left behind.
       </p>
 
-      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.png)" aria-label="Play the scene">
+      <a href="/game/dialogue" class="dlg-teaser mt-8" style="--card-img:url(/game/cards/interactive-dialogue.webp)" aria-label="Play the scene">
         <span class="dlg-teaser__play" aria-hidden="true">&#9654;</span>
-        <span class="dlg-teaser__meta">one location · two speakers · 4 possible endings</span>
+        <span class="dlg-teaser__meta">one location · two speakers · four possible endings</span>
         <span class="dlg-teaser__cta">&#9656; Play the scene</span>
       </a>
     </div>
@@ -298,8 +298,8 @@ const pillars = [
           name="Ian Demme"
           role="Protagonist - action, investigation"
           age="28"
-          tagline="A main character with dark past and demons in his heart. Whatever he knows about the town, he keeps to himself."
-          portrait="/characters/ian.png"
+          tagline="A main character with a dark past and demons in his heart. Whatever he knows about the town, he keeps to himself."
+          portrait="/characters/ian.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -338,7 +338,7 @@ const pillars = [
               <div class="cf-bark"><span class="cf-bark__trigger">combat · enemy boss</span><span class="cf-bark__line">"And I thought you'd be taller."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">stealth · near-miss</span><span class="cf-bark__line">"Shit... That was too close..."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"I'll take it. Could be useful."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">explore · landmark</span><span class="cf-bark__line">"We used to go there when we where students. Remember that?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">explore · landmark</span><span class="cf-bark__line">"We used to go there back in school. Remember that?"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">signal rising</span><span class="cf-bark__line">"Hear that? We better keep moving."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"Why am I still here?"</span></div>
             </div>
@@ -354,13 +354,13 @@ const pillars = [
               </p>
               <br/>
               <p>
-              <b class="text-ink">Lt. Maisey</b>: the only cop he doesn't needle, 
-              and who can stretch a helping hand.
+              <b class="text-ink">Capt. Maisey</b>: the only cop he doesn't needle,
+              and the only one who will lend a helping hand.
               </p>
               <br/>
               <p>
               <b class="text-ink">Donal Hockley</b>: his former classmate and a close friend.
-              Together they started the investigation into the disappearances, but they something
+              Together they started the investigation into the disappearances, but something
               happened between them. They rarely talk.
               </p>
             </p>
@@ -372,12 +372,12 @@ const pillars = [
           role="Protagonist - stealth, narrative"
           age="27"
           tagline="Second playable character. Came back right into her past she tried so desperately to forget."
-          portrait="/characters/saoirse.png"
+          portrait="/characters/saoirse.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
             <p class="cf-p">27, a New York City resident and a graduate of Columbia University. She shares an apartment with her boyfriend, Rust. Born and raised in Mag Point, she has spent the last decade trying to erase the town from her life. To Saoirse, Mag Point is a place of grief and memories best left buried. She returns only because her cardiologist has requested her original paper medical records, forcing her back to the hometown. </p>
-            <p class="cf-p">Expected to stay in Mag Point for no more than three days. Instead, a series of unsettling coincidences traps her in town. Her father, Val Burrell, is arrested by the local police as the prime suspect in the abduction of a young boy. Saoirse has no choice but to remain and uncover the truth before it's too late.</p>
+            <p class="cf-p">Expected to stay in Mag Point for no more than three days. Instead, a series of unsettling coincidences traps her in town. Her father, Val Barrell, is arrested by the local police as the prime suspect in the abduction of a young boy. Saoirse has no choice but to remain and uncover the truth before it's too late.</p>
           </div>
 
           <div>
@@ -404,14 +404,14 @@ const pillars = [
           <div>
             <p class="cf-h">Barks</p>
             <div class="cf-barks">
-              <div class="cf-bark"><span class="cf-bark__trigger">stealth · hiding</span><span class="cf-bark__line">"Quite... Be very still..."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">stealth · hiding</span><span class="cf-bark__line">"Quiet... Be very still..."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">stealth · near-miss</span><span class="cf-bark__line">"...Okay. That was close."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">stealth · distraction</span><span class="cf-bark__line">"Focus, Saoirse!"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">combat · forced fight</span><span class="cf-bark__line">"Think girls can't fight back?"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">explore · clue found</span><span class="cf-bark__line">"See what the MPPD thinks about that."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">explore · old spot</span><span class="cf-bark__line">"Enough memories for the day..."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">signal rising</span><span class="cf-bark__line">"It's gotten louder! Did you notice?"</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"How I wish I never would be here in a first place."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">idle</span><span class="cf-bark__line">"I wish I'd never come here in the first place."</span></div>
             </div>
           </div>
 
@@ -438,8 +438,8 @@ const pillars = [
           name="Donal Hockley"
           role="Friendly NPC"
           age="28"
-          tagline="Spent a five years serving in Coast Guard. Came back to Mag Point a few years ago and stayed."
-          portrait="characters/donal.png"
+          tagline="Spent five years in the Coast Guard. Came back to Mag Point a few years ago and stayed."
+          portrait="characters/donal.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
@@ -457,30 +457,30 @@ const pillars = [
             <p class="cf-h">Barks</p>
             <div class="cf-barks">
               <div class="cf-bark"><span class="cf-bark__trigger">greeting</span><span class="cf-bark__line">"Hey... It's been a minute, right?"</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">questioned</span><span class="cf-bark__line">"You remember, huh? I'm genuinly surprised."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">deflecting</span><span class="cf-bark__line">"Why sudden change of heart?"</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">questioned</span><span class="cf-bark__line">"You remember, huh? I'm genuinely surprised."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">deflecting</span><span class="cf-bark__line">"Why the sudden change of heart?"</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">conflict</span><span class="cf-bark__line">"Little shits... Get out of here now!"</span></div>
             </div>
           </div>
         </CharacterFile>
 
         <CharacterFile
-          name="Lt. Keith Maisey"
+          name="Capt. Keith Maisey"
           role="Friendly NPC, Mag Point PD"
           age="43"
           tagline="Valor and dedication. One of the rare cops who bleeds blue."
-          portrait="/characters/maisey.png"
+          portrait="/characters/maisey.webp"
         >
           <div>
             <p class="cf-h">Bio</p>
-            <p class="cf-p">43, is the Chief of the Mag Point Police Department. A lifelong resident of Mag Point, he is a devoted husband and the father of two daughters.</p>
+            <p class="cf-p">43, commands the Mag Point Police Department. A lifelong resident of Mag Point, he is a devoted husband and the father of two daughters.</p>
             <p class="cf-p">In 2008, Maisey led the response to the August disappearances. During the investigation, his officers were ambushed by Faraday Kavanagh, a grieving father whose son had vanished. A decade later, the memory of that day still haunts him.</p>
           </div>
           <div>
             <p class="cf-h">Voice</p>
             <ul class="cf-voice">
-              <li>• Sharp around the edges. Capable of raising voice in critical situation.</li>
-              <li>• Looks directly in the eye when he speaks</li>
+              <li>• Sharp around the edges. Capable of raising his voice in a critical situation.</li>
+              <li>• Looks you directly in the eye when he speaks.</li>
             </ul>
           </div>
           <div>
@@ -488,7 +488,7 @@ const pillars = [
             <div class="cf-barks">
               <div class="cf-bark"><span class="cf-bark__trigger">handing over a file</span><span class="cf-bark__line">"You didn't get this from me. In fact, you never got it from anyone."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">radio · checking in</span><span class="cf-bark__line">"Maisey here. No. Still nothing."</span></div>
-              <div class="cf-bark"><span class="cf-bark__trigger">warning the pair</span><span class="cf-bark__line">"Whatever you two are doing, I don't want to know. Just do it quetly."</span></div>
+              <div class="cf-bark"><span class="cf-bark__trigger">warning the pair</span><span class="cf-bark__line">"Whatever you two are doing, I don't want to know. Just do it quietly."</span></div>
               <div class="cf-bark"><span class="cf-bark__trigger">command</span><span class="cf-bark__line">"Set up a perimeter. Report 10-79."</span></div>
             </div>
           </div>
@@ -515,7 +515,7 @@ const pillars = [
           name='Hockey puck with "Alaska Aces" logo'
           kind="Evidence"
           found="Sidewalk outside Colin Hall's house"
-          img="/collectibles/hockey-puck.png"
+          img="/collectibles/hockey-puck.webp"
         >
           <p>Kyren Hall's hockey puck.</p>
           <p>His dad, Colin Hall, caught this puck at the Alaska Aces game against the Orson Hunters. 
@@ -529,14 +529,14 @@ const pillars = [
           name="Ian Demme ICE Card"
           kind="Document"
           found="Ian's wallet, behind Saoirse's photograph"
-          img="/collectibles/card-help.png"
+          img="/collectibles/card-help.webp"
         >
           <p><i>My name is Ian Demme. I have a serious mental disorder. If you find me sitting or 
             lying motionless, unresponsive, and unable to blink, I am experiencing a 
             temporary catatonic episode. It usually lasts between twenty minutes and one hour. 
             I am not dangerous. Please stay with me until I regain consciousness, or call 
             an ambulance.</i></p>
-          <p>This emergency card was issued to Ian upon his discharge from the Anchorage 
+          <p>This emergency card was issued to Ian upon his discharge from the Alaska
             Psychiatric Institute. More than once, it has saved his life.</p>
             <br/>
           <p><em>Reggie: "I'd have left you lying there if I hadn't read that you're not all there. Got it?"</em></p>
@@ -546,15 +546,15 @@ const pillars = [
           name="Photograph of Saoirse"
           kind="Keepsake"
           found="Ian's wallet"
-          img="/collectibles/saoirse-photo-1.png"
-          back="/collectibles/saoirse-photo-2.png"
+          img="/collectibles/saoirse-photo-1.webp"
+          back="/collectibles/saoirse-photo-2.webp"
         >
           <p>A worn photograph of Saoirse Barrell that Ian keeps tucked inside his wallet.</p>
           <p>He took it himself when they were both seventeen and in love. He has carried it ever since. 
             In a life stripped of almost everything worth holding onto, the memories are 
             all he has left.</p>
             <br/>
-          <p><em>Reggie: "Pretty girl. Yours? ...Yeah, don't strain yourself, I get it. I'm not an idiot.</em></p>
+          <p><em>Reggie: "Pretty girl. Yours? ...Yeah, don't strain yourself, I get it. I'm not an idiot."</em></p>
           <p slot="back">On the back is Reggie's phone number written by himself. 
               He said he has a motorboat for sale.
               It might come in handy.</p>
@@ -564,7 +564,7 @@ const pillars = [
           name="Plush toy heart"
           kind="Keepsake"
           found="Ian's room"
-          img="/collectibles/heart-toy.png"
+          img="/collectibles/heart-toy.webp"
         >
           <p>A small plush heart Saoirse gave Ian on Valentine's Day.</p>
           <p>Before handing it to him, she sprayed it with the perfume Ian had given her. 
@@ -578,12 +578,12 @@ const pillars = [
         <CollectibleCard
           name="Prescription bottle"
           kind="Personal effect"
-          found="Mag Point pharmacy"
-          img="/collectibles/demme-pills.png"
+          found="Ian's bathroom cabinet"
+          img="/collectibles/demme-pills.webp"
         >
           <p>Ian's name is printed on the prescription label, yet the bottle is still full.</p>
-          <p>Prescribed in 2008. The seal was broken in 2018.
-            They make the hallucinations easier to endure.</p>
+          <p>Prescribed in 2008. The seal was not broken until 2018.
+            They are supposed to make the hallucinations easier to endure.</p>
           <br/>
           <p><em>Ian: "Damn smug shrinks... Those pills only make things worse..."</em></p>
         </CollectibleCard>
@@ -592,13 +592,13 @@ const pillars = [
           name="Saoirse's medical records"
           kind="Document"
           found="Mag Point hospital"
-          img="/collectibles/medical-record-saoirse.png"
+          img="/collectibles/medical-record-saoirse.webp"
         >
           <p>A folder with Saoirse's old medical records.</p>
           <p>During an appointment at a cardiology center in NYC, the doctor asked Saoirse to 
             retrieve her original paper records to confirm the best course of treatment 
             for her heart condition.
-            That request forced Saoirse to return to the the hometown she'd sworn never to see again.</p>
+            That request forced Saoirse to return to the hometown she'd sworn never to see again.</p>
           <br/>
           <p><em>Saoirse: "Mom, do you realize I have to go back to that shithole just to grab 
             a notebook with a diagnosis everyone already knows?"</em></p>
@@ -608,11 +608,11 @@ const pillars = [
           name="Ian's swimming goggles"
           kind="Keepsake"
           found="Ian's parents' house"
-          img="/collectibles/swimming-goggles.png"
+          img="/collectibles/swimming-goggles.webp"
         >
           <p>An old pair of swimming goggles.</p>
-          <p>Back in 2007, Ian wore them when he defeated Norman Petrich, the Southeast 
-            Conference champion who came within a hair of making the U.S. Olympic 
+          <p>Back in 2007, Ian wore them when he defeated Norman Petrich, the Southeast
+            Alaska regional champion who came within a hair of making the U.S. Olympic
             swimming team. They are a reminder of the greatest victory of his youth, and 
             of everything he lost afterward.</p>
           <br/>
@@ -622,26 +622,26 @@ const pillars = [
         <CollectibleCard
           name="Key from Creed's study"
           kind="Key"
-          found="Creed Clemence's house, in a bathrobe pocket"
-          img="/collectibles/key-creed.png"
+          found="Creed Clemens's house, in a bathrobe pocket"
+          img="/collectibles/key-creed.webp"
         >
           <p>A brass key stained with a green patina.</p>
-          <p>It unlocks the door to Creed Clemence's study on the second floor of his house.
+          <p>It unlocks the door to Creed Clemens's study on the second floor of his house.
             Creed can no longer remember what is so important inside. Alzheimer's has stolen 
             that from him. Yet of one thing he is certain: if he doesn't get into that 
             room soon, something terrible will happen.</p>
           <br/>
-          <p><em>Paige: "And just what is so important in your old study that makes you 
-            climb the second floor? Shame on you, mr. Clemence!" </em></p>
+          <p><em>Paige: "And just what is so important in your old study that makes you
+            climb to the second floor? Shame on you, Mr. Clemens!" </em></p>
         </CollectibleCard>
 
           <CollectibleCard
           name="Crystal Peak VHS tape"
           kind="Tape"
           found="August Pruett's house"
-          img="/collectibles/vhs.png"
+          img="/collectibles/vhs.webp"
         >
-          <p>A VHS tape that somehow survived the fire at "Crystal Peak" Military Base.</p>
+          <p>A VHS tape that somehow survived the fire at Crystal Peak Station.</p>
           <p>It was recorded as part of an official report documenting the attempt to decipher 
             the intercepted signal. Only the first twenty minutes contain footage.
             The rest of the tape is blank.</p>
@@ -661,13 +661,13 @@ const pillars = [
       <p class="mt-3 max-w-5xl text-ink-dim">
         Screenplay scene: the same scene that runs as an <a href="#interactive-dialogue" class="text-violet-bright underline">interactive dialogue</a>,
         written as linear film script. This is the canonical cut: the version where Ian
-        decides to tell Saoirse the truth about disappearances and pays for it. Margin notes 
+        decides to tell Saoirse the truth about the disappearances and pays for it. Margin notes
         mark where the canonical script and the game scenarios part ways.
       </p>
 
-            <Screenplay title="STATIC - 'The Drive' (canonical cut)" meta="Excerpt · 3 pages">
+            <Screenplay title="STATIC — 'The Drive' (canonical cut)" meta="Excerpt · 3 pages">
         <div>
-          <p class="scr-slug">INT. IAN'S PICKUP — PARKED ON THE MONTEGO HIGHWAY — NIGHT</p>
+          <p class="scr-slug">INT. IAN'S PICKUP — PARKED ON THE SOKOLOV HIGHWAY — NIGHT</p>
 
           <p class="scr-action">Rain. Twenty yards back, a car sits crumpled against the guardrail, a police cruiser idling beside it, light bar sweeping the trees.</p>
 
@@ -693,7 +693,7 @@ const pillars = [
           <p class="scr-paren">(a whisper, mostly to himself)</p>
           <p class="scr-dial">Not that there's any point.</p>
 
-          <aside class="scr-note" style="top: ...">
+          <aside class="scr-note" style="top: 18rem">
             In the playable version this beat is the player's first choice: three ways to answer her.
             <a href="/game/dialogue">Play the scene →</a>
           </aside>
